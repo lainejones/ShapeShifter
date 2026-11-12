@@ -1,0 +1,964 @@
+## version $VER: ShapeShifter.catalog 40.1 (6.12.98)
+## codeset 0
+## language polski
+;
+; Titles and requester gadgets
+;
+MSG_SCREENTITLE
+ShapeShifter Macintosh Emulator ©1993-2001 Christian Bauer.
+;
+MSG_ABOUT_REQ
+ShapeShifter V%d.%d\n\
+©1993-2001\n\
+Christian Bauer\n\
+Max-Planck-Str.60\n\
+55124 Mainz\n\
+Niemcy\n\n\
+EMail: Christian.Bauer@uni-mainz.de\n\n\
+Freely distributable.
+;
+MSG_REQTITLE
+ShapeShifter
+;
+MSG_ABOUTTITLE
+O ShapeShifterze...
+;
+MSG_REQGADS
+Wyjdú
+;
+MSG_REQGADSOK
+OK
+;
+MSG_FILEHAIL
+Wybierz FileDisk
+;
+MSG_SCREENHAIL
+Wybierz tryb ekranu
+;
+MSG_DEVICEHAIL
+Wybierz driver
+;
+MSG_PARTHAIL
+Wybierz wolumen
+;
+MSG_TRYREQGADS
+Tak|Wyjdú
+;
+MSG_EXTVIDEOHAIL
+Wybierz driver wideo
+;
+MSG_PREFSHAIL
+Wybierz plik z ustawieniami
+;
+; Error messages
+;
+MSG_NOPREP
+PrepareEmul nie jest zainstalowany.\n\
+Uruchom PrepareEmul i wtedy spróbuj\n\
+ponownie wystartowaê ShapeShifter'a.
+;
+MSG_NO68020
+ShapeShifter wymaga\n\
+processora min. 68020.
+;
+MSG_NOMEM
+Zbyt maîo dostëpnej pamiëci do\n\
+uruchomienia ShapeShifter'a.
+;
+MSG_NOSCREEN
+Ekran Macintosh'a nie moûe byê otwarty.\n\
+Zbyt maîo dostëpnej pamiëci graficznej\n\
+lub wybrany tryb graficzny jest niedostepny\n\
+na twojej Amidze.
+;
+MSG_NOEGS
+EGS nie jest zainstalowany\n\
+na twojej Amidze.
+;
+MSG_NOTRUEAMIGA
+Tryby 15- lub 24-bitowe nie sâ\n\
+moûliwe do uzyskania w trybie\n\
+"Amiga bitplanes".
+;
+MSG_NO124VGA
+Tryby 1, 2 lub 4-bitowe sâ\n\
+moûliwe tylko w trybie\n\
+"Amiga bitplanes".
+;
+MSG_NOROM
+Plik "ShapeShifter ROM" jest\n\
+nieodpowiedni lub uszkodzony.\n\
+Skopiuj ten plik do katalogu\n\
+ShapeShifter'a.
+;
+MSG_ROMVERSION
+Numer wersji ROMu\n\
+Macintosha nie jest 124.
+;
+MSG_NOTIMER
+ShapeShifter nie moûe znaleúê\n\
+wolnego timera CIA.\n\
+Wyjdú z innych programów i spróbuj\n\
+ponownie uruchomiê ShapeShifter'a.
+;
+MSG_SEMATWICE
+Prosze, nie próbuj ponownie\n\
+uruchamiaê ShapeShifter'a. :-)
+;
+MSG_BADPART
+Ten wolumen nie moûe byê\n\
+uûyty jako DeviceDisk.
+;
+MSG_BADAFD
+FileDisk nie moûe byê utworzony.
+;
+MSG_NOCYBERGFX
+Biblioteka "cybergraphics.library" nie jest\n\
+zainstalowana na twojej Amidze.
+;
+MSG_NOCYBERMODE
+Wybrany tryb ekranu nie naleûy\n\
+do trybów CyberGraphX/Picasso96.
+;
+MSG_NO16BITMODE
+Wybraîeô 16-bitowy tryb\n\
+graficzny (65536 kolorów),\n\
+a ShapeShifter wymaga trybu\n\
+15-bitowego (32768 kolorów).
+;
+MSG_ROMNOTUSABLE
+Tego ROMu Macintosh'a nie moûna\n\
+wykorzystaê z ShapeShifter'em.
+;
+MSG_TRYLARGEST
+Iloôê pamiëci jakâ wybraîeô dla\n\
+Macintosh'a nie jest osiâgalna.\n\
+Czy chcesz w takim razie uûyê\n\
+najdîuûszy wolny blok?
+;
+MSG_ROMCHECKSUM
+Suma kontrolna tego ROMu jest\n\
+niepoprawna. Moûe to oznaczaê, ûe\n\
+ROM jest uszkodzony. Czy mimo wszystko\n\
+chcesz go uûyê?
+;
+MSG_NOCYBERMEM
+Zbyt maîo wolnej pamiëci Fast aby\n\
+otworzyê ekran CyberGraphX/Picasso96.
+;
+MSG_CANTLOADEVD
+Zewnëtrzny driver wideo\n\
+nie moûe byê zaîadowany.
+;
+MSG_ISNOEVD
+Wybrany zewnëtrzny driver wideo\n\
+nie jest driverem ShapeShifter'a.
+;
+MSG_ROMSIZE
+Plik "ShapeShifter ROM" ma\n\
+nieprawidîowâ dîugoôê. Musi mieê\n\
+dokîadnie 524288 lub 1048576 bajtów.
+;
+MSG_ONLYONEMACBOX
+"Amiga Window" nie moûe byê uûyte\n\
+przy opcji "2 monitory".
+;
+MSG_ONLYONEAMIGA
+Nie ma moûliwoôci ustawienia obu\n\
+monitorów w tryb "Amiga bitplanes".
+;
+; Main settings window
+;
+MSG_MAINTITLE
+Gîówne menu ustawieï ShapeShifter'a
+;
+MSG_START_GAD
+Sta_rtuj
+;
+MSG_SAVE_GAD
+Zapi_sz
+;
+MSG_QUIT_GAD
+Wyjdú (_e)
+;
+MSG_OPENGRAPHICS_GAD
+_Grafika...
+;
+MSG_OPENVOLUMES_GAD
+Wolumeny/_Dyski...
+;
+MSG_OPENFLOPPY_GAD
+Stacje dysków... (_f)
+;
+MSG_OPENMEMORY_GAD
+_Pamiëê...
+;
+MSG_OPENSCSI_GAD
+S_CSI...
+;
+MSG_OPENSERIAL_GAD
+Port szeregowy... (_l)
+;
+MSG_OPENNETWORK_GAD
+Sieê... (_n)
+;
+MSG_OPENMISC_GAD
+Róûne... (_o)
+;
+MSG_PROJECT_MENU
+Projekt
+;
+MSG_ABOUT_MENU
+O ShapeShifterze...
+;
+MSG_SAVE_MENU
+Zapisz ustawienia
+;
+MSG_START_MENU
+Startuj
+;
+MSG_QUIT_MENU
+Wyjdú
+;
+MSG_OPEN_MENU
+Otwórz...
+;
+MSG_SAVEAS_MENU
+Zachowaj jako...
+;
+; Graphics window
+;
+MSG_GRAPHICSTITLE
+Ustawienia grafiki
+;
+MSG_VIDEOMODE_GAD
+Iloôê kolorów
+;
+MSG_VIDEOTYPE_GAD
+Typ ekranu
+;
+MSG_GETDISPLAYID_GAD
+Wybierz...
+;
+MSG_DISPLAYID_GAD
+Tryb ekranu
+;
+MSG_EXTVIDEONAME_GAD
+Zewnetrzny driver
+;
+MSG_SCREENX_GAD
+Rozmiar
+;
+MSG_SCREENY_GAD
+×
+;
+MSG_REFRESHRATE_GAD
+Odôwieûanie
+;
+MSG_BLACKBORDER_GAD
+Czarna ramka
+;
+MSG_REFRESHALWAYS_GAD
+Odôwieûaj zawsze
+;
+MSG_MMUREFRESH_GAD
+Odôwieûanie MMU
+;
+MSG_USEAMIGAMOUSE_GAD
+Wskaúnik myszy Amigi
+;
+MSG_MODE1_LAB
+1 bit (2 kolory)
+;
+MSG_MODE2_LAB
+2 bity (4 kolory)
+;
+MSG_MODE4_LAB
+4 bity (16 kolorów)
+;
+MSG_MODE8_LAB
+8 bitów (256 kolorów)
+;
+MSG_MODE15_LAB
+15 bitów (32768 kolorów)
+;
+MSG_MODE24_LAB
+24 bity (16 mln kolorów)
+;
+MSG_TYPEAMIGA_LAB
+Amiga bitplanes
+;
+MSG_TYPECYBER_LAB
+CyberGfx/P96
+;
+MSG_TYPEEGS_LAB
+EGS
+;
+MSG_TYPEMACINABOX_LAB
+Amiga window
+;
+MSG_TYPEEXTERNAL_LAB
+Zewnetrzny
+;
+MSG_ONEMONITOR_LAB
+1 monitor
+;
+MSG_TWOMONITORS_LAB
+2 monitory
+;
+; Volumes window
+;
+MSG_VOLUMESTITLE
+Wolumeny
+;
+MSG_AFDNAME1_GAD
+FileDisk 1
+;
+MSG_AFDNAME2_GAD
+FileDisk 2
+;
+MSG_MAKEAFD_GAD
+Utwórz...
+;
+MSG_ADDNAME1_GAD
+DeviceDisk 1
+;
+MSG_ADDNAME2_GAD
+DeviceDisk 2
+;
+MSG_ADDUNIT_GAD
+Nr urz.
+;
+MSG_ADDSTARTSECTOR_GAD
+Pierwszy sektor
+;
+MSG_ADDSECTORS_GAD
+Liczba sektorów
+;
+MSG_ADDMAXTRANSFER_GAD
+Maksymalny transfer
+;
+MSG_ADDREMOVABLE_GAD
+Wymienny
+;
+MSG_GETADD_GAD
+Wybierz...
+;
+MSG_BOOTFROM_GAD
+Bootowanie z
+;
+MSG_BOOTLAST_LAB
+Ostatni wybór
+;
+MSG_BOOTANY_LAB
+Dowolne
+;
+MSG_BOOTFILEDISK1_LAB
+FileDisk 1
+;
+MSG_BOOTDEVICEDISK1_LAB
+DeviceDisk 1
+;
+MSG_BOOTCDROM_LAB
+CD-ROM
+;
+; Misc window
+;
+MSG_MISCTITLE
+Róûne
+;
+MSG_MOUSEDIRECT_GAD
+Bezpoôr. odczyt myszy
+;
+MSG_PROTECTROM_GAD
+Protekcja ROMu (RO)
+;
+MSG_MACOS8MODE_GAD
+MacOS 8 mode
+;
+MSG_AUDIOON_GAD
+Dúwiëk wîâczony
+;
+MSG_USEAHI_GAD
+Use AHI
+;
+MSG_GETAUDIOID_GAD
+Wybierz...
+;
+MSG_AUDIOID_GAD
+AHI mode
+;
+; Serial window
+;
+MSG_SERIALTITLE
+Ustawienia portu szeregowego
+;
+MSG_SERDNAMEA_GAD
+Modem
+;
+MSG_SERDNAMEB_GAD
+Drukarka
+;
+MSG_SERDUNIT_GAD
+Urzâdzenie
+;
+MSG_SERDISPAR_GAD
+Urzâdzenie równolegîe
+;
+MSG_GETSERD_GAD
+Wybierz...
+;
+MSG_USESCCSERIAL_GAD
+A-Max/Emplant
+;
+; Network window
+;
+MSG_NETWORKTITLE
+Ustawienia sieci
+;
+MSG_SANA2NAME_GAD
+Driver sieciowy
+;
+MSG_SANA2UNIT_GAD
+Urzâdzenie
+;
+MSG_GETSANA2_GAD
+Wybierz...
+;
+; SCSI window
+;
+MSG_SCSITITLE
+Ustawienia SCSI
+;
+MSG_SCSINAME_GAD
+Driver SCSI
+;
+MSG_SCSIUNIT_GAD
+Nr urz.
+;
+MSG_SCSIMEMTYPE_GAD
+Typ pamiëci
+;
+MSG_SCSIDIRECT_GAD
+Transfer bezpoôredni
+;
+MSG_APPLECD_GAD
+Use generic CD-ROM driver
+;
+MSG_APPLEHD_GAD
+Emulacja twardego dysku Mac'a
+;
+MSG_MEMCHIP_LAB
+Pamiëê Chip
+;
+MSG_MEM24BITDMA_LAB
+Pamiëê 24 bit
+;
+MSG_MEMANY_LAB
+Dowolna
+;
+MSG_FASTCRAPMODE_GAD
+"Summer" mode
+;
+; Memory window
+;
+MSG_MEMORYTITLE
+Ustawienia pamiëci ShapeShifter'a
+;
+MSG_MEMSIZE_GAD
+Pamiëê Mac'a (KB)
+;
+MSG_LARGESTBLOCK_GAD
+Najdîuûszy wolny blok
+;
+MSG_FASTROM_GAD
+Zaalokuj najpierw pamiëê dla ROMu
+;
+MSG_MEMMAX_GAD
+Maksymalnie (KB)
+;
+MSG_ROMMEMTYPE_GAD
+Typ pamiëci dla ROMu
+;
+; Floppy window
+;
+MSG_FLOPPYTITLE
+Ustawienia stacji dysków
+;
+MSG_FLOPPY1_GAD
+Stacja 1
+;
+MSG_FLOPPY2_GAD
+Stacja 2
+;
+MSG_SEARCHFLOPPYS_GAD
+Szukaj
+;
+MSG_INHIBITFLOPPY_GAD
+Zablokuj AmigaDOS
+;
+MSG_DFNONE_LAB
+Ûadna
+;
+MSG_DF0_LAB
+DF0:
+;
+MSG_DF1_LAB
+DF1:
+;
+MSG_DF2_LAB
+DF2:
+;
+MSG_DF3_LAB
+DF3:
+;
+MSG_PH0_LAB
+PH0:
+;
+MSG_PH1_LAB
+PH1:
+;
+; AFD file size window
+;
+MSG_SIZETITLE
+Wprowadú ûâdanâ wielkoôê FileDisk'u
+;
+MSG_SIZEKB_GAD
+Rozmiar w KB
+;
+MSG_SIZEOK_GAD
+Wybierz plik...
+;
+MSG_SIZECANCEL_GAD
+Anuluj
+;
+; New in 3.20 - not translated yet (the English text is in the comment)
+;
+MSG_CONFIG_GAD
+
+; Configuration
+;
+MSG_CONFIGSAVE_GAD
+
+; Save as...
+;
+MSG_CPU_TAB
+
+; CPU
+;
+MSG_CPUINFO_GAD
+
+; Processor
+;
+MSG_CPUOPT0_GAD
+
+; Disable copyback cache (NOCOPYBACK)
+;
+MSG_CPUOPT1_GAD
+
+; Remap lower 8K with the MMU (REMAP8K)
+;
+MSG_CPUOPT2_GAD
+
+; Enforcer compatible (ENFORCER)
+;
+MSG_CPUOPT3_GAD
+
+; MacTCP emulation via bsdsocket (MACTCPEMUL)
+;
+MSG_CPUOPT4_GAD
+
+; US keyboard layout (USKEYMAP)
+;
+MSG_CPUOPT5_GAD
+
+; No QuickDraw acceleration (NOQDACCEL)
+;
+MSG_CPUOPT6_GAD
+
+; 720K floppy kludge (720KKLUDGE)
+;
+MSG_CPUOPT7_GAD
+
+; Debug mode (DEBUG)
+;
+MSG_CPU_FPU
+
+; , FPU
+;
+MSG_CPU_NOFPU
+
+; , no FPU
+;
+MSG_CPU_MMU
+
+; , MMU
+;
+MSG_CPU_NOMMU
+
+; , no MMU
+;
+MSG_DISKSFULL_TXT
+
+; All four file disks are in use.\nClear one on the Volumes tab first.
+;
+MSG_CHK_MISSING_TXT
+
+; File disk %ld is not there:\n%s\n\nThe Mac would start without it.
+;
+MSG_CHK_MISSING_GADS
+
+; Settings|Start anyway|Quit
+;
+MSG_CHK_ROMCHIP_TXT
+
+; The ROM is set to "24 bit DMA" memory, but this\nAmiga has no 24-bit fast RAM, so the ROM would take\na megabyte of chip RAM. 256-colour screens then\ncome out white.\n\nUse "Any" memory for the ROM this time?\n(Change it on the Memory tab and Save to keep it.)
+;
+MSG_CHK_ROMCHIP_GADS
+
+; Use Any|Start anyway|Settings|Quit
+;
+MSG_CHK_COPYBACK_TXT
+
+; This is a 68060 in UAE, and NOCOPYBACK is off.\nWithout it the Mac usually stops on a grey screen.\n\nTurn NOCOPYBACK on this time?\n(Tick it on the CPU tab and Save to keep it.)
+;
+MSG_CHK_COPYBACK_GADS
+
+; Turn it on|Start anyway|Settings|Quit
+;
+MSG_APPICON_NAME
+
+; Mac disk
+;
+MSG_HELP_START
+
+; Start the Mac with these settings
+;
+MSG_HELP_EXIT
+
+; Quit ShapeShifter without saving
+;
+MSG_HELP_SAVE
+
+; Save the settings in ShapeShifter Prefs
+;
+MSG_HELP_NUMMON
+
+; One or two monitors; the right half is the second one
+;
+MSG_HELP_DEPTH
+
+; Mac colours; more colours on Amiga screens is slower
+;
+MSG_HELP_TYPE
+
+; Amiga screen, graphics card (CyberGfx/P96), EGS, window
+;
+MSG_HELP_EXTVID
+
+; Path of the external video driver (screen type External)
+;
+MSG_HELP_MODE
+
+; Amiga screen mode for the Mac screen
+;
+MSG_HELP_SIZE
+
+; Mac screen size in pixels; smaller is faster
+;
+MSG_HELP_REFRATE
+
+; 1/50 s between screen updates; higher leaves more CPU
+;
+MSG_HELP_BLACK
+
+; Black border around the Mac screen, as on a real Mac
+;
+MSG_HELP_REFALWAYS
+
+; Convert in 8 bit too, so the Mac never draws on another screen
+;
+MSG_HELP_MMUREF
+
+; 68040/060: only update the parts of the screen that changed
+;
+MSG_HELP_AMIMOUSE
+
+; Use the Amiga mouse pointer on the Mac side as well
+;
+MSG_HELP_AFD
+
+; Disk image: .hfv, DiskCopy floppy, CD image (Toast, .bin/.cue)
+;
+MSG_HELP_GETAFD
+
+; Choose a disk image file
+;
+MSG_HELP_MAKEAFD
+
+; Create a new empty disk image of a given size
+;
+MSG_HELP_ADD
+
+; Amiga device of a Mac partition (e.g. scsi.device)
+;
+MSG_HELP_GETADD
+
+; Choose a Mac partition; the values are filled in
+;
+MSG_HELP_ADDUNIT
+
+; Unit of the device; for SCSI, the SCSI ID
+;
+MSG_HELP_ADDSECT
+
+; Part of the disk the Mac may use; wrong values destroy data
+;
+MSG_HELP_MAXTRANS
+
+; Largest transfer; as MaxTransfer in the mountlist (-1: none)
+;
+MSG_HELP_REMOV
+
+; Notice media changes (SyQuest, ZIP, CD)
+;
+MSG_HELP_BOOT
+
+; Which disk the Mac starts from
+;
+MSG_HELP_FLOPPY
+
+; Amiga floppy drive used as this Mac floppy drive
+;
+MSG_HELP_SEARCH
+
+; Find the first two floppy drives
+;
+MSG_HELP_INHIBIT
+
+; Keep AmigaDOS off this drive while the Mac runs
+;
+MSG_HELP_SCSION
+
+; Let the Mac use this SCSI ID
+;
+MSG_HELP_SCSIDRV
+
+; Amiga SCSI driver for this ID (e.g. scsi.device)
+;
+MSG_HELP_SCSIUNIT
+
+; Unit number for this ID, normally the SCSI ID
+;
+MSG_HELP_SCSIMEM
+
+; Memory for SCSI buffers; 24 bit DMA for Zorro II DMA cards
+;
+MSG_HELP_APPLECD
+
+; ShapeShifter's own CD-ROM driver for SCSI CD drives
+;
+MSG_HELP_APPLEHD
+
+; Make Apple's HD SC Setup see an Apple hard disk
+;
+MSG_HELP_DIRECT
+
+; SCSI transfers without a buffer, where the driver allows it
+;
+MSG_HELP_SUMMER
+
+; Workaround for a bug in phase5 SCSI drivers
+;
+MSG_HELP_MEMSIZE
+
+; Memory for the Mac in KB (ROM and screen need more)
+;
+MSG_HELP_MEMMAX
+
+; Most memory the Mac can get now
+;
+MSG_HELP_LARGEST
+
+; Give the Mac the largest free memory block
+;
+MSG_HELP_FASTROM
+
+; Allocate the ROM first, so it gets the fastest memory
+;
+MSG_HELP_ROMMEM
+
+; Memory for the ROM; Any unless a card needs 24 bit DMA
+;
+MSG_HELP_SERDRV
+
+; Amiga driver for this Mac port (serial.device...)
+;
+MSG_HELP_SERUNIT
+
+; Unit of the driver (0 for the built-in port)
+;
+MSG_HELP_SERPAR
+
+; Tick if the driver is a parallel.device type
+;
+MSG_HELP_AMAX
+
+; Use the ports of an A-Max/Emplant card instead
+;
+MSG_HELP_SANA
+
+; SANA-II Ethernet driver (e.g. DEVS:Networks/...device)
+;
+MSG_HELP_SANAUNIT
+
+; Unit of the network card, normally 0
+;
+MSG_HELP_MOUSE
+
+; Read the mouse directly (more compatible, no tablets)
+;
+MSG_HELP_PROTROM
+
+; 68040: write-protect the Mac ROM with the MMU
+;
+MSG_HELP_MACOS8
+
+; Report a Quadra 900; needed for Mac OS 8, off for old Systems
+;
+MSG_HELP_AUDIO
+
+; Mac sound output on or off
+;
+MSG_HELP_AHI
+
+; Play Mac sound through AHI instead of the Amiga hardware
+;
+MSG_HELP_AHIMODE
+
+; AHI audio mode for the Mac sound
+;
+MSG_HELP_CPUINFO
+
+; The processor ShapeShifter found
+;
+MSG_HELP_NOCB
+
+; Copyback cache off; a 68060 in UAE needs this
+;
+MSG_HELP_REMAP
+
+; Put the Mac's low 8K into cacheable fast RAM (MMU)
+;
+MSG_HELP_ENFORCER
+
+; Let Enforcer run at the same time (MMU)
+;
+MSG_HELP_MACTCP
+
+; MacTCP through the Amiga's TCP/IP stack (bsdsocket)
+;
+MSG_HELP_USKEY
+
+; Swap two keys so the `/~ key works on US keyboards
+;
+MSG_HELP_NOQD
+
+; Turn ShapeShifter's drawing speedups off
+;
+MSG_HELP_720K
+
+; Format 720K floppies under System 7.5 and later
+;
+MSG_HELP_DEBUG
+
+; For debugging ShapeShifter itself; leave it off
+;
+MSG_PRISM15_TXT
+
+; PrismRTG has this screen size in 15 bit too. The Mac\ndraws straight into a 15-bit screen; this 16-bit\nscreen has to be converted, which is slower.\n\nUse the 15-bit mode?
+;
+MSG_PRISM15_GADS
+
+; Use 15 bit|Keep 16 bit
+;
+MSG_PRISM15OFF_TXT
+
+; This 16-bit screen has to be converted, which is slower.\nPrismRTG can offer 15-bit modes, which the Mac draws\ninto directly. Turn them on in the PrismRTG prefs\n(for example MODE=640x480x15 ON) and restart Prism.
+;
+MSG_SETUP_WELCOME_TXT
+
+; Welcome to ShapeShifter!\n\nThere are no settings yet. ShapeShifter can set itself\nup for this Amiga: find the Mac ROM, choose the screen,\nmemory and CPU options, and create an empty Mac disk\nto install the Mac system on. You can change all of it\nin the settings window afterwards.
+;
+MSG_SETUP_WELCOME_GADS
+
+; Set up|Skip
+;
+MSG_SETUP_ROMFOUND_TXT
+
+; ShapeShifter needs a Mac ROM image in\nPROGDIR:ShapeShifter ROM. This file looks like one:\n\n%s (%ldK)\n\nCopy it there?
+;
+MSG_SETUP_ROMFOUND_GADS
+
+; Copy it|Choose another...|Skip
+;
+MSG_SETUP_NOROM_TXT
+
+; ShapeShifter needs a Mac ROM image (512K or 1MB,\nfrom a 68020 to 68040 Mac) in PROGDIR:ShapeShifter ROM.\n\nChoose the ROM file to copy there?
+;
+MSG_SETUP_NOROM_GADS
+
+; Choose...|Skip
+;
+MSG_SETUP_ROMHAIL
+
+; Choose the Mac ROM file
+;
+MSG_SETUP_BADROM_TXT
+
+; %s is not a Mac ROM image\n(it must be 512K or 1MB).
+;
+MSG_SETUP_COPYFAIL_TXT
+
+; The ROM could not be copied to\nPROGDIR:ShapeShifter ROM.
+;
+MSG_SETUP_DISK_TXT
+
+; Create an empty %ld MB Mac disk to install the\nMac system on?\n\n%s\n\nIt becomes File disk 1. Initialize it when the Mac\nasks, then install the system from its CD.
+;
+MSG_SETUP_DISK_GADS
+
+; Create|No
+;
+MSG_SETUP_DISKFAIL_TXT
+
+; The Mac disk could not be created\n(not enough room?):\n%s
+;
+MSG_SETUP_DONE_TXT
+
+; ShapeShifter has chosen:\n\nScreen: %s\nMemory for the Mac: %ld MB\n%s\nCheck the settings window and click Save to keep them.
+;
+MSG_SETUP_SCR_CGX
+
+; graphics card, 640x480, 256 colours
+;
+MSG_SETUP_SCR_AGA
+
+; AGA screen, 256 colours
+;
+MSG_SETUP_SCR_BW
+
+; Amiga screen, black and white
+;
+MSG_SETUP_NOCB
+
+; NOCOPYBACK is on (68060 in UAE).\n
+;
+MSG_CPUOPT8_GAD
+
+; Mac chooses the colour depth (DEPTHSWITCH)
+;
+MSG_HELP_DEPTHSW
+
+; Change the colour depth in Monitors on the Mac (always copies the screen)
+;

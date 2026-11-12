@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.o binary
+*.bin binary
+*.catalog binary
+*.info binary
+*.gui binary
+*.lha binary
+*.uss binary

@@ -1,0 +1,4023 @@
+@DATABASE "ShapeShifter"
+@AUTHOR "Christian Bauer"
+@(C) "1994-2001 Christian Bauer"
+@$VER: ShapeShifter.guide 3.20 (11.11.26)
+
+@NODE MAIN "ShapeShifter Bedienungsanleitung"
+
+                             @{b}The ShapeShifter@{ub}
+                               Version 3.20
+                  (gebaut aus dem veröffentlichten 3.11-Quelltext)
+                              @{" Was ist neu? " LINK WhatsNew}
+
+                    Ein Freeware Macintosh-II-Emulator
+                          für Amiga/DraCo Rechner
+
+                   © Copyright 1993-2001 Christian Bauer
+                           Freely distributable.
+
+
+ @{" Schnellstart              " LINK QuickStart}  Vom Archiv zum Mac-Schreibtisch
+ @{" Überblick                 " LINK Overview}  Was ist und kann ShapeShifter?
+ @{" Support                   " LINK Support}  Immer die neueste Version
+ @{" Installation              " LINK Installation}  Wie installiere ich ShapeShifter?
+
+ @{" Benutzen von ShapeShifter " LINK Using}  Hier steht, wie's geht!
+
+ @{" Hinweise zur Emulation    " LINK Notes}  Dinge, auf die man achten sollte
+ @{" Fragen und Antworten      " LINK FAQ}  Lösung häufiger Probleme
+ @{" Fehlersuche 3.20          " LINK Trouble320}  Wenn es nicht startet oder stehen bleibt
+ @{" Einstellungen im Überblick" LINK Defaults}  Jede Einstellung und ihre Vorgabe
+ @{" Der Mac-Handler           " LINK MacHandler}  Die Mac-Platte auf der Workbench
+
+ @{" Referenzteil              " LINK Reference}  Zum Nachschlagen
+
+ @{" Rechtliches               " LINK LegalMush}  Copyright usw.
+ @{" Danksagungen              " LINK Thanks}  Vielen Dank für die Blumen
+ @{" Der Autor                 " LINK EmulationWizard}  Über den Programmierer
+
+ @{" History                   " LINK History}  Entwicklungsgeschichte des Programms
+
+@ENDNODE
+
+
+@NODE WhatsNew "Was ist neu?"
+
+Die Änderungen zur Version 3.11:
+
+ · Einstellungen: ein Fenster mit Karteireitern statt neun Fenstern
+ · Neue Seite "CPU" für die Startoptionen, die es bisher nur als
+   Merkmale gab
+ · Eine Liste gespeicherter Konfigurationen im Einstellungsfenster
+ · Eine Zeile Hilfe zu dem Bedienelement unter der Maus
+ · Der Mac kann die Farbtiefe in "Monitore" wechseln (@{"DEPTHSWITCH" LINK GraDepthSwitch})
+ · Vier FileDisks statt zwei, und sie sind wechselbar: auf dem Mac
+   auswerfen, durch Ablegen eines Abbilds auf dem Icon "Mac disk" einlegen
+ · Mac-Diskettenabbilder (DiskCopy 4.2), CD- und Festplattenabbilder mit
+   Apple-Partitionstabelle (Toast, .cdr, Hybrid-.iso) und rohe CD-Abbilder
+   (.bin/.cue) als FileDisks
+ · Disk-Abbilder können auf dem Einstellungsfenster abgelegt werden
+ · Prüfungen vor dem Start des Mac, mit verständlichen Erklärungen und
+   Abhilfen
+ · Eine @{"Einrichtung beim ersten Start" LINK FirstStart}: sucht das ROM, wählt
+   Einstellungen für den Amiga, legt eine leere Mac-Disk an
+ · Das PRAM wird gesichert, während der Mac läuft, nicht nur beim
+   "Ausschalten"
+ · Tausende Farben auf 16-Bit-Grafikkarten-Modi; Unterstützung für
+   PrismRTG
+ · Fehlerbehebungen: Ethernet-Pakete waren bei den meisten SANA-II-
+   Treibern 4 Bytes zu kurz; weiße 256-Farben-Bildschirme, wenn das
+   ChipRAM knapp war
+
+Genaueres steht in der @{"Entwicklungsgeschichte" LINK History}.
+
+@ENDNODE
+
+
+@NODE QuickStart "Schnellstart"
+
+@{b}Schnellstart@{ub}
+
+Was Sie außer ShapeShifter brauchen:
+
+ · einen Amiga mit 68020 oder besser und 8 MB Fast-RAM oder mehr
+   (16 MB und mehr für Mac OS 8)
+ · eine Macintosh-ROM-Datei, 512 KB oder 1 MB, ausgelesen aus einem Mac,
+   der Ihnen gehört (@{"Installation des Macintosh-ROMs" LINK InstallROM})
+ · ein Macintosh-System zum Installieren: eine System-CD oder ihre
+   Image-Datei, oder Systemdisketten
+
+Die Schritte:
+
+ 1. Doppelklicken Sie "Install_ShapeShifter". Antworten Sie auf die
+    Frage nach ReserveLow mit "Nein", solange Sie es noch nicht kennen.
+
+ 2. Öffnen Sie eine Shell, geben Sie den Pfad von ReserveLow in der
+    ShapeShifter-Schublade ein und drücken Sie Return, zum Beispiel
+
+       Work:ShapeShifter/ReserveLow
+
+    Der Amiga startet einmal neu. Das ist nach jedem Einschalten einmal
+    nötig (@{"Reservieren des unteren Speichers" LINK InstallPrepEmul}). Kommt der Amiga nicht
+    wieder hoch, halten Sie beim Start die linke Maustaste gedrückt.
+
+ 3. Doppelklicken Sie ShapeShifter. Beim ersten Start bietet es an,
+    sich einzurichten: Klicken Sie auf "Einrichten". Es sucht die
+    ROM-Datei, wählt Bildschirm und Mac-Speicher für Ihren Amiga und
+    legt eine leere Mac-Disk mit 256 MB an (@{"Der erste Start" LINK FirstStart}).
+
+ 4. Das Einstellungsfenster öffnet sich. Um von einem CD-Image zu
+    installieren, ziehen Sie die Image-Datei (.iso, .toast, .cue) auf
+    das Fenster: Sie wird eine FileDisk neben der leeren Mac-Disk. Für
+    ein echtes CD-ROM-Laufwerk siehe @{"Benutzen von CD-ROM-Laufwerken" LINK CDROM}.
+
+ 5. Klicken Sie auf "Speichern", dann auf "Starten". Der Mac startet
+    von der CD; starten Sie deren Installationsprogramm und wählen Sie
+    die leere Disk als Ziel.
+    (@{"Einrichten des Macintosh-Betriebssystems" LINK InstallSystem})
+
+ 6. Schalten Sie den Mac mit "Spezial / Ausschalten" aus, oder mit
+    Ctrl-linke Shift-linke Alt-Del auf der Amiga-Tastatur. Nehmen Sie das
+    CD-Image aus dem FileDisk-Feld, speichern Sie und starten Sie
+    erneut: Der Mac startet jetzt von seiner eigenen Disk.
+
+Wenn etwas nicht klappt, siehe @{"Fehlersuche" LINK Trouble320}. Wenn Sie eine
+Einstellung nicht einordnen können, klicken Sie im Einstellungsfenster auf
+"Vorgaben" oder schlagen Sie unter @{"Einstellungen im Überblick" LINK Defaults} nach.
+
+@ENDNODE
+
+
+@NODE Trouble320 "Fehlersuche"
+
+@{b}Fehlersuche@{ub}
+
+@{b}Der Amiga startet nicht mehr, seit ReserveLow installiert ist@{ub}
+Halten Sie die linke Maustaste gedrückt, während der Amiga startet oder
+einen Reset macht. ReserveLow tut dann nichts. Nehmen Sie seine Zeile
+aus S:Startup-Sequence (die alte Datei ist
+S:Startup-Sequence.before-ShapeShifter). Ausschalten entfernt ReserveLow
+ebenfalls aus dem Speicher. Andere Programme behandeln die linke
+Maustaste genauso, Grafikkarten-Treiber und Ähnliches können bei diesem
+Start also ebenfalls aus bleiben.
+
+@{b}"Der unterste Speicher des Amiga ist nicht reserviert"@{ub}
+ReserveLow ist seit dem Einschalten nicht gelaufen oder wurde
+übersprungen. Starten Sie es aus der ShapeShifter-Schublade;
+"ReserveLow CHECK" sagt, ob der Speicher reserviert ist.
+
+@{b}"Den Bildschirmmodus aus den Einstellungen gibt es auf diesem Amiga nicht"@{ub}
+Die Einstellungsdatei stammt von einem anderen Amiga oder einem anderen
+Grafiktreiber. Klicken Sie auf "Einstellungen", dann auf "Vorgaben", oder
+wählen Sie auf der Seite "Grafik" einen Bildschirmmodus, und speichern
+Sie.
+
+@{b}"Es ist keine Mac-Disk eingestellt"@{ub}
+Es gibt nichts, wovon der Mac starten könnte. Stellen Sie auf der Seite
+"Datenträger" eine FileDisk ein ("Anlegen..." erzeugt eine leere, die
+sofort benutzbar ist) oder ziehen Sie ein Disk-Image auf das
+Einstellungsfenster.
+
+@{b}Eine Diskette mit blinkendem Fragezeichen@{ub}
+Der Mac hat keine Disk mit einem System gefunden. Eine leere Mac-Disk
+reicht nicht: Starten Sie von einer System-CD oder -Diskette und
+installieren Sie das System (@{"Einrichten des Macintosh-Betriebssystems" LINK InstallSystem}).
+
+@{b}Minutenlang ein grauer Bildschirm, bevor der Mac startet@{ub}
+SCSI ist für IDs ohne Laufwerk eingeschaltet, und der SCSI- oder
+IDE-Treiber des Amiga wartet auf jede einzelne. Schalten Sie die
+unbenutzten IDs auf der Seite "SCSI" aus. Nach einer frischen
+Installation sind alle aus.
+
+@{b}Nur ein grauer Bildschirm, auf einem 68060 unter UAE@{ub}
+Schalten Sie auf der Seite "CPU" "Copyback-Cache aus" ein. ShapeShifter
+fragt vor dem Start danach.
+
+@{b}"Der Mac bekommt nur ... KB Speicher"@{ub}
+Stellen Sie "Mac-Speicher" auf der Seite "Speicher" ein oder klicken Sie
+auf "Vorgaben".
+
+@{b}256-Farben-Bildschirme sind weiß, oder das ROM belegt Chip-RAM@{ub}
+Stellen Sie "ROM-Speichertyp" auf der Seite "Speicher" auf "Egal".
+
+@{b}Der Mac startet, dann bleibt der Setup-Assistent von Mac OS 8.1 stehen@{ub}
+In 3.20 behoben; mit 3.11 vorher AppleTalk ausschalten.
+
+@{b}Mac OS 8.1 bleibt auf einem 68060 mit leerem Schreibtisch stehen@{ub}
+In 3.20 behoben.
+
+@{b}Der Mac reagiert nicht auf die Maus@{ub}
+Probieren Sie "Maus direkt abfragen" auf der Seite "Sonstiges"
+andersherum. Mit einer Grafikkarte und deren eigenem Mauszeiger auch
+"Amiga-Mauszeiger" auf der Seite "Grafik".
+
+@{b}Alte Browser zeigen auf den meisten Webseiten nichts@{ub}
+Netscape und Internet Explorer aus dieser Zeit beherrschen die heutige
+Verschlüsselung (HTTPS) nicht. Reine HTTP-Seiten gehen; für den Rest
+braucht es einen Proxy im eigenen Netz, der die Seiten für den Mac holt.
+
+@{b}Aus einem hängenden Mac herauskommen@{ub}
+Ctrl-linke Shift-linke Alt-Del ist die Einschalttaste des Mac. Antwortet
+der Mac nicht, wechseln Sie mit linke Amiga-M auf die Amiga-Seite und
+beenden Sie ShapeShifter mit Ctrl-linke Shift-linke Alt-Esc
+(@{"Benutzen von Tastatur und Maus" LINK KeyboardMouse}). Die Mac-Disk wird dann nicht
+ordentlich geschlossen; der Mac prüft sie beim nächsten Start.
+
+@ENDNODE
+
+
+@NODE Defaults "Einstellungen im Überblick"
+
+@{b}Einstellungen im Überblick@{ub}
+
+Die Seiten Diskettenlaufwerke, SCSI, Seriell, Sonstiges und CPU sind nur
+zu sehen, wenn im Einstellungsfenster "Erweitert" angekreuzt ist.
+
+"Eingebaut" ist, was ShapeShifter ohne Einstellungsdatei benutzt.
+"Vorgaben" ist, was der Knopf dieses Namens im Einstellungsfenster (und
+die Einrichtung beim ersten Start) für Ihren Amiga wählt; wo nichts
+steht, lässt er die Einstellung in Ruhe. Einzelheiten stehen im
+@{"Referenzteil" LINK Reference}.
+
+@{b}Grafik@{ub}
+ Farbtiefe          eingebaut: 2 Farben. Vorgaben: 256 Farben mit AGA
+                    oder Grafikkarte, sonst 2 Farben
+ Bildschirmtyp      eingebaut: Amiga-Bitplanes. Vorgaben: CyberGraphX/
+                    Picasso96, wenn eine Karte gefunden wird
+ Bildschirmmodus    Vorgaben: der 640x480-Modus der Karte oder der Modus
+                    des Workbench-Monitors. Ein Modus ohne Namen wird
+                    mit seiner Nummer angezeigt
+ Größe              640 x 480
+ Refresh-Rate       eingebaut: 10. Vorgaben: 4 mit AGA (2 auf 68040/060);
+                    kleiner ist flüssiger und kostet mehr Rechenzeit
+ Schwarzer Rahmen   ein
+ Immer refreshen    aus
+ MMU-Refresh        Vorgaben: ein mit AGA und einer benutzten MMU
+ Amiga-Mauszeiger   aus
+
+@{b}Datenträger@{ub}
+ FileDisk 1-4       leer. Die Einrichtung beim ersten Start legt
+                    "Mac disk" an
+ DeviceDisk 1-2     leer. Einheit 0, erster Sektor 0, Anzahl Sektoren 0
+                    (0 = das ganze Laufwerk)
+ Max. Transfergröße -1 (keine Grenze); stellen Sie ein, was der Treiber
+                    des Laufwerks braucht
+ Wechselmedium      aus
+ Starten von        Letzte Auswahl
+
+@{b}Diskettenlaufwerke@{ub}
+ Floppy 1           das erste gefundene Diskettenlaufwerk ("Suchen"
+                    sucht erneut)
+ Floppy 2           keins
+ AmigaDOS sperren   aus
+
+@{b}SCSI@{ub}
+ IDs 0-6            alle aus; Treiber scsi.device, Einheit = ID
+ Speichertyp        Chip-RAM
+ Generischer CD-ROM-Treiber     ein
+ Apple Festplatten-Emulation    aus
+ Direkte Übertragung            aus
+ "Sommer"-Modus                 aus
+
+@{b}Speicher@{ub}
+ Mac-Speicher       eingebaut: 1760 KB. Vorgaben: die Hälfte des größten
+                    freien Fast-RAM-Blocks, höchstens 128 MB und
+                    mindestens die 16 MB, die ein Mac-System zum Starten
+                    braucht, wenn der Amiga sie hat (sonst was frei
+                    ist, weniger 2 MB)
+ Größter freier Block           aus
+ Mac-ROM-Speicher zuerst        aus
+ ROM-Speichertyp    Egal
+
+@{b}Seriell@{ub}
+ Modemport          serial.device, Einheit 0
+ Druckerport        parallel.device, Einheit 0, paralleles Gerät
+ A-Max/Emplant      aus (nur mit einer solchen Karte)
+
+@{b}Netzwerk@{ub}
+ Netzwerk-Treiber   keiner. Wählen Sie den SANA-II-Treiber Ihrer Karte;
+                    die TCP/IP-Software des Amiga kann sich die Karte
+                    mit manchen Treibern teilen, mit anderen darf sie
+                    währenddessen nicht laufen
+
+@{b}Sonstiges@{ub}
+ Maus direkt abfragen   ein
+ ROM schreibschützen    aus (braucht eine MMU)
+ MacOS-8-Modus          Vorgaben: ein mit einem 1-MB-ROM
+ Tonausgabe ein         ein
+ AHI benutzen           aus
+
+@{b}CPU@{ub}
+ Copyback-Cache aus     Vorgaben: ein für einen 68060 unter UAE
+ Untere 8K umlenken     aus
+ Enforcer-kompatibel    aus
+ US-Tastaturbelegung    aus
+ Keine QuickDraw-Beschl. aus
+ 720K-Disketten-Kludge  aus
+ Debug-Modus            aus
+ Mac wählt Farbtiefe    aus
+
+@ENDNODE
+
+
+@NODE Overview "Überblick"
+
+@{b}ShapeShifter@{ub} ist ein multitaskingfähiger Macintosh-II-Emulator für Amiga
+und DraCo. Er erlaubt es, ohne Hardwarezusätze oder -modifikationen,
+Programme, die für Apple Macintosh-Computer geschrieben wurden, auf dem
+Amiga/DraCo laufen zu lassen. Dabei läuft die Emulation als normaler Task
+unter AmigaOS, womit sich Amiga- und Macintosh-Programme gleichzeitig
+verwenden lassen. Mit ShapeShifter können Sie die Flexibilität des Amiga
+mit der Leistungsfähigkeit der Macintosh-Software verbinden.
+
+(Hinweis: Wenn in dieser Anleitung von "Macintosh" die Rede ist, ist meist
+der von ShapeShifter emulierte Macintosh gemeint)
+
+Die Emulation bietet u.a. folgende Fähigkeiten:
+
+ · Unterstützt MacOS 7.1 bis 8.1
+
+ · Farbdarstellung bis 256 Farben auf AA-Amigas (1200/4000), bis 16 Farben
+   auf den alten Modellen in allen verfügbaren Amiga-Auflösungen
+
+ · Unterstützung von Amiga-Grafikkarten bis 16,7 Millionen Farben
+
+ · Beschleunigte Grafik mit CyberGraphX/Picasso96
+
+ · Unterstützung von ein oder zwei Monitoren
+
+ · Benötigt keine MMU
+
+ · Keine Unterstützung für andere Macintosh-Betriebssysteme außer
+   System 7.x/8.x, nur 32-Bit-kompatible Programme sind lauffähig
+
+ · Verwendet maximal zwei Amiga-Diskettenlaufwerke. Macintosh-HD-Disketten
+   lassen sich mit einem HD-Laufwerk wie im Amiga 4000 direkt verwenden,
+   DD-Disketten, die mit ShapeShifter formatiert wurden, werden von jedem
+   Macintosh verarbeitet. 800K-Macintosh-DD-Disketten können mit einem
+   original Macintosh-Laufwerk gelesen und beschrieben werden, sofern
+   "CrossMAC" installiert ist.
+
+ · Simuliert maximal zwei Macintosh-Festplatten in AmigaDOS-Dateien
+
+ · Verwendet maximal zwei Festplattenpartitionen direkt als Macintosh-
+   Datenträger
+
+ · Unterstützung von CD-ROM-Laufwerken
+
+ · Eine im Amiga vorhandene SCSI-Schnittstelle kann vom Macintosh aus
+   angesprochen werden und erlaubt z.B. den Einsatz von Wechselplatten,
+   Scannern, Streamern und anderen Geräten
+
+ · Einbindung in Ethernet-Netzwerke mit AppleTalk/MacTCP/MacIPX
+
+ · Einfache Vernetzung von zwei Amigas mit PLIP
+
+ · Soundausgabe in 8-Bit Stereo (Soundkartenunterstützung mit AHI)
+
+ · Ein Amiga-Sound-Digitizer am Parallelport wird unterstützt
+
+ · Amiga-Grafiktabletts können auf der Macintosh-Seite verwendet werden
+
+ · Umleitung der beiden seriellen Schnittstellen des Macintosh auf die
+   seriellen/parallelen Schnittstellen des Amiga, auch auf
+   Erweiterungskarten
+
+ · Texte können zwischen der Macintosh- und der Amiga-Zwischenablage
+   ausgetauscht werden
+
+ · Es gibt einen AmigaDOS-Handler zum Zugriff auf Dateien auf Macintosh-
+   Datenträgern von jedem Amiga-Programm aus
+
+@ENDNODE
+
+
+@NODE Support "Support"
+
+Die offizielle ShapeShifter-Homepage im WWW enthält immer die neueste
+Version und und andere Informationen, die mit ShapeShifter zusammenhängen:
+
+http://www.uni-mainz.de/~bauec002/SSMain.html
+
+
+In der "Next Generation" (Koblenz, Deutschland) findet sich ebenfalls
+immer die neueste Version von ShapeShifter:
+
+Port 1: +49-261-805012  (Zyx19.2/ISDN)
+Port 2: +49-261-84280   (V.FC)
+
+Brett: ShapeShifter-SUPPORT
+
+@ENDNODE
+
+
+@NODE Installation "Installation"
+
+Dieser Abschnitt beschreibt die Voraussetzungen zum Betrieb von
+ShapeShifter auf Ihrem Amiga und erklärt die Installation des
+Programms und der zusätzlichen Komponenten, die für den Betrieb
+benötigt werden.
+
+Sie sollten aber zuerst das Kapitel @{"Benutzen von ShapeShifter" LINK Using}
+lesen, um mit der Bedienung und den Einstellungsmöglichkeiten von
+ShapeShifter vertraut zu werden.
+
+ @{" Systemvoraussetzungen                    " LINK Requirements}
+
+ @{" Installation der Software                " LINK InstallSoftware}
+ @{" Installation von PrepareEmul             " LINK InstallPrepEmul}
+ @{" Installation des Macintosh-ROMs          " LINK InstallROM}
+
+ @{" Einrichten des Macintosh-Betriebssystems " LINK InstallSystem}
+
+@ENDNODE
+
+
+@NODE Requirements "Systemvoraussetzungen"
+
+Voraussetzungen:
+
+ · Der Amiga muß mindestens einen 68020-Prozessor besitzen, ShapeShifter
+   läuft also auf jedem Amiga 1200/3000/4000, nicht jedoch auf
+   unbeschleunigten Amiga 500/2000. ShapeShifter läuft auch auf dem
+   "DraCo" von MacroSystem.
+ · 4MB Speicher sind notwendig.
+ · ShapeShifter läuft ab AmigaOS 2.1 (CrossDOS muß installiert sein).
+ · Sie benötigen eine original Macintosh-ROM-Datei oder Zugriff auf
+   einen echten Macintosh.
+ · Zu ShapeShifter wird kein Macintosh-Betriebssystem mitgeliefert.
+   Dieses können Sie z.B. bei einem Apple-Händler erwerben.
+
+Nicht notwendig, aber empfohlen:
+
+ · Eine Festplatte, da sich das Macintosh-Betriebssystem zwar prinzipiell
+   auch von Diskette benutzen läßt, aber so nur rudimentäres Arbeiten
+   möglich ist. Sie müssen Ihre Festplatte nicht neu formatieren, wenn
+   Sie dem Emulator einen Teil davon zur Verfügung stellen wollen. Wenn
+   Sie jedoch intensiv mit ShapeShifter arbeiten möchten, sollten Sie
+   die Anschaffung einer eigenen Festplattte für den Macintosh in Erwägung
+   ziehen.
+ · Ein HD-Diskettenlaufwerk wie im Amiga 4000 ist zum Lesen von Macintosh-
+   HD-Disketten notwendig (insbesondere zum Installieren der Macintosh-
+   Systemsoftware), ansonsten können Sie nur mit ShapeShifter formatierte
+   DD-Disketten zum Datenaustausch mit Macintosh-Rechnern verwenden,
+   sofern Sie nicht "CrossMAC" und ein original Macintosh-Laufwerk besitzen.
+ · Eine Grafikkarte mit Chunky-Pixel-Modi (dazu gehören nahezu alle auf
+   dem Markt befindlichen Modelle) beschleunigt die Farbdarstellung
+   erheblich.
+ · Macintosh-Programme sind sehr speicherhungrig. Ihr Amiga sollte
+   mindestens über 8MB RAM verfügen.
+
+@ENDNODE
+
+
+@NODE InstallSoftware "Installation der Software"
+
+@{b}Mit dem Installer (ab 3.20):@{ub} Entpacken Sie das Archiv irgendwohin und
+doppelklicken Sie "Install_ShapeShifter" (benötigt das Amiga-Programm
+"Installer", das zu AmigaOS gehört). Es
+
+ · kopiert ShapeShifter, diese Anleitung und die Sprachdateien in eine
+   Schublade "ShapeShifter" an den Ort Ihrer Wahl; später erneut
+   gestartet, aktualisiert es das Programm und behält Einstellungen,
+   PRAM, ROM und Mac-Platten;
+ · bietet an, ReserveLow nach C: zu kopieren und seine Zeile ganz an den
+   Anfang von S:Startup-Sequence zu setzen (die alte Datei bleibt als
+   S:Startup-Sequence.before-ShapeShifter erhalten). Die Startup-Sequence
+   bleibt unberührt, wenn sie bereits ReserveLow, PrepareEmul, RsrvWarm,
+   RsrvMem, A-MaxInit oder SetFF aufruft. Siehe @{"Installation von PrepareEmul" LINK InstallPrepEmul};
+   der Installer schlägt "Nein" vor: ReserveLow ist neu, und Sie können es
+   zuerst von Hand aus der ShapeShifter-Schublade starten. Sollte der
+   Amiga damit nicht mehr starten, halten Sie beim Start die linke
+   Maustaste gedrückt;
+ · bietet an, die Mac-Disk-Werkzeuge zu installieren (Schublade
+   "MacDiskTools"): MacBrowse kopiert Dateien zwischen dem Amiga und
+   einer Mac-Disk-Datei, MacMount mit MacHFS-Handler zeigt eine solche
+   Datei als Amiga-Laufwerk. Sie arbeiten, während ShapeShifter nicht
+   läuft; Einzelheiten stehen in MacBrowse.readme (englisch). Sie sind
+   neu: Bewahren Sie eine Kopie wichtiger Disks auf oder mounten Sie sie
+   nur lesend;
+ · bietet an, eine vorhandene Macintosh-ROM-Datei in die Schublade zu
+   kopieren.
+
+Starten Sie danach den Amiga neu und dann ShapeShifter.
+
+Das Archiv von 3.20 enthält das Programm, die Anleitung, die
+Sprachdateien, ReserveLow, den Installer, ein README und
+die Lizenz. Die
+übrigen unten aufgeführten Dateien gehörten zum Archiv von 3.11 und
+sind nicht enthalten.
+
+@{b}Von Hand, wie bisher:@{ub}
+
+Das Archiv entählt die folgenden Dateien:
+  README                 - Kurzbeschreibung
+  ShapeShifter           - Hauptprogramm
+  ShapeShifter PRAM      - Inhalt des simulierten Mac-Parameter-RAMs
+  ShapeShifter Prefs     - Einstellungen des Emulators
+  ShapeShifter.guide     - Diese Anleitung (deutsche Version)
+  ShapeShifter_E.guide   - Diese Anleitung (englische Version)
+  PrepareEmul            - Kleines Hilfsprogramm
+  KickShifter            - Programm zum Patchen von Kickstart-Dateien
+  ReKick64s.lha          - Angepaßter Softkicker für A2000
+  empcd14.lha            - Schneller Treiber für CD-ROM-Laufwerke
+  SaveROM.mbin           - Programm zum Speichern des ROMs (MacBinary)
+  SaveROM.hqx            - Programm zum Speichern des ROMs (BinHex4)
+  Bestellformular        - Bestellformular (deutsche Version)
+  BonDeCommande          - Bestellformular (französische Version)
+  OrderForm              - Bestellformular (englische Version)
+  Catalogs/#?            - Sprachdateien
+  SSOktaPatch.lha        - Für Besitzer eines Oktagon/AT-Bus 2008/
+                           AlfaPower/TandemAT/ALF2/ALF3
+  MacHandler/Mac-Handler - Mac-Dateihandler
+  MacHandler/MAC         - Mountlist für den Mac-Handler
+  MacHandler/MacControl  - Steuerprogramm für den Mac-Handler
+  Video Drivers/#?       - Externe Videotreiber
+
+Zur Installation reicht es, auf der Festplatte eine Schublade für
+ShapeShifter anzulegen und das Archiv dorthin zu entpacken. Die Dateien
+in "Catalogs" brauchen nicht LOCALE: kopiert zu werden, sie können da
+bleiben, wo sie sind. ShapeShifter braucht keine Assigns.
+
+Für die Datei "ShapeShifter ROM" ist nur das Icon vorhanden. Diese Datei
+muß ein Original-Macintosh-512K/1MB-ROM enthalten, das aus rechtlichen
+Gründen nicht im Archiv dabei ist. Folgen Sie bitte den Anweisungen unter
+@{"Installation des Macintosh-ROMs" LINK InstallROM}, um das ROM eines echten Macintosh
+auszulesen und für ShapeShifter verfügbar zu machen.
+
+Benutzer eines Oktagon/AT-Bus 2008/AlfaPower/TandemAT/ALF2/ALF3 sollten
+das Programm "SSOktaPatch" installieren (siehe die Datei "README" im
+Archiv "SSOktaPatch.lha"), da es sonst zu Fehlern bei der Verwendung von
+DeviceDisks und SCSI-Geräten kommen kann.
+
+@ENDNODE
+
+
+@NODE InstallPrepEmul "Installation von PrepareEmul"
+
+ShapeShifter stellt zwei besondere Anforderungen an den Amiga, auf dem
+es läuft:
+
+1. Der (logische) Beginn des Chip-RAM muß mindestens bei $2000 liegen,
+   d.h. die unteren 8K müssen komplett frei bleiben, da sie vom MacOS
+   benötigt werden.
+2. Das VBR (Vektor Basis-Register) darf nicht Null sein, es muß auf eine
+   Vektortabelle im regulären Speicher zeigen.
+
+Um das zu erreichen, gibt es mehrere Möglichkeiten:
+
+
+0) "ReserveLow" (ab 3.20)
+
+ReserveLow gehört zu ShapeShifter und wird vom Installer eingerichtet:
+es wird nach C: kopiert, und die Zeile "C:ReserveLow QUIET" wird die erste
+Zeile von S:Startup-Sequence. Sie können es auch von Hand in einer Shell
+starten, bevor Sie ShapeShifter benutzen. Beim ersten Mal nach dem
+Einschalten startet ReserveLow den Amiga einmal neu; danach bleiben die
+untersten 16 KB bei jedem Reset frei, bis der Amiga ausgeschaltet wird.
+"ReserveLow CHECK" sagt nur, ob der Speicher reserviert ist.
+
+Bei Problemen: Halten Sie die linke Maustaste gedrückt, während der
+Amiga startet oder einen Reset macht. ReserveLow tut dann nichts und lässt
+den Speicher bis zum nächsten Reset, wie er ist, auch wenn es schon im
+Speicher liegt. So kommt ein Amiga wieder in Gang, der mit reserviertem
+unteren Speicher nicht startet.
+
+ReserveLow patcht und durchsucht das Kickstart nicht, wie PrepareEmul es
+tut, und hängt deshalb nicht von der Kickstart-Version ab (getestet mit
+3.1 und 3.2.3). Es braucht einen Amiga, dessen System (ExecBase) nicht im
+Chip-RAM liegt: das ist mit Fast-RAM auf der Prozessorkarte oder der
+Hauptplatine der Fall (Amiga 1200 mit Turbokarte, Amiga 3000, 4000). Kommt
+das einzige Fast-RAM von Zorro-Karten, meldet ReserveLow, dass es nicht
+geht, und ändert nichts; benutzen Sie dort PrepareEmul aus dem Archiv
+von ShapeShifter 3.11. Um das VBR kümmert sich ShapeShifter selbst.
+
+Die folgenden Möglichkeiten sind die von ShapeShifter 3.11. PrepareEmul
+gehört nicht mehr zum Archiv von 3.20; nehmen Sie es bei Bedarf aus dem
+Archiv von 3.11.
+
+
+A) "PrepareEmul"
+
+Dieses Programm ist im ShapeShifter-Archiv enthalten und sollte im
+Normalfall seine Aufgabe auch erfüllen (für die Ausnahmen, siehe die
+anderen Möglichkeiten). Kopieren Sie "PrepareEmul" in das C:-Verzeichnis
+Ihrer Festplatte und fügen Sie in die Datei "S:Startup-Sequence" direkt
+am Anfang die Zeile "C:PrepareEmul" ein. Nun wird jeder Amiga-Kaltstart
+zweimal ausgeführt, wobei sich PrepareEmul installiert. Falls es einmal
+Probleme geben sollte: Ist beim Starten die Caps-Lock-Taste gedrückt
+(d.h. die Caps-Lock-Lampe leuchtet), schaltet sich PrepareEmul ab. Dann
+können Sie allerdings ShapeShifter nicht starten.
+
+PrepareEmul installiert einen "KickTag", um auch bei einem Reset im
+Speicher zu bleiben. Dies wird vermutlich Virenkiller zur Ausgabe von
+Warnmeldungen veranlassen, aber diese können Sie getrost ignorieren.
+
+
+B) "PrepareEmul A1200"
+
+PrepareEmul läuft nicht direkt auf erweiterten Amiga 1200 (insb. die
+Karten der "Blizzard"-Serie machen Probleme). In diesem Fall müssen Sie
+PrepareEmul in der Startup-Sequence mit der Zeile "C:PrepareEmul A1200"
+aufrufen. Dabei gibt es aber noch ein paar Dinge zu beachten:
+
+ - Der "A1200"-Schalter wurde für Kickstart V39 und V40 geschrieben. Er
+   funktioniert auch mit Kickstart 3.2.3 (V47), getestet auf einem A1200
+   mit 68030-Karte, wo einfaches PrepareEmul den Amiga neu startet, aber
+   nichts reserviert
+ - Während der Bootphase erscheinen farbige Streifen auf dem Bildschirm,
+   um anzuzeigen, daß PrepareEmul installiert wurde
+ - Es werden Cold- und CoolCapture-Vektoren verändert, was ebenfalls
+   Warnmeldungen von Virenkillern hervorrufen kann
+ - Wenn Sie andere Programme in der Startup-Sequence installiert haben,
+   die ebenfalls Cold- und CoolCapture-Vektoren verändern, müssen diese
+   VOR PrepareEmul aufgerufen werden
+ - Sie sollten PrepareEmul nur entweder mit oder ohne den "A1200"-Schalter
+   aufrufen, nie gemischt
+ - Benutzer von Picasso-Grafikkarten sollten, wenn sie PrepareEmul mit
+   dem "A1200"-Schalter aufrufen, dies möglichst weit oben in der
+   Startup-Sequence tun und sich nicht wundern, wenn jeder zweite Reset
+   doppelt ausgeführt wird
+
+
+C) "PrepareEmul" und "NoFastMem"
+
+Einige A1200-"Blizzard"-Karten benötigen zusätzlich zu den in B) gegebenen
+Informationen noch den Aufruf von "NoFastMem" direkt vor und hinter dem
+Aufruf von "PrepareEmul" in der Startup-Sequence.
+
+
+D) Blizzard-Karten und "patch1230scsi"
+
+Registrierte Benutzer des "patch1230scsi" Programmes koennen eine spezielle
+patch1230scsi-Version bekommen, die PrepareEmul ersetzt. Wie man sich
+registriert, erfaehrt man im Aminet aus der Datei 'hard/misc/patch1230.lha'
+v39.2 oder beim Autor von 'patch1230scsi' (kessler@fim.uni-erlangen.de,
+Thomas Kessler, Sonnenstrasse 95, D-91564 Neuendettelsau, Deutschland).
+
+
+E) Softkicker und "KickShifter"
+
+PrepareEmul funktioniert nicht mit Programmen, die eine Kickstart-Datei
+von Festplatte nachladen (Softkick), ausgenommen der A3000 mit BootROMs.
+Wenn Sie so ein Programm benutzen, müssen Sie die Kickstart-Datei
+modifizieren. Hierzu dient das Programm "KickShifter". KickShifter kann
+nur von der Shell aus aufgerufen werden und erwartet als Argument den
+Dateinamen einer Kickstart-Datei. Diese wird modifiziert und unter dem
+selben Namen zurückgeschrieben. Daher sollten Sie vorher eine
+Sicherheitskopie der Kickstart-Datei anfertigen, falls etwas schiefgeht.
+Besitzer eines A2000 sollten zudem das beigelegte Programm "ReKick" zum
+Laden der Kickstart-Datei verwenden. Mit der geänderten Kickstart-Datei
+ist "PrepareEmul" nicht mehr notwendig.
+
+
+F) A-Max IV/Emplant: "A-MaxInit"/"RsrvMem"
+
+Besitzer von "Emplant" und "A-Max IV" können statt "PrepareEmul" auch wie
+gewohnt "RsrvMem" bzw. "A-MaxInit" installiert lassen.
+
+
+G) Fusion Forty: "SetFF"
+
+Um alle Funktionen von ShapeShifter benutzen zu können, müssen Sie die
+originale (AmigaOS) "68040.library" in LIBS: installieren und die folgenden
+zwei Zeilen am Anfang Ihrer Startup-Sequence einfügen:
+
+  SetFF FASTKICK AMAXIV
+  SetPatch NOAGA REVERSE QUIET
+
+Oder, wenn Sie eine andere Kickstart-Version nachladen:
+
+  SetFF FASTKICK devs:kickstart AMAXIV
+  SetPatch NOAGA REVERSE QUIET
+
+"PrepareEmul" brauchen Sie dann nicht mehr.
+
+
+H) Die permanenteste Lösung: Das Brennen eines eigenen Kickstart-ROMs
+
+Die beste, aber aufwendigste Lösung für jeden PrepareEmul-Ärger ist, das
+Kickstart-ROM des eigenen Rechners auszulesen, es mit KickShifter zu
+bearbeiten, wie unter C) beschrieben, die geänderte Datei in ein EPROM zu
+brennen und statt der ROMs in den Amiga einzusetzen. Dann wird PrepareEmul
+nicht mehr benötigt (evtl. nur noch, um das VBR hochzusetzen).
+
+
+I) DraCo
+
+Auf dem DraCo ist PrepareEmul nicht notwendig, Sie können ShapeShifter
+sofort starten. Allerdings muß im Einsteller "DraCoSystem" die Option
+"Enforcer ab 0" abgeschaltet sein.
+
+
+Noch ein Hinweis: Wenn Sie das Entwickler-Tool "Enforcer" in der Startup-
+Sequence aufrufen, sollten Sie es entfernen, da es nicht mit ShapeShifter
+zusammenarbeitet (wegen der "MacOS benutzt die unteren 8K"-Sache, nicht
+weil ShapeShifter Enforcer-Hits hat :-).
+
+Wenn Sie eine 68060-Turbokarte von Phase 5 benutzen, müssen Sie das
+"CyberPatcher"-Utility abschalten.
+
+@ENDNODE
+
+
+@NODE InstallROM "Installation des Macintosh-ROMs"
+
+ShapeShifter benötigt zum Arbeiten den Inhalt eines Original-Macintosh-
+ROMs in Form einer Amiga-Datei. ShapeShifter kann nur 512K- oder 1MB-ROMs
+der Version 124 verwenden. Die ROMs der Version 124 sind noch einmal nach
+Sub-Versionen untergliedert. ShapeShifter versucht, mit allen Sub-Versionen
+zu arbeiten (getestet mit Sub-Version 17, 19, 21, 34, 39 und 50). Sollte Ihr
+ROM aus irgendeinem Grund nicht geeignet sein, zeigt ShapeShifter eine
+entsprechende Meldung an. Sollte keine Meldung kommen, es aber trotzdem
+nicht funktionieren, probieren Sie ein anderes ROM. Die ROMs der PowerMacs
+können Sie nicht verwenden.
+
+Wenn Ihr Amiga mit einem 68040/060-Prozessor ausgestattet ist, sollten Sie
+ein 1MB-ROM benutzen, da unter den anderen Sub-Versionen die Leistung des
+Systems stark abnimmt. Mit einem 68020/030-Prozessor ist ein 1MB-ROM
+nicht notwendig (und reine Speicherverschwendung).
+
+Um die ROM-Datei zu erhalten, befindet sich im Archiv das Programm
+"SaveROM", das das ROM eines Macintosh ausliest und auf Diskette speichert.
+Mit diesem Programm können Sie auch prüfen, ob die ROM-Version für
+ShapeShifter geeignet ist. "SaveROM" ist ein Macintosh-Programm, das im
+MacBinary-/BinHex4-Format vorliegt. Bevor man es auf einem Macintosh
+starten kann, muß es erst konvertiert werden.
+
+Hinweis: Das Auslesen und Benutzen des ROMs ist @{b}nur@{ub} dann legal, wenn man
+die Rechte zur Nutzung erworben hat, also entweder einen echten Macintosh
+oder ein echtes ROM besitzt. Ansonsten ist die Benutzung @{b}illegal@{ub}. Auf
+keinen Fall werde ich ROM-Dateien verschicken.
+
+Die folgende Schritt-für-Schritt-Anleitung erklärt, wie Sie zu der
+benötigten ROM-Datei kommen:
+
+1. Formatieren Sie auf dem Amiga eine Diskette im MS-DOS-Format (mit
+   CrossDOS) und kopieren Sie die Dateien "SaveROM.mbin" und "SaveROM.hqx"
+   auf diese.
+
+2. Suchen Sie sich einen echten Macintosh mit 512K- oder 1MB-ROM (z.B.
+   einen Macintosh LC/LC II, Performa, Quadra oder ein PowerBook),
+   auf dem "AccessPC" oder "PC Exchange" zum Lesen von MS-DOS-Disketten
+   installiert ist.
+
+3. Starten Sie den Macintosh und legen Sie die MS-DOS-Diskette ein.
+
+4. Benutzen Sie "StuffIt Expander" oder eines der zahlreichen anderen
+   Macintosh-Hilfsprogramme, um "SaveROM.mbin" vom MacBinary-Format oder
+   "SaveROM.hqx" von BinHex4-Format in ein ausführbares Mac-Programm zu
+   konvertieren. Ich wiederhole: SaveROM muß @{b}konvertiert@{ub} werden,
+   einfaches Kopieren reicht nicht!
+
+5. Starten Sie das Programm "Save ROM". Sie bekommen einige Daten über das
+   ROM angezeigt und es wird Ihnen mitgeteilt, ob dieses ROM für
+   ShapeShifter geeignet ist. Ist das ROM nicht geeignet, klicken Sie auf
+   "Abbrechen" und suchen Sie einen anderen Macintosh.
+
+6. Ist das ROM geeignet, klicken Sie auf "Speichern" und speichern Sie das
+   ROM unter dem vorgegebenen Namen "ROM Image" auf die MS-DOS-Diskette ab.
+   Für ein 1MB-ROM müssen Sie natürlich eine HD-Diskette verwenden.
+
+7. Werfen Sie die Diskette aus und legen Sie sie in den Amiga ein.
+
+8. Kopieren Sie die Datei "ROMIMAGE.BIN" (oder wie immer sie jetzt heißt)
+   in die Schublade von ShapeShifter.
+
+9. Benennen Sie die Datei in "ShapeShifter ROM" um. (Oder lassen Sie
+   den Namen: beim ersten Start findet ShapeShifter ein 512K- oder
+   1MB-ROM-Abbild in seiner Schublade und bietet an, es nach
+   "ShapeShifter ROM" zu kopieren, siehe @{"Der erste Start" LINK FirstStart}.)
+
+10. Fertig. Beachten Sie bitte, daß jetzt aus rechtlichen Gründen
+    ShapeShifter und der Macintosh, von dem das ROM stammt, nicht mehr
+    gleichzeitig benutzt werden dürfen.
+
+@ENDNODE
+
+
+@NODE FirstStart "Der erste Start"
+
+Wenn ShapeShifter startet und es noch keine Einstellungsdatei gibt
+("ShapeShifter Prefs" in seiner Schublade), bietet es an, sich selbst
+einzurichten. Klicken Sie auf "Einrichten", um diese Schritte zu
+durchlaufen, oder auf "Überspringen", um mit den alten Vorgaben zu
+beginnen:
+
+ · @{b}Das ROM:@{ub} gibt es kein "ShapeShifter ROM", sucht ShapeShifter in
+   seiner Schublade eine Datei mit 512K oder 1MB, die kein Amiga-Kickstart
+   ist, und bietet an, sie nach "ShapeShifter ROM" zu kopieren. "Andere
+   wählen..." öffnet ein Dateiauswahlfenster. (Dieser Schritt kommt auch,
+   wenn nur das ROM fehlt.)
+ · @{b}Einstellungen für diesen Amiga:@{ub}
+   - Bildschirm: eine Grafikkarte (CyberGraphX, Picasso96, PrismRTG) in
+     640x480 mit 256 Farben; ohne Karte ein AGA-Bildschirm mit 256
+     Farben, sonst schwarzweiß.
+   - Speicher: die Hälfte des größten freien FastRAM-Blocks, 4 bis 128 MB.
+   - NOCOPYBACK bei einem 68060 unter UAE.
+   - Der Modus "MacOS 8" (Quadra 900) bei einem 1MB-ROM.
+ · @{b}Eine leere Mac-Disk:@{ub} eine 256 MB große "Mac disk.hfv" in der
+   Schublade von ShapeShifter als FileDisk 1. Der Mac bietet an, sie zu
+   initialisieren; danach installieren Sie das System von der Mac-OS-CD
+   darauf (siehe @{"Einrichten des Macintosh-Betriebssystems" LINK InstallSystem}).
+
+Zum Schluß zeigt ein Fenster, was gewählt wurde, und das
+Einstellungsfenster öffnet sich mit diesen Werten. Mit "Speichern"
+behalten Sie sie; sobald es eine Einstellungsdatei gibt, kommt die
+Einrichtung nicht wieder. Mit QUICKSTART oder einer mit FILE= bzw. einem
+Icon angegebenen Einstellungsdatei gibt es keine Einrichtung.
+
+@ENDNODE
+
+
+@NODE InstallSystem "Einrichten des Macintosh-Betriebssystems"
+
+Wenn Sie den Emulator starten, ohne weitere Einstellungen vorgenommen zu
+haben, werden Sie mit einem blinkenden Fragezeichen zum Einlegen einer
+Macintosh-Systemdiskette aufgefordert. ShapeShifter benötigt System 7 oder
+MacOS 8. Besitzen Sie eine entsprechende Systemdiskette, können Sie den
+emulierten Macintosh direkt mit dieser Diskette starten. System 7.0.1 ist
+auf folgenden FTP-Servern frei verfügbar:
+
+  ftp.support.apple.com, Verzeichnis /pub/apple_sw_updates/US/Macintosh/
+    System Software/System 7.0.1/
+
+  ftp.info.euro.apple.com, Verzeichnis /Apple.Support.Area/
+    Apple.Software.Updates/US/Macintosh/System/
+
+Besser ist es jedoch, wenn Sie zunächst, wie @{"hier" LINK Volumes} beschrieben, eine oder
+mehrere (simulierte) Festplatten für den Macintosh einrichten, diese vom
+Macintosh aus formatieren und anschließend MacOS von Installationsdisketten
+auf die Mac-Platte installieren. (Hinweis: Im folgenden bezieht sich
+"Platte" immer auf eine FileDisk oder eine eingerichtete Mac-Partition
+einer Festplatte)
+
+Hierzu sind zwei Durchgänge nötig: Der erste zum Formatieren der Platte
+und der zweite zum Installieren des Systems. Das kommt daher, daß das
+MacOS-Installationsprogramm davon ausgeht, daß die Platte bereits
+formatiert ist, was beim ersten Start der Emulation natürlich noch nicht
+der Fall ist. Wenn Sie System 7.1, 7.5, 7.6, 8.0 oder 8.1 erworben haben,
+gehen Sie am besten wie folgt vor:
+
+1. Richten Sie eine @{"FileDisk" LINK VolFileDisk} oder eine @{"Mac-Partition" LINK VolDeviceDisk} auf Ihrer
+   Festplatte ein und speichern Sie die Einstellungen.
+
+2. Starten Sie die Emulation. Es sollte nach kurzer Zeit ein leerer
+   Macintosh-Bildschirm erscheinen und ein Diskettensymbol mit einem
+   blinkenden Fragezeichen in der Mitte zum Einlegen einer Systemdiskette
+   auffordern.
+
+3. Legen Sie nun die System-7-Diskette "Dienstprogramme" ein. Der
+   Emulator sollte davon starten.
+
+4. Nach einer Weile sollte eine Dialogbox erscheinen "Keine Macintosh-
+   Diskette" mit dem Icon der File- oder DeviceDisk daneben. Klicken
+   Sie nun auf "Initialisieren", dann auf "Löschen", geben Sie einen
+   Namen für die Platte ein und klicken Sie auf "OK". Der Macintosh-
+   Datenträger wird nun formatiert.
+
+5. Nach Beendigung der Formatierung warten Sie bitte, bis der
+   Startvorgang beendet ist, beenden Sie ShapeShifter dann mit dem
+   Menüpunkt "Spezial/Ausschalten" und entnehmen Sie anschließend die
+   "Dienstprogramme"-Diskette.
+
+6. Die Platte ist jetzt formatiert und die eigentliche Installation kann
+   beginnen. Starten Sie ShapeShifter erneut und starten Sie die
+   Emulation. Legen Sie dann die Diskette "Installation 1" ein.
+
+7. Nach einer Weile erscheint das Fenster des Installationsprogramms.
+   Wählen Sie zunächst mit "Volume" den Datenträger aus, auf dem Sie
+   das System installieren wollen und klicken Sie dann auf "Anpassen".
+   Hier können Sie bestimmen, welche Komponenten im einzelnen installiert
+   werden sollen. Wählen Sie hier "Systemsoftware für alle Macintosh-
+   Rechner", "Ethertalk Software" (Sie müssen die Ethertalk-Software
+   auch dann installieren, wenn Sie kein Netzwerk benutzen möchten!)
+   und "Software für ImageWriter" (Sie können keinen der Apple-
+   Druckertreiber mit ShapeShifter benutzen, aber Sie sollten einen
+   Treiber installieren, daher empfehle ich den kleinsten, den für den
+   ImageWriter. Nein, der "DeskWriter"-Treiber funktioniert nicht mit
+   dem "DeskJet"!) und klicken Sie dann auf "Installieren". Folgen Sie
+   nun den Anweisungen des Installationsprogramms.
+
+8. Ist die Installation abgeschlossen, klicken Sie auf "Beenden", warten
+   bis der Abschaltbildschirm erscheint, nehmen die Installationsdiskette
+   heraus und wählen "Neustart". Der Macintosh sollte nun von der Platte
+   starten.
+
+9. Nun ist die Installation beendet und Sie können mit den
+   Kontrollfeldern Ihr System einrichten und z.B. die Lautstärke
+   einstellen oder die Farbdarstellung einschalten (sofern vorhanden).
+
+Wenn Sie ein CD-ROM-Laufwerk besitzen, können Sie MacOS natürlich
+auch von CD installieren. Aktivieren Sie dazu im Fenster @{"SCSI" LINK SCSI} das Feld
+@{"Generischen CD-ROM-Treiber benutzen" LINK RefSCSI} und starten Sie von der der CD beiliegenden
+Diskette. Nach dem Formatieren können Sie direkt die CD einlegen und die
+Installation starten.
+
+@ENDNODE
+
+
+@NODE Using "Benutzen von ShapeShifter"
+
+Dieser Abschnitt beschreibt die Benutzung von ShapeShifter und erläutert
+die zahlreichen Einstellungsmöglichkeiten, die die Emulation beeinflussen.
+
+ @{" Starten und Beenden von ShapeShifter            " LINK StartQuit}
+ @{" Argumente/Merkmale                              " LINK ToolTypes}
+
+ @{" Auswählen der Grafikdarstellung                 " LINK Graphics}
+ @{" Einrichten von Datenträgern für den Macintosh   " LINK Volumes}
+ @{" Benutzen von CD-ROM-Laufwerken                  " LINK CDROM}
+ @{" Benutzen von SCSI-Geräten                       " LINK SCSI}
+ @{" Benutzen der Amiga-Schnittstellen vom Macintosh " LINK Serial}
+ @{" Benutzen von Druckern                           " LINK Printers}
+ @{" Einbindung in Ethernet-Netzwerke                " LINK Network}
+ @{" Einbindung in LocalTalk-Netzwerke               " LINK LocalTalk}
+ @{" Vernetzen zweier Amigas mit PLIP                " LINK PLIP}
+ @{" Zuteilung von Speicher für den Macintosh        " LINK Memory}
+ @{" Sichern der Einstellungen                       " LINK SaveSettings}
+
+ @{" Starten und Beenden der Emulation               " LINK StartQuitMac}
+ @{" Wechseln zwischen Amiga- und Macintosh-Seite    " LINK SwitchAmigaMac}
+
+ @{" Benutzen von Tastatur und Maus                  " LINK KeyboardMouse}
+ @{" Datenaustausch über die Zwischenablage          " LINK Clipboard}
+ @{" Tonein- und ausgabe                             " LINK Sound}
+
+@ENDNODE
+
+
+@NODE StartQuit "Starten und Beenden von ShapeShifter"
+
+Falls PrepareEmul korrekt @{"installiert" LINK InstallSoftware} wurde, können Sie nach einem
+Neustart ShapeShifter durch Doppelklick auf das Programm-Icon oder das Icon
+einer Einstellungsdatei starten. Daraufhin erscheint das @{"Hauptfenster" LINK RefMain} für
+die Emulator-Einstellungen. Ein Klick auf eines der acht großen Symbole
+öffnet weitere Fenster, in denen die Einstellungen vorgenommen werden.
+Diese Fenster lassen sich alle gleichzeitig benutzen und die getroffenen
+Einstellungen werden sofort übernommen.
+
+Wenn Sie im Icon von ShapeShifter das Merkmal "QUICKSTART" eingeben
+oder "QUICKSTART" als Argument beim Start von der Shell verwenden,
+erscheint das Einstellungsfenster nicht und ShapeShifter startet direkt
+in die Emulation durch. Wenn Sie ShapeShifter von der Workbench benutzen,
+kommen Sie erst wieder an das Einstellungsfenster heran, wenn Sie das
+"QUICKSTART"-Merkmal abschalten (z.B. durch Einklammern).
+
+Zum Beenden von ShapeShifter klicken Sie auf das Symbol "Beenden" im
+Hauptfenster oder wählen Sie den Menüpunkt "Beenden" (Kurzbefehl Amiga-Q).
+Beachten Sie, daß dabei Ihre Einstellungen verloren gehen, wenn sie nicht
+@{"gesichert" LINK SaveSettings} wurden.
+
+Zum Beenden des laufenden Emulators wählen Sie im Macintosh-Finder den
+Menüpunkt "Ausschalten" aus dem Menü "Spezial". ShapeShifter schließt
+darauf den Bildschirm, speichert das Macintosh-PRAM in die Datei
+"ShapeShifter PRAM" und beendet sich.
+
+Für Notfälle gibt es noch die Möglichkeit, ShapeShifter "hart" zu beenden,
+falls z.B. der Macintosh nicht startet oder ein Programm abgestürzt ist
+und Sie den "Ausschalten"-Menüpunkt nicht erreichen können. Drücken Sie
+in diesem Falle die Tastenkombination @{b}<Ctrl><Shift links><Alt links><Esc>@{ub}.
+Daraufhin sollte sich ShapeShifter von selbst beenden. Diesen Tastenbefehl
+sollten Sie aber nicht als einen schnellen Weg, aus der Emulation
+herauszukommen, betrachten. Benutzen Sie bitte immer den Menüpunkt
+"Ausschalten", wenn möglich, da damit das Macintosh-System im einem
+sicheren Zustand hinterlassen wird.
+
+@ENDNODE
+
+
+@NODE ToolTypes "Argumente/Merkmale"
+
+ShapeShifter versteht die folgenden Argumente/Merkmale beim Aufruf von
+der Shell bzw. der Workbench:
+
+FILE <Dateiname> - Lädt die Einstellungen aus der angegebenen Datei
+
+QUICKSTART - Verhindert das Erscheinen des Einstellungsfensters und
+  startet beim Aufruf von ShapeShifter direkt in die Emulation durch
+
+ENFORCER - Erlaubt die gleichzeitige Verwendung von "Enforcer" und
+  ShapeShifter auf einem 68040-Rechner
+
+DEBUG - Finger weg! Ich meine es Ernst!
+
+NOCOPYBACK - Schaltet den CopyBack-Cache des 68040/060 aus, solange die
+  Emulation läuft (nicht auf allen 68040/060-Rechnern möglich)
+
+720KKLUDGE - Erlaubt das Formatieren von 720K-Macintosh-Disketten
+  unter System >7.5 ohne die "720K Diskettenformatierer"-Erweiterung
+
+REMAP8K - Erlaubt auf dem 68040/060 das Cachen der unteren 8K RAM, solange
+  die Emulation läuft
+
+USKEYMAP - Vertauscht zwei Keycodes der Tastatur, so daß auf amerikanischen
+  Tastaturen die "`/~"-Taste wie gewohnt funktioniert
+
+NOQDACCEL - Falls die QuickDraw-Beschleunigung zu Grafikfehlern führt,
+  kann man sie hiermit abschalten
+
+DEPTHSWITCH - der Mac kann die Farbtiefe selbst wechseln, in "Monitore"
+  (siehe @{"Farbtiefe auf dem Mac wechseln" LINK GraDepthSwitch})
+
+Alle diese Optionen außer FILE und QUICKSTART lassen sich auch auf der
+Seite @{"CPU" LINK RefCPU} des Einstellungsfensters setzen, die sie mit den
+Einstellungen speichert.
+
+@ENDNODE
+
+
+@NODE Graphics "Auswählen der Grafikdarstellung"
+
+In diesem Abschnitt erfahren Sie, wie Sie die eingebauten Grafikfähigkeiten
+Ihres Amiga oder eine Grafikkarte zur Darstellung der Macintosh-Oberfläche
+verwenden und wie Sie Eigenschaften wie Farbanzahl, Auflösung und
+Geschwindigkeit der Grafik einstellen. Diese Einstellungen werden im
+Fenster "Grafikeinstellungen" getroffen, das Sie durch einen Klick auf das
+Symbol "Grafik..." im @{"Hauptfenster" LINK RefMain} öffnen können.
+
+ @{" Grundlagen zur Macintosh-Grafik                    " LINK GraBasics}
+
+ @{" Darstellung mit der eingebauten Amiga-Grafik       " LINK GraAmiga}
+ @{" Darstellung auf EGS-Grafikkarten                   " LINK GraEGS}
+ @{" Darstellung auf CyberGraphX/Picasso96-Grafikkarten " LINK GraCyber96}
+ @{" Darstellung auf der Picasso-Grafikkarte            " LINK GraPicasso}
+ @{" Darstellung auf der Merlin-Grafikkarte             " LINK GraMerlin}
+ @{" Darstellung auf der Retina-Z3-Grafikkarte          " LINK GraRetinaZ3}
+ @{" Darstellung in einem Fenster auf der Workbench     " LINK GraWindow}
+
+ @{" Verwenden von Video-Auflösungen                    " LINK GraVideo}
+
+ @{" Verwenden von zwei Monitoren                       " LINK GraTwoMonitors}
+
+ @{" Ändern der Bildschirmgröße                     " LINK GraSize}
+ @{" Einstellen des Refreshs                        " LINK GraRefresh}
+ @{" Farbtiefe auf dem Mac wechseln                 " LINK GraDepthSwitch}
+
+@ENDNODE
+
+
+@NODE GraBasics "Grundlagen zur Macintosh-Grafik"
+
+ShapeShifter erlaubt zur Darstellung der Macintosh-Oberfläche sowohl die
+Verwendung der eingebauten Amiga-Grafikhardware, als auch von
+handelsüblichen Grafikkarten. Dabei können ein oder zwei Monitore
+gleichzeitig verwendet werden.
+
+Das Fenster "Grafikeinstellungen" enthält drei Haupt-Symbolgruppen:
+Die obere linke Gruppe ist für die Einstellungen für einen Monitor,
+wenn das oberste Symbol auf "1 Monitor" gestellt ist, oder für den ersten
+Monitor, wenn es auf "2 Monitore" steht. Die obere rechte Gruppe enthält
+die Einstellungen für den zweiten Monitor, wenn "2 Monitore" ausgewählt
+ist. Die untere Gruppe enthält Einstellungen für beide Monitore.
+
+Der Aufbau des Bildschirmspeichers von Macintosh und Amiga ist sehr
+unterschiedlich. Der Amiga verwendet das planare Format, bei dem die
+einzelnen Bits einer Farbinformation in mehreren Bitplanes "hintereinander"
+angeordnet sind, der Macintosh benutzt das sog. Chunky-Pixel-Format, bei
+dem die Bits eines Bildpunktes (Pixels) im Speicher nebeneinander liegen.
+
+QuickDraw (die Grafikroutinen des Macintosh) erwartet nun, daß der
+Bildschirmspeicher der Macintosh-Oberfläche im Chunky-Pixel-Format
+vorliegt. Das ist mit der eingebauten Amiga-Grafik nur einer Farbtiefe von
+1 Bit (2 Farben) und z.B. bei einer auf VGA basierenden Grafikkarte nur bei
+8 Bit (256 Farben) der Fall.
+
+Ansonsten muß daher der gesamte Grafikspeicher regelmäßig vom Macintosh-
+ins Amiga-Format konvertiert ("aufgefrischt") werden, ein Verfahren, das
+als "Refresh" bezeichnet wird und natürlich den gesamten Ablauf des
+Emulators stark verlangsamt.
+
+Unter @{"Einstellen des Refreshs" LINK GraRefresh} erfahren Sie, wie Sie den Refresh optimal
+einstellen, bzw. mit welcher Konfiguration Sie die Notwendigkeit zum
+Refresh ganz vermeiden und so die maximale Geschwindigkeit erzielen.
+
+Allgemein kann man sagen, daß Sie zur Farbdarstellung eine Grafikkarte
+benutzen sollten. Als Treibersoftware ist CyberGraphX/Picasso96 der Vorzug
+zu geben, da sonst ein evtl. auf der Karte vorhandener Blitter nicht
+benutzt wird.
+
+Wenn Sie die Grafik einmal so verstellt haben, daß gar nichts mehr zu
+erkennen ist, sollten Sie warten, bis die Festplatte zur Ruhe gekommen ist
+und dann ShapeShifter mit @{b}<Ctrl><Shift links><Alt links><Esc>@{ub} beenden.
+
+@ENDNODE
+
+
+@NODE GraAmiga "Darstellung mit der eingebauten Amiga-Grafik"
+
+Wenn Sie keine Grafikkarte besitzen, oder die Darstellung von ShapeShifter
+aus anderen Gründen mit den eingebauten Grafikmöglichkeiten Ihres Amiga
+laufen lassen wollen, gehen Sie bitte wie folgt vor:
+
+1. Rufen Sie das Fenster "Grafikeinstellungen" auf, falls nicht bereits
+   geschehen.
+
+2. Stellen Sie den @{b}Bildschirmtyp@{ub} auf @{b}"Amiga Bitplanes"@{ub}.
+
+3. Stellen Sie die @{b}Farbtiefe@{ub} auf @{b}"1 Bit (2 Farben)"@{ub}, wenn Sie
+   größtmögliche Geschwindigkeit erreichen möchten, ansonsten auf eine der
+   anderen Möglichkeiten (je mehr Farben, desto langsamer). Die Tiefen
+   "15 Bit" und "24 Bit" können Sie allerdings nicht benutzen.
+
+4. Klicken Sie zur Einstellung des @{b}Bildschirmmodus@{ub} auf @{b}"Auswählen..."@{ub}
+   und suchen Sie sich einen Modus aus, der Ihren Wünschen entspricht. Am
+   besten geeignet sind Modi mit einem Seitenverhältnis von ca. 1:1, also
+   z.B. @{b}"PAL Hires Lace"@{ub} (wenn Sie einen Videomonitor haben) oder
+   @{b}"MULTISCAN Productivity"@{ub} (bei einem VGA-Monitor). Wenn Sie die Farbtiefe
+   auf mehr als zwei Farben eingestellt haben, sollten Sie nicht allzu hohe
+   Auflösungen benutzen.
+
+5. Die Werte in den Feldern @{b}"Größe"@{ub} werden automatisch richtig gesetzt.
+   Wenn Sie die Grafik in höheren Farbtiefen beschleunigen wollen, können
+   Sie hier kleinere Zahlen eingeben.
+   Siehe dazu @{"Ändern der Bildschirmgröße" LINK GraSize}.
+
+6. Wenn Sie eine Farbtiefe von mehr als 1 Bit gewählt haben, lesen Sie
+   unter @{"Refresh" LINK GraRefresh} nach, wie Sie die @{b}"Refresh-Rate"@{ub} am besten wählen.
+
+7. Mit dem Feld @{b}"Schwarzer Rahmen"@{ub} können Sie einstellen, ob der Rahmen
+   um die Bildschirmdarstellung schwarz sein soll. Diese Einstellung ist
+   Geschmackssache.
+
+8. Klicken Sie im @{"Hauptfenster" LINK RefMain} auf @{b}"Speichern"@{ub}, um Ihre Einstellungen
+   dauerhaft zu sichern.
+
+@ENDNODE
+
+
+@NODE GraEGS "Darstellung auf EGS-Grafikkarten"
+
+Wenn Sie eine Grafikkarte besitzen, die mit dem "Enhanced Graphics System"
+(EGS) von Viona-Development ausgestattet ist, gehen Sie bitte wie folgt
+vor, um ShapeShifter optimal für Ihre Karte einzurichten:
+
+1. Rufen Sie das Fenster "Grafikeinstellungen" auf, falls nicht bereits
+   geschehen.
+
+2. Stellen Sie den @{b}Bildschirmtyp@{ub} auf @{b}"EGS"@{ub}.
+
+3. Für die @{b}Farbtiefe@{ub} können Sie zwischen 8, 15 und 24 Bit wählen.
+   Sie sollten zunächst @{b}"8 Bit (256 Farben)"@{ub} einstellen, da bei den
+   Tiefen "15 Bit" und "24 Bit" eine @{"Umrechnung" LINK GraBasics} erforderlich ist.
+
+4. Klicken Sie zur Einstellung des @{b}Bildschirmmodus@{ub} auf @{b}"Auswählen..."@{ub}
+   und suchen Sie sich einen Modus Ihrer Karte aus, der Ihren Wünschen
+   entspricht.
+
+5. Die Werte in den Feldern @{b}"Größe"@{ub} werden automatisch richtig gesetzt.
+   Sie sollten sie nicht ändern.
+
+6. Wenn Sie eine andere Farbtiefe als 8 Bit eingestellt haben, lesen Sie
+   unter @{"Refresh" LINK GraRefresh} nach, wie Sie die @{b}"Refresh"@{ub} am besten wählen.
+
+7. Klicken Sie im @{"Hauptfenster" LINK RefMain} auf @{b}"Speichern"@{ub}, um Ihre Einstellungen
+   dauerhaft zu sichern.
+
+@ENDNODE
+
+
+@NODE GraCyber96 "Darstellung auf CyberGraphX/Picasso96-Grafikkarten"
+
+Wenn Sie eine Grafikkarte mit CyberGraphX/Picasso96-Treiber besitzen,
+gehen Sie bitte wie folgt vor, um ShapeShifter optimal für Ihre Karte
+einzurichten:
+
+1. Rufen Sie das Fenster "Grafikeinstellungen" auf, falls nicht bereits
+   geschehen.
+
+2. Stellen Sie den @{b}Bildschirmtyp@{ub} auf @{b}"CyberGfx/P96"@{ub}.
+
+3. Klicken Sie zur Einstellung des @{b}Bildschirmmodus@{ub} auf @{b}"Auswählen..."@{ub}
+   und suchen Sie sich einen Modus Ihrer Karte aus, der Ihren Wünschen
+   entspricht. Die Einstellung @{b}Farbtiefe@{ub} wird automatisch gesetzt.
+   Bei 15- und 24-Bit Modi kann es jedoch sein, daß eine @{"Umrechnung" LINK GraRefresh}
+   erforderlich ist.
+
+4. Die Werte in den Feldern @{b}"Größe"@{ub} werden automatisch richtig gesetzt.
+   Sie sollten sie nicht ändern.
+
+5. Wenn Sie eine andere Farbtiefe als 8 Bit eingestellt haben, lesen Sie
+   unter @{"Refresh" LINK GraRefresh} nach, wie Sie die @{b}"Refresh-Rate"@{ub} am besten wählen.
+   Je nach Grafikkarte kann es allerdings sein, daß gar keine Umrechnung
+   erforderlich ist. Insbesondere die "CyberVision 64" kann 15 und 24 Bit
+   in voller Geschwindigkeit darstellen.
+
+   16-Bit-Modi taugen für "Tausende Farben": das 15-Bit-Bild des Mac wird
+   unterwegs umgerechnet, wenn der Modus RGB565 ist. Ein 15-Bit-Modus ist
+   schneller, falls die Karte einen hat, denn er braucht keine Umrechnung.
+
+6. Klicken Sie im @{"Einstellungsfenster" LINK RefMain} auf @{b}"Speichern"@{ub}, um Ihre
+   Einstellungen dauerhaft zu sichern.
+
+@{b}PrismRTG:@{ub} PrismRTG bringt eine eigene cybergraphics.library mit, so daß
+der Bildschirmtyp "CyberGfx/P96" damit funktioniert. ShapeShifter hält den
+Mac-Bildschirm im Speicher der Karte fest, solange er läuft (sonst würde
+PrismRTG verdeckte Bildschirme auslagern, wenn die Karte voll ist). Die
+15-Bit-Modi von PrismRTG (nur vorhanden, wenn sie in PrismPrefs
+eingeschaltet sind) sind die schnellste Wahl für Tausende Farben auf einer
+ZZ9000 oder Z3660. Wählen Sie einen 16-Bit-Modus von PrismRTG, bietet
+ShapeShifter stattdessen den 15-Bit-Modus gleicher Größe an oder sagt
+Ihnen, wie Sie die 15-Bit-Modi einschalten.
+
+@ENDNODE
+
+
+@NODE GraPicasso "Darstellung auf der Picasso-Grafikkarte"
+
+Wenn Sie die "Picasso"-Grafikkarte von Village Tronic mit dem CyberGraphX-
+oder Picasso96-System benutzen, blättern Sie bitte @{"hierhin" LINK GraCyber96}. Ansonsten
+gehen Sie bitte wie folgt vor, um ShapeShifter optimal für Ihre Karte
+einzurichten (die Karte darf nicht im segmentierten Modus sein):
+
+1. Rufen Sie das Fenster "Grafikeinstellungen" auf, falls nicht bereits
+   geschehen.
+
+2. Stellen Sie den @{b}Bildschirmtyp@{ub} auf @{b}"Extern"@{ub}.
+
+3. Klicken Sie auf das kleine Feld rechts neben dem Feld "Externer Treiber"
+   und wählen Sie in dem erscheinenden Dateiauswahlfenster den Treiber
+   @{b}"Picasso"@{ub} aus.
+
+4. Für die @{b}Farbtiefe@{ub} können Sie zwischen 8, 15 und 24 Bit wählen.
+   Sie sollten zunächst @{b}"8 Bit (256 Farben)"@{ub} einstellen, da bei den
+   Tiefen "15 Bit" und "24 Bit" eine @{"Umrechnung" LINK GraBasics} erforderlich ist.
+
+5. Klicken Sie zur Einstellung des @{b}Bildschirmmodus@{ub} auf @{b}"Auswählen..."@{ub}
+   und suchen Sie sich einen Picasso-Modus aus, der Ihren Wünschen
+   entspricht.
+
+6. Die Werte in den Feldern @{b}"Größe"@{ub} werden automatisch richtig gesetzt.
+   Sie sollten sie nicht ändern.
+
+7. Wenn Sie eine andere Farbtiefe als 8 Bit eingestellt haben, lesen Sie
+   unter @{"Refresh" LINK GraRefresh} nach, wie Sie die @{b}"Refresh-Rate"@{ub} am besten wählen.
+
+8. Klicken Sie im @{"Hauptfenster" LINK RefMain} auf @{b}"Speichern"@{ub}, um Ihre Einstellungen
+   dauerhaft zu sichern.
+
+Beachten Sie, daß der Picasso-Blitter nur mit CyberGraphX/Picasso96 benutzt
+wird.
+
+@ENDNODE
+
+
+@NODE GraMerlin "Darstellung auf der Merlin-Grafikkarte"
+
+Wenn Sie die "Merlin"-Grafikkarte von XPert/ProDev mit dem CyberGraphX-
+oder Picasso96-System benutzen, blättern Sie bitte @{"hierhin" LINK GraCyber96}. Ansonsten
+gehen Sie bitte wie folgt vor, um ShapeShifter optimal für Ihre Karte
+einzurichten:
+
+1. Rufen Sie das Fenster "Grafikeinstellungen" auf, falls nicht bereits
+   geschehen.
+
+2. Stellen Sie den @{b}Bildschirmtyp@{ub} auf @{b}"Extern"@{ub}.
+
+3. Klicken Sie auf das kleine Feld rechts neben dem Feld "Externer Treiber"
+   und wählen Sie in dem erscheinenden Dateiauswahlfenster den Treiber
+   @{b}"Merlin"@{ub} aus.
+
+4. Für die @{b}Farbtiefe@{ub} können Sie zwischen 8, 15 und 24 Bit wählen.
+   Sie sollten zunächst @{b}"8 Bit (256 Farben)"@{ub} einstellen, da bei den
+   Tiefen "15 Bit" und "24 Bit" eine @{"Umrechnung" LINK GraBasics} erforderlich ist.
+
+5. Klicken Sie zur Einstellung des @{b}Bildschirmmodus@{ub} auf @{b}"Auswählen..."@{ub}
+   und suchen Sie sich einen Merlin-Modus aus, der Ihren Wünschen
+   entspricht.
+
+6. Die Werte in den Feldern @{b}"Größe"@{ub} werden automatisch richtig gesetzt.
+   Sie sollten sie nicht ändern.
+
+7. Wenn Sie eine andere Farbtiefe als 8 Bit eingestellt haben, lesen Sie
+   unter @{"Refresh" LINK GraRefresh} nach, wie Sie die @{b}"Refresh-Rate"@{ub} am besten wählen.
+
+8. Klicken Sie im @{"Hauptfenster" LINK RefMain} auf @{b}"Speichern"@{ub}, um Ihre Einstellungen
+   dauerhaft zu sichern.
+
+Beachten Sie, daß der Merlin-Blitter nur mit CyberGraphX/Picasso96 benutzt
+wird.
+
+@ENDNODE
+
+
+@NODE GraRetinaZ3 "Darstellung auf der Retina-Z3-Grafikkarte"
+
+Wenn Sie die "Retina Z3"-Grafikkarte von MacroSystem mit dem CyberGraphX-
+oder Picasso96-System benutzen, blättern Sie bitte @{"hierhin" LINK GraCyber96}. Ansonsten
+gehen Sie bitte wie folgt vor, um ShapeShifter optimal für Ihre Karte
+einzurichten:
+
+1. Die "RetinaEmu" muß aktiviert sein, um die Karte mit ShapeShifter
+   benutzen zu können. Die ältere Retina Z2 läßt sich nicht verwenden.
+
+2. Rufen Sie das Fenster "Grafikeinstellungen" auf, falls nicht bereits
+   geschehen.
+
+3. Stellen Sie den @{b}Bildschirmtyp@{ub} auf @{b}"Extern"@{ub}.
+
+4. Klicken Sie auf das kleine Feld rechts neben dem Feld "Externer Treiber"
+   und wählen Sie in dem erscheinenden Dateiauswahlfenster den Treiber
+   @{b}"Retina Z3"@{ub} aus.
+
+5. Für die @{b}Farbtiefe@{ub} können Sie zwischen 8, 15 und 24 Bit wählen.
+   Sie sollten zunächst @{b}"8 Bit (256 Farben)"@{ub} einstellen, da bei den
+   Tiefen "15 Bit" und "24 Bit" eine @{"Umrechnung" LINK GraBasics} erforderlich ist.
+
+6. Klicken Sie zur Einstellung des @{b}Bildschirmmodus@{ub} auf @{b}"Auswählen..."@{ub}
+   und suchen Sie irgendeinen Modus aus, egal welchen.
+
+7. In den Feldern @{b}"Größe"@{ub} müssen Sie die gewünschte Auflösung des
+   Bildschirms angeben, z.B. "640" × "480".
+
+8. Wenn Sie eine andere Farbtiefe als 8 Bit eingestellt haben, lesen Sie
+   unter @{"Refresh" LINK GraRefresh} nach, wie Sie die @{b}"Refresh-Rate"@{ub} am besten wählen.
+
+9. Klicken Sie im @{"Hauptfenster" LINK RefMain} auf @{b}"Speichern"@{ub}, um Ihre Einstellungen
+   dauerhaft zu sichern.
+
+Beachten Sie, daß der Retina-Blitter nur mit CyberGraphX/Picasso96 benutzt
+wird.
+
+@ENDNODE
+
+
+@NODE GraWindow "Darstellung in einem Fenster auf der Workbench"
+
+Sie können ShapeShifter auch die Macintosh-Oberfläche in einem Fenster
+auf der Workbench darstellen lassen. Dabei wird der Amiga-Mauszeiger
+benutzt, um die Symbole und Menüs des Macintosh zu bedienen. Wenn Ihre
+Workbench ein Picasso96-Screen auf einer PIP-(Picture In Picture)-fähigen
+Grafikkarte (wie der Picasso IV) ist, versucht ShapeShifter, das PIP zur
+Darstellung zu benutzen (in 15 Bit Farbtiefe). Ansonsten ist die
+Anzeige nur zweifarbig. Gehen Sie bitte wie folgt vor, um ShapeShifter
+für die Anzeige in einem Fenster einzurichten:
+
+1. Rufen Sie das Fenster "Grafikeinstellungen" auf, falls nicht bereits
+   geschehen.
+
+2. Stellen Sie den @{b}Bildschirmtyp@{ub} auf @{b}"Amiga-Fenster"@{ub}.
+
+3. Geben Sie in den Feldern @{b}"Größe"@{ub} die gewünschte Größe des Fensters
+   (und damit der Macintosh-Oberfläche) ein.
+
+4. Tragen Sie als @{b}"Refresh-Rate"@{ub} "1" oder "2" ein.
+
+5. Klicken Sie im @{"Hauptfenster" LINK RefMain} auf @{b}"Speichern"@{ub}, um Ihre Einstellungen
+   dauerhaft zu sichern.
+
+@ENDNODE
+
+
+@NODE GraVideo "Verwenden von Video-Auflösungen"
+
+Im Gegensatz zu den meisten Macintosh-Modellen können Sie mit ShapeShifter
+ohne Probleme Mac-Grafiken auf Video aufzeichnen oder auf einem Fernseher
+darstellen. Dabei ist folgendes zu beachten:
+
+1. Sie müssen einen @{b}Bildschirmmodus@{ub} wählen, der videokompatibel ist, also
+   einen mit @{b}15kHz@{ub} horizontaler und @{b}50Hz@{ub} (NTSC: 60Hz) vertikaler
+   Ablenkfrequenz, z.B. einen der "PAL ..."-Modi.
+
+2. Wenn Sie den gesamten Bildschirm ohne störenden Rand ausnutzen möchten,
+   müssen Sie in der Bildschirmmodus-Auswahl den @{b}Randbereich@{ub} auf
+   @{b}"Grafik-Abmessung"@{ub}, @{b}"Extreme Abmessung"@{ub} oder @{b}"Maximale Abmessung"@{ub}
+   stellen. Welchen Bereich die Abmessungen jeweils umfassen, können Sie im
+   Overscan-Voreinsteller sehen und ändern.
+
+3. Viele Grafikkarten sind nicht videokompatibel. Wenn Ihre Grafikkarte
+   keine Videoauflösungen darstellen kann (entnehmen Sie dies dem Handbuch
+   zur Karte), müssen Sie mit der eingebauten Amiga-Grafik arbeiten.
+
+@ENDNODE
+
+
+@NODE GraTwoMonitors "Verwenden von zwei Monitoren"
+
+Wenn Sie zwei Monitore an Ihrem Amiga angeschlossen haben (einen Monitor
+am eingebauten Monitoranschluß und einen zweiten Monitor an einer
+Grafikkarte), können Sie von Macintosh aus beide Monitore gleichzeitig
+verwenden und Fenster zwischen beiden hin- und herschieben. So können
+Sie z.B. einen hochauflösenden Monitor an einer Grafikkarte für die
+Darstellung und Bearbeitung einer 24-Bit-Grafik in einem Bildbearbeitungs-
+programm benutzen und die Werkzeugpaletten und Fenster des Finders auf
+einen zweiten Monitor verlagern, um für die 24-Bit-Darstellung mehr Platz
+zu haben.
+
+Stellen Sie dazu das oberste Symbol im Fenster "Grafikeinstellungen" auf
+"2 Monitore" und nehmen Sie die Einstellungen für den zweiten Monitor in
+der rechten Symbolgruppe genauso vor, wie die für den ersten Monitor in
+der linken. Dabei gibt es nur wenige Einschränkungen:
+
+ · Sie können nicht beide Monitore auf "Amiga Bitplanes" stellen
+ · Sie können den Bildschirmtyp "Amiga-Fenster" nicht verwenden
+ · Ihre Grafikkarte muß den Betrieb von zwei Monitoren erlauben.
+   Bei CyberGraphX-Karten müssen Sie die Umgebungsvariablen "KEEPAMIGAVIDEO"
+   und "NOPASSTHROUGH" auf 1 setzen. Für andere Karten, konsultieren Sie
+   bitte das Handbuch Ihrer Karte.
+
+Nachdem Sie die Einstellungen für zwei Monitore vorgenommen und den
+Macintosh gestartet haben, müssen Sie zuerst das Kontrollfeld "Monitore"
+öffnen und die Anordnung und Farbdarstellung beider Monitore einstellen.
+Wenn Sie ShapeShifter zuvor nur mit einem Monitor benutzt haben, wird
+die Darstellung auf dem zweiten Monitor erst nach dem Schließen des
+Kontrollfeldes aktiv.
+
+@ENDNODE
+
+
+@NODE GraSize "Ändern der Bildschirmgröße"
+
+Die Werte in den Feldern @{b}"Größe"@{ub} werden automatisch richtig gesetzt,
+wenn Sie einen Bildschirmmodus auswählen.
+
+Sie können die Größe (in Pixeln) nachträglich ändern, indem Sie von Hand
+andere Werte eintragen. Durch das Einstellen einer kleineren Größe können
+Sie z.B. die Geschwindigkeit des @{"Refresh" LINK GraRefresh} erhöhen.
+
+@ENDNODE
+
+
+@NODE GraDepthSwitch "Farbtiefe auf dem Mac wechseln"
+
+Normalerweise wird die Farbtiefe im Einstellungsfenster gewählt, und auf
+dem Mac bietet das Kontrollfeld "Monitore" nur diese eine Tiefe (und
+Graustufen). Mit der Startoption @{b}DEPTHSWITCH@{ub} (das Kästchen "Farbtiefe
+auf dem Mac wählen" auf der Seite @{"CPU" LINK RefCPU} oder das Merkmal) kann der Mac
+sie wechseln, während er läuft, wie ein echter Mac:
+
+ · Amiga-Bildschirme: schwarzweiß, 4, 16 und 256 Farben, soweit der
+   Bildschirmmodus es kann (256 braucht AGA)
+ · Grafikkarten: 256 Farben, Tausende und Millionen, wo die Karte einen
+   Modus derselben Größe hat (15 oder 16 Bit, 32 oder 24 Bit)
+
+Wählen Sie die Tiefe in "Monitore" (bzw. "Monitore & Ton"); ShapeShifter
+öffnet seinen Bildschirm damit neu. Der Mac behält seine Wahl: beim
+nächsten Start öffnet sich der Bildschirm mit der Tiefe aus dem
+Einstellungsfenster, und der Mac wechselt dann auf seine.
+
+Der Preis: der Mac zeichnet dann immer in seinen eigenen Speicher, und
+jede Tiefe wird vom @{"Refresh" LINK GraRefresh} auf den Bildschirm kopiert, auch
+schwarzweiß und die Grafikkarten-Modi, die sonst direkt dargestellt
+werden. Die QuickDraw-Beschleunigung auf Grafikkarten entfällt dann.
+Ohne DEPTHSWITCH ändert sich nichts.
+
+DEPTHSWITCH geht mit einem Monitor, auf Amiga-Bildschirmen und auf
+Grafikkarten (CyberGraphX, Picasso96, PrismRTG). Grafikkarten-Modi, deren
+Zeilen breiter als der Bildschirm sind, gehen nicht; ShapeShifter startet
+dann ohne.
+
+Beim ersten Mal kommt der Mac vielleicht in schwarzweiß hoch (er merkt
+sich den ersten Modus, und das ist jetzt schwarzweiß); wählen Sie die
+Tiefe einmal in "Monitore".
+
+@ENDNODE
+
+
+@NODE GraRefresh "Einstellen des Refreshs"
+
+Mit dem Feld @{b}"Refresh-Rate"@{ub} stellen Sie ein, wieviel Rechenzeit
+freibleiben soll, wenn der von Ihnen gewählte Bildschirmmodus einen
+regelmäßigen Refresh (Umrechnen des Bildschirmspeichers) notwendig macht.
+Die Angabe ist in 1/50 Sekunden. Z.B. läßt eine Einstellung von "5"
+eine Zehntelsekunde zwischen zwei Refreshes frei.
+
+Sinnvolle Werte für einen Amiga 4000/030 sind 5 (2 Bit), 20 (4 Bit)
+und 60 (8 Bit), die 8-Bit-Auflösung ist allerdings zum halbwegs
+vernünftigen Arbeiten zu langsam. Wollen Sie regelmäßig mit mehr als
+2 Farben arbeiten, sollten Sie eine Grafikkarte verwenden, die über
+"Chunky"-Modi verfügt (dies sind z.B. alle Karten, die auf VGA-Chips
+basieren, bei 256 Farben). Dann ist das Umrechnen nicht mehr erforderlich
+und die Geschwindigkeit nimmt stark zu.
+
+Wenn Sie einen 68040/060-Prozessor besitzen und die Option "MMU-Refresh"
+eingeschaltet haben, versucht ShapeShifter, die MMU zu benutzen, um nur
+noch diejenigen Teile des Bildschirms neu zu berechnen, die sich auch
+tatsächlich geändert haben. In diesem Fall können Sie die Refresh-Rate
+getrost auf "1" setzen.
+
+Wenn Sie keine Grafikkarte besitzen, sollten Sie "Amiga Bitplanes" und 1
+Bit Farbtiefe einstellen, sonst "CyberGfx/P96"/"EGS"/"Extern" und 8 Bit
+Farbtiefe. Mit diesen Einstellungen erzielen Sie meistens die besten
+Ergebnisse.
+
+Durch Eingabe einer kleineren Größe in den "Größe"-Feldern (z.B. 512×384
+statt 640×480) wird die Geschwindigkeit des Refreshs stark erhöht.
+
+Noch ein Tip: Wenn Sie einen Grafikmodus mit Refresh benutzen, sollten Sie
+die Option "Größter freier Block" im Fenster @{"Speichereinstellungen" LINK RefMemory}
+ausgeschaltet lassen und als Mac-Speicher nicht den maximal möglichen
+Speicher einstellen, da sonst ein Teil des Bildschirmspeichers eventuell
+im langsameren Chip- oder 16-Bit-Speicher liegt, was die Refresh-
+Geschwindigkeit deutlich herabsetzt.
+
+
+Hier ist eine Tabelle, die angibt, bei welcher Kombination Farbtiefe/
+Bildschirmtyp ein Refresh erforderlich ist:
+
+					Farbtiefe
+Bildschirmtyp		1 Bit	2 Bit	4 Bit	8 Bit	15 Bit	24 Bit
+----------------------------------------------------------------------
+Amiga Bitplanes		nein	ja	ja	ja	-	-
+Amiga-Fenster		ja	-	-	-	-	-
+CyberGfx/P96		-	-	-	nein	(ja)	(ja)
+EGS			-	-	-	nein	ja	ja
+Extern				 --- abhängig vom Treiber ---
+
+(ja) = "nein" auf der CyberVision 64, "ja" auf allen anderen Karten
+
+@ENDNODE
+
+
+@NODE Volumes "Einrichten von Datenträgern für den Macintosh"
+
+Hier erfahren Sie, wie Sie Ihre Diskettenlaufwerken mit dem Macintosh
+benutzen, wie Sie simulierte Macintosh-Festplatten (sog. FileDisks)
+einrichten, ohne Ihre Festplatte neu partitionieren zu müssen, wie Sie
+dem Macintosh eine Partition Ihrer Festplatte oder eine eigene Festplatte
+zur Verfügung stellen (sog. DeviceDisks) und wie Sie SCSI-Geräte wie
+Wechselplatten und CD-ROM-Laufwerke mit ShapeShifter benutzen.
+Die hierzu notwendigen Einstellungen machen Sie in den Fenstern
+"Datenträger", "Diskettenlaufwerke" und "SCSI-Einstellungen", die durch
+Auswahl der Symbole "Datenträger...", "Diskettenlaufwerke..." bzw.
+"SCSI..." im @{"Hauptfenster" LINK RefMain} geöffnet werden.
+
+ @{" Verwenden von Disketten                         " LINK VolFloppy}
+
+ @{" Enrichten einer simulierten Festplatte          " LINK VolFileDisk}
+ @{" Einrichten einer eigenen Macintosh-Partition    " LINK VolDeviceDisk}
+ @{" Direkte Ansteuerung von SCSI-Platten            " LINK VolSCSI}
+ @{" Benutzen von CD-ROM-Laufwerken                  " LINK CDROM}
+
+ @{" Formatieren der Datenträger auf Macintosh-Seite " LINK VolFormat}
+
+ @{" Auswahl des Startvolumes                        " LINK VolBootSel}
+
+@ENDNODE
+
+
+@NODE VolFloppy "Verwenden von Disketten"
+
+ShapeShifter kann maximal zwei Diskettenlaufwerke von der Macintosh-Seite
+aus verwenden. Sie können bei laufender Emulation sowohl mit Macintosh-
+als auch mit Amiga-Disketten normal arbeiten. Lediglich beim Auswurf von
+Disketten verhält sich ShapeShifter anders als ein richtiger Macintosh.
+
+Welche Diskettenformate ShapeShifter verarbeiten kann, hängt davon ab,
+was für ein Laufwerk in Ihrem Amiga installiert ist:
+
+Größe Format      Benötigte Hardware/Software
+---------------------------------------------------------------------------
+ 720K Mac/PC DD   Jedes Amiga-Diskettenlaufwerk, mfm.device V38/V40/V41
+ 800K Mac DD      Original Macintosh-Laufwerk und ein von CrossMAC
+                  unterstützer Adapter zum Anschluß des Laufwerks oder
+                  jedes Amiga-Diskettenlaufwerk mit der A-Max II+/IV-Karte,
+                  mfm.device V41
+ 800K A-Max/      Jedes Amiga-Diskettenlaufwerk, mfm.device V41
+      Emplant DD
+1440K Mac/PC HD   Amiga-HD-Laufwerk, mfm.device V38/V40/V41
+                  ODER Catweasel-Controller mit HD-Laufwerk, multidisk.device
+
+mfm.device V38/V40 ist Teil der CrossDOS-Version, die mit Amiga OS 2.1
+(und später) mitgeliefert wird. mfm.device V41 ist in den kommerziellen
+Versionen von CrossDOS und CrossMAC von Consultron enthalten.
+
+Die 720K- und 1440K-Formate können gelesen, geschrieben und formatiert
+werden. Die 800K-Formate können nur gelesen und geschrieben, aber nicht
+mit ShapeShifter formatiert werden. Um die PC-(MS-DOS)-Formate benutzen
+zu können, muß eine geeignete Macintosh-Systemerweiterung installiert
+sein, wie z.B. "PC Exchange" oder "Access PC".
+
+Mit der Ausnahme des "800K A-Max/Emplant DD"-Formates können alle oben
+genannten Formate auf einem echten Macintosh gelesen, geschrieben und
+formatiert werden, wobei für die PC-Formate ebenfalls "PC Exchange" oder
+"Access PC" benötigt wird.  Um das 720K-Mac-Format zu formatieren, ist
+allerdings die "720K Diskettenformatierer"-Systemerweiterung nötig.
+
+Das 800K-Mac-DD-Format erfordert ein original Mac-Laufwerk oder die
+A-Max II+/IV-Karte, da diese Disketten wie C64-Disketten in verschiedene
+Geschwindigkeitszonen unterteilt sind, die mit Amiga-Laufwerken nicht
+gelesen werden können.
+
+Beim Einlegen einer Amiga-Diskette bei laufender Emulation erscheint auf
+dem Macintosh eine Dialogbox mit der Meldung "Unlesbare Diskette". Sie
+können die Diskette aber von der Amiga-Seite aus normal lesen und
+beschreiben.
+
+Welche Diskettenlaufwerke ShapeShifter als erstes und zweites Macintosh-
+Laufwerk benutzen soll, stellen Sie im Fenster "Diskettenlaufwerke" unter
+"Floppy 1" und "Floppy 2" ein. Mit einem Klick auf "Suchen" ermittelt
+ShapeShifter selbständig die ersten beiden am Amiga angeschlossenen
+Laufwerke. "PH0:" und "PH1:" bezeichnen das erste und zweite Laufwerk
+des Catweasel-Controllers (die Namen sind symbolisch, PH0:/PH1: muss
+nicht gemounted sein).
+
+Bei einem richtigen Macintosh werden Disketten elektrisch ausgeworfen, wenn
+der entsprechende Menüpunkt ausgewählt wurde oder ein Disketten-Icon auf
+den Papierkorb gezogen wurde. Das soll u.a. verhindern, daß eine Diskette
+vorzeitig vom Benutzer entnommen wird, da der Macintosh einige wichtige
+Daten im Speicher hält, die erst kurz vor dem Auswerfen auf die Diskette
+zurückgeschrieben werden.
+
+Da der Amiga nur über Laufwerke mit manuellem Auswurf verfügt, benutzt
+ShapeShifter eine andere Methode: Die Lampe am Laufwerk bleibt bei einer
+eingelegten Macintosh-Diskette ständig angeschaltet, um Sie zu erinnern,
+daß Sie die Diskette noch nicht entnehmen dürfen. Erst wenn alle Daten
+geschrieben wurden und die Diskette entnahmebereit ist (nachdem die
+Diskette auf den Papierkorb gezogen wurde), geht das Licht aus und eine
+blinkende Ziffer in der oberen rechten Bildschirmecke zeigt an, daß die
+entsprechende Diskette entnommen werden kann. Dabei steht eine '1' für das
+erste Diskettenlaufwerk und eine '2' für das zweite.
+
+Die normale Prozedur zur Entnahme einer Macintosh-Diskette sieht also so
+aus:
+
+1. Disketten-Icon auf den Papierkorb ziehen
+
+2. Warten, bis die blinkende Ziffer erscheint und die Lampe am Laufwerk
+   ausgeht (manchmal erscheint die Ziffer nicht, aber wenn die Lampe
+   ausgegangen ist, ist alles OK)
+
+3. Diskette entnehmen
+
+Wenn Sie ein echtes Mac-Laufwerk benutzen, wird die Diskette natürlich
+automatisch ausgeworfen.
+
+Beim Einlegen einer Macintosh-Diskette vergeht gewöhnlich einige Zeit,
+bis sie erkannt wird, da zunächst das AmigaDOS darauf zuzugreifen
+versucht. Das kann verhindert werden, indem man bei dem entsprechenden
+Laufwerk das Feld "AmigaDOS sperren" im Fenster "Diskettenlaufwerke"
+aktiviert. Dadurch wird dieses Laufwerk komplett für AmigaDOS gesperrt,
+solange ShapeShifter läuft. Wollen Sie Amiga-Disketten damit lesen,
+müssen Sie ShapeShifter erst beenden.
+
+@ENDNODE
+
+
+@NODE VolFileDisk "Einrichten einer simulierten Festplatte"
+
+ShapeShifter kann bis zu vier Macintosh-Disks in Amiga-Dateien auf Ihrer
+Festplatte simulieren. Diese werden FileDisks genannt. Sie können FileDisks
+verwenden, wenn Sie Ihre Festplatte nicht neu partitionieren möchten oder
+keine eigene Festplatte für den Macintosh anschaffen wollen.
+
+Eine FileDisk kann sein:
+
+ · ein einfaches HFS-Volume (was "Anlegen..." erzeugt, auch .hfv genannt)
+ · ein Mac-Diskettenabbild, einfach (800K/1,44MB) oder im Format
+   DiskCopy 4.2 (.image, .dsk); der DiskCopy-Kopf wird übersprungen
+ · ein CD- oder Festplattenabbild mit Apple-Partitionstabelle (Toast,
+   .cdr, Hybrid-.iso, partitionierte Festplattenabbilder); die erste
+   HFS-Partition wird benutzt
+ · ein rohes CD-Abbild mit 2352-Byte-Sektoren: eine .bin allein (der
+   erste Track muß der Datentrack sein) oder die dazugehörige .cue (der
+   erste Datentrack wird benutzt, auch hinter Audiotracks; MODE1/2352,
+   MODE2/2352, MODE2/2336 und MODE1/2048). Rohe CD-Abbilder sind nur
+   lesbar.
+
+Reine ISO-9660-CDs (PC-CDs ohne HFS-Teil) lassen sich nicht benutzen.
+
+Zum Einrichten einer FileDisk klicken Sie auf das "Anlegen..."-Symbol der
+entsprechenden FileDisk auf der Seite "Datenträger". ShapeShifter fragt nun,
+wie groß die FileDisk sein soll (in KB). Geben Sie einen Wert ein, der
+Ihren Wünschen entspricht und dem freien Platz auf Ihrer Platte angemessen
+ist und klicken Sie auf "Datei auswählen...". Es erscheint ein
+Dateiauswahlfenster, in das Sie den Namen der anzulegenden FileDisk-Datei
+eingeben müssen. Wenn Sie eine bereits existierende Datei auswählen, wird
+diese überschrieben. Nach einem Klick auf "OK" wird die Datei angelegt und
+der Name in das Textfeld im Einstellungsfenster eingetragen. Die neue
+FileDisk ist bereits eine leere Mac-Platte (benannt nach der Datei): der
+Mac zeigt sie sofort an und fragt nicht, ob er sie initialisieren soll. Wenn Sie
+schon ein Disk-Abbild haben, geben Sie seinen Namen direkt in das Textfeld
+ein, wählen es mit dem Symbol rechts vom Textfeld aus oder legen sein Icon
+auf dem Einstellungsfenster ab.
+
+FileDisks sind wechselbar. Auf dem Mac werfen Sie eine mit "Zurücklegen"
+(Befehl-Y) aus oder ziehen sie in den Papierkorb; das Laufwerk ist dann
+leer. Während der Mac läuft, liegt ein Icon "Mac disk" auf der Workbench:
+wechseln Sie zur Workbench, legen Sie ein Disk-Abbild auf diesem Icon ab,
+und der Mac findet es im ersten leeren Laufwerk, als wäre eine Disk
+eingelegt worden. Sind alle vier Laufwerke belegt, blinkt der Bildschirm.
+
+@ENDNODE
+
+
+@NODE VolDeviceDisk "Einrichten einer eigenen Macintosh-Partition"
+
+Wenn Sie ernsthaft mit ShapeShifter arbeiten wollen, sollten Sie dem
+Macintosh eine eigene Festplatten-Partition oder gar eine eigene Festplatte
+zur Verfügung stellen. ShapeShifter erlaubt die Verwendung von maximal zwei
+solcher Partitionen, DeviceDisks genannt. DeviceDisks können nur mit
+Datenträgern mit einer Blockgröße von 512 Bytes benutzt werden.
+
+Richten Sie zunächst auf Ihrer Amiga-Festplatte oder auf einer neuen
+Festplatte, die Sie für den Macintosh angeschafft haben, mit "HDToolbox"
+oder einem ähnlichen Installationsprogramm eine Amiga-Partition ein, deren
+Größe Ihren Wünschen entspricht (verwenden Sie eine eigene Festplatte,
+sollten Sie die gesamte Platte mit einer einzigen Partition belegen).
+Beachten Sie bitte, daß beim Neupartitionieren Ihrer Festplatte alle
+gespeicherten Daten verloren gehen. Sie sollten also erst eine komplette
+Sicherungskopie Ihrer Platte anfertigen, anschließend die Platte neu
+partitionieren und dann die Kopie auf die Platte zurückspielen.
+
+Wenn die Partition vom Amiga erkannt wird, können Sie im Fenster
+"Datenträger" auf das Symbol "Auswählen..." der entsprechenden DeviceDisk
+klicken und die Partition über Ihrem Namen auswählen. Mit einem Klick auf
+"OK" analysiert ShapeShifter die Partition und trägt die für die Emulation
+benötigten Daten in die Textfelder ein. Erfahrene Benutzer können die
+Informationen in den Textfeldern auch direkt ändern, bei unsachgemäßer
+Änderung können jedoch Daten auf Amiga- und Macintosh-Partitionen verloren
+gehen. Sie können auch den Namen der Amiga-Partition direkt in das
+DeviceDisk-Textfeld eingeben. Dann analysiert ShapeShifter die Partition
+zur Laufzeit.
+
+Wenn sich die Partition auf einem Wechselmedium (z.B. SyQuest oder CD-ROM
+befindet), müssen Sie noch "Wechselmedium" anklicken, damit Medienwechsel
+erkannt werden.
+
+Sie sollten nun auf @{"Speichern" LINK SaveSettings} klicken, um die DeviceDisk dauerhaft
+verfügbar zu machen. Wenn die DeviceDisk von der Macintosh-Seite aus
+formatiert wurde, können Sie die Partition mit "HDToolbox" auf "NoMount"
+stellen, so daß das Amiga-Betriebssystem sich nicht mehr um die Partition
+kümmert (sie wird ja jetzt nur noch vom Macintosh aus benutzt).
+
+@ENDNODE
+
+
+@NODE VolSCSI "Direkte Ansteuerung von SCSI-Platten"
+
+SCSI-Fest- und -Wechselplatten sollten, wenn möglich, als @{"DeviceDisks" LINK VolDeviceDisk}
+eingerichtet werden, da damit der Datendurchsatz höher ist.
+
+Sie können aber auch eine komplette, eigene Festplatte mit direktem SCSI-
+Zugriff (siehe @{"hier" LINK SCSI}) partitionieren und formatieren, wie Sie es mit der
+Festplatte eines echten Macintosh auch machen würden. Bei diesem Vorgang
+wird auch ein Mac-SCSI-Treiber auf die Platte kopiert. Um dies zu tun,
+benötigen Sie ein Macintosh-Festplatten-Installationsprogramm, wie das von
+Apple, das auf der "Dienstprogramme"-Diskette mitgeliefert wird oder das
+bessere "Apple HD SC Setup" oder den "HDT Primer" von FWB.
+
+Das Apple-Programm auf der "Dienstprogramme"-Diskette funktioniert nur mit
+Apple-OEM-Laufwerken. Dies kann man jedoch umgehen, indem man im Fenster
+"SCSI-Einstellungen" das Feld "Apple Festplatten-Emulation" aktiviert.
+Nach dem Formatieren und Partitionieren können und sollten Sie diese Option
+wieder ausschalten.
+
+@ENDNODE
+
+
+@NODE VolFormat "Formatieren der Datenträger auf Macintosh-Seite"
+
+Nach dem erfolgreichen Einrichten einer File- oder DeviceDisk müssen diese
+nach dem Start des Emulators noch vom Mac aus formatiert werden. Wird der
+Datenträger erkannt, erscheint unmittelbar nach dem Start des Finders eine
+Dialogbox mit der Meldung "Fehlerhaftes Volume" oder "Volume unlesbar" und
+dem Icon des Datenträgers. Für die FileDisks ist dies ein Blatt Papier mit
+umgeknickter Ecke, einem Amiga-Haken und der Nummer 1 oder 2, für die
+DeviceDisks eine Diskette, ebenfalls mit Amiga-Haken und der Nummer 1 oder
+2. Nach einem Klick auf "Initialisieren" und der Eingabe des Volume-Namens
+wird der Datenträger formatiert, was recht schnell geht. Anschließend steht
+die File-/DeviceDisk als Macintosh-Volume zur Verfügung.
+
+@ENDNODE
+
+
+@NODE VolBootSel "Auswahl des Startvolumes"
+
+Wenn Sie mehrere startfähige Datenträger für den Macintosh eingerichtet
+haben, können Sie auswählen, von welchem Datenträger gestartet werden
+soll. Dazu gibt es zwei Möglichkeiten: 1. Das "Startvolume"-Kontrollfeld
+auf dem Mac, 2. das "Starten von"-Symbol im Datenträger-Fenster.
+
+Das Kontrollfeld funktioniert nur mit echten SCSI-Geräten, das "Starten
+von"-Symbol nur mit File-/DeviceDisks. Dabei hat die Einstellung in
+ShapeShifter Priorität über die des Kontrollfelds. Nur wenn das Symbol
+auf "Letzte Auswahl" steht, wird die Einstellung des Kontrollfelds
+berücksichtigt. Stellt man das Symbol auf "Egal", wird vom ersten
+bootfähigen Datenträger gestartet, der gefunden wird (in der Reihenfolge
+Diskette -> SCSI-Gerät -> DeviceDisk -> FileDisk).
+
+Anders ausgedrückt: Die Einstellung "Letzte Auswahl" des "Starten von"-
+Symbols wechselt das Startvolume nicht explizit (dies entspricht dem
+bisherigen Verhalten von ShapeShifter). Stellt man z.B. "FileDisk 1"
+als Startvolume ein, wird von der ersten FileDisk gebootet. Stellt man
+danach "Letze Auswahl" ein, wird immer noch von der FileDisk gebootet.
+Wählt man dann "Egal" aus, wird wieder vom ersten gefundenen Datenträger
+gestartet. Setzt man es dann auf "Letzte Auswahl", wird weiterhin vom
+ersten gefundenen Datenträger gestartet.
+
+Um von CD-ROM zu booten, muß das "Starten von"-Symbol auf "CD-ROM"
+gestellt werden. Das Booten von CD-ROM funktioniert nur mit dem
+@{"eingebauten CD-ROM-Treiber" LINK CDROM}.
+
+@ENDNODE
+
+
+@NODE CDROM "Benutzen von CD-ROM-Laufwerken"
+
+Zum Zugriff auf CD-ROM-Laufwerke gibt es mit ShapeShifter zwei
+Möglichkeiten:
+
+1. Als "DeviceDisk" unter Verwendung des mitgelieferten "empcd.device"
+   von Nicola Salmoria. Diese Methode ist schneller, benötigt keinen
+   speziellen Macintosh-Treiber und funktioniert auch mit IDE-Laufwerken,
+   aber es lassen sich nur Daten-CDs verwenden.
+
+2. Über direkten SCSI-Zugriff. Diese Methode ist zwar langsamer, aber
+   mit Macintosh-Programmen kompatibler und es lassen sich Audio- und
+   Hybrid-CDs und (ein geeignetes Laufwerk vorausgesetzt) Programme zum
+   Lesen von CD-DA benutzen. Allerdings setzt der direkte SCSI-Zugriff
+   ein echtes SCSI-Laufwerk (oder ein IDE-Laufwerk mit leistungsfähiger
+   SCSI-Emulation) voraus.
+
+Zur Verwendung des "empcd.device" lesen Sie bitte die diesem Treiber
+beiliegende Anleitung im Archiv "empcd14.lha".
+
+Für den direkten SCSI-Zugriff, lesen Sie bitte @{"hier" LINK SCSISelDriver}, wie Sie die SCSI-
+Einstellungen in ShapeShifter vornehmen. Sie benötigen dann zusätzlich
+noch einen für Ihr CD-ROM-Laufwerk geeigneten Macintosh-Treiber, z.B.
+den frei verfügbaren Treiber von NEC (der auch mit Laufwerken anderer
+Hersteller funktioniert) oder das erweiterte "CD-ROM ToolKit" von FWB.
+
+Wenn Sie keinen geeigneten Treiber besitzen, aber ein CD-ROM-Laufwerk
+haben, das dem SCSI-2-Standard entspricht, können Sie es unter ShapeShifter
+auch mit dem in ShapeShifter eingebauten CD-ROM-Treiber benutzen.
+
+Aktivieren Sie dazu das Feld "Generischen CD-ROM-Treiber benutzen" im
+Fenster "SCSI-Einstellungen". Sie benötigen dann keine spezielle
+Treibersoftware mehr. Wenn Sie für Ihr Laufwerk einen anderen Macintosh-
+Treiber verwenden, sollten Sie dieses Feld nicht auswählen.
+
+Der eingebaute CD-ROM-Treiber besitzt einige Einschränkungen. Insbesondere
+kann er nur maximal ein Laufwerk ansteuern (das mit der niedrigsten ID)
+und von CDs mit mehreren Datentracks nur den ersten Track lesen.
+
+Einige Laufwerke arbeiten mit dem eingebauten CD-ROM-Treiber nicht
+zusammen. In diesem Fall müssen Sie einen anderen CD-ROM-Treiber benutzen
+oder das Laufwerk mit dem "empcd.device" ansteuern.
+
+@ENDNODE
+
+
+@NODE SCSI "Benutzen von SCSI-Geräten"
+
+Wenn Ihr Amiga über einen SCSI-Anschluß verfügt (ist beim Amiga 3000/4000T
+eingebaut, ansonsten können Sie einen handelsüblichen SCSI-Adapter
+verwenden), erlaubt ShapeShifter die Benutzung von SCSI-Geräten wie
+CD-ROM-Laufwerken, Scannern und Streamern vom Macintosh aus. Die dazu
+notwendigen Einstellungen werden im Fenster "SCSI-Einstellungen" getroffen,
+das Sie durch einen Klick auf das Symbol "SCSI..." im @{"Hauptfenster" LINK RefMain} öffnen
+können.
+
+ @{" ShapeShifter für SCSI einrichten   " LINK SCSISelDriver}
+ @{" Ausschalten einzelner SCSI-IDs     " LINK SCSIEnable}
+
+ @{" Ansteuerung von SCSI-Platten       " LINK VolSCSI}
+ @{" Benutzen von CD-ROM-Laufwerken     " LINK CDROM}
+
+ @{" Geschwindigkeit und Speicherbedarf " LINK SCSIMemType}
+ @{" SCSI-Optionen und defekte Treiber  " LINK SCSIOptions}
+
+@ENDNODE
+
+
+@NODE SCSISelDriver "ShapeShifter für SCSI einrichten"
+
+Dem Macintosh steht unter ShapeShifter ein einziger SCSI-Bus mit bis zu
+sieben angeschlossenen Geräten zur Verfügung, die über eine ID von 0 bis 6
+angesprochen werden.
+
+Wenn Sie das Fenster "SCSI-Einstellungen" öffnen, sehen Sie im oberen
+Teil des Fensters sieben Reihen mit Symbolen, von denen jede zu jeweils
+einer ID gehört, deren Nummer ganz links in der Reihe steht. Jede Reihe
+enthält drei Symbole, und zwar
+
+ · Ein Auswahlfeld, mit dem der Zugriff des Macintosh auf diese ID
+   ein- oder ausgeschaltet werden kann. Ist das Feld nicht abgehakt,
+   so ist für den Macintosh an dieser ID kein Gerät angeschlossen,
+   auch wenn die beiden anderen Symbole ein angeschlossenes Gerät
+   angeben.
+
+ · Ein Textfeld ("SCSI-Treiber"), in das Sie den Namen des für diese ID zu
+   verwendenden Amiga-SCSI-Treibers eingeben müssen. Auf dem Amiga 3000/
+   4000T oder bei Verwendung der Commodore-SCSI-Karten A2091 oder A4091 ist
+   dies z.B. "scsi.device". Verwenden Sie einen SCSI-Adapter eines
+   Fremdherstellers, lesen Sie hierzu im Handbuch Ihres SCSI-Adapters nach,
+   welchen Namen der Treiber besitzt.
+
+ · Ein Zahlenfeld ("Einheit") zur Eingabe der Einheitennummer, die mit
+   dieser ID angesprochen werden soll. Die Einheitennummer entspricht
+   normalerweise der wirklichen SCSI-ID des Gerätes. Wenn Sie mehrere
+   SCSI-Adapter desselben Herstellers eingebaut haben, können Sie mit
+   der Hunderterstelle der Einheitennummer auswählen, welche Karte benutzt
+   werden soll, wenn beide denselben Treiber verwenden.
+
+Wichtig ist die Unterscheidung zwischen den @{b}wirklichen@{ub} SCSI-IDs bzw.
+Einheitennummern der Geräte und den @{b}logischen@{ub}, unter denen sie vom
+Macintosh aus erscheinen. Hierzu zwei Beispiele:
+
+1. Sie haben ein CD-ROM-Laufwerk (ID 2) und einen Scanner (ID 6) am
+   eingebauten SCSI-Anschluß eines Amiga 3000. Um beide Geräte mit dem
+   Macintosh benutzen zu können, müssen Sie in der Reihe von ID 2 als
+   SCSI-Treiber "scsi.device" und als Einheit "2" und in der Reihe von
+   ID 6 als Treiber ebenfalls "scsi-device" und als Einheit "6" eintragen.
+   Außerdem müssen Sie die Auswahlfelder für ID 2 und ID 6 abgehakt sein.
+   Damit würde das CD-ROM von Macintosh aus unter ID 2 und der Scanner
+   unter ID 6 erscheinen, genauso wie vom Amiga aus auch.
+
+   Ebensogut hätten Sie auch in der Reihe von ID 0 "scsi.device"/Einheit 6
+   und in der Reihe von ID 1 "scsi.device"/Einheit 2 eintragen und die
+   Auswahlfelder von ID 0 und ID 1 abhaken können. Damit wäre für den
+   Macintosh das CD-ROM an ID 1 und der Scanner an ID 0 angeschlossen,
+   obwohl sich die wirklichen SCSI-IDs der Geräte nicht geändert haben.
+
+2. Sie haben einen Amiga 4000 mit einer "GVP Series II"- und einer
+   "Fastlane Z3"-Karte. An der Fastlane sind verschiedene Festplatten
+   angeschlossen, von denen Sie die mit der ID 3 unter ShapeShifter mit
+   direktem SCSI-Zugriff nutzen möchten. An der GVP-Karte (mit Guru-ROM)
+   hängt ein Streamer, ebenfalls mit der ID 3, den Sie auch mit dem
+   Macintosh benutzen möchten. Sie können nun z.B. in der Reihe von ID 0
+   als SCSI-Treiber "z3scsi.device"/Einheit 3 und in der Reihe von ID 1
+   als Treiber "omniscsi.device"/Einheit 3 eingeben und beide IDs abhaken.
+   Dann können Sie vom Macintosh die Festplatte unter ID 0 und den Streamer
+   unter ID 1 ansprechen.
+
+@ENDNODE
+
+
+@NODE SCSIEnable "Ausschalten einzelner SCSI-IDs"
+
+Die Auswahlfelder neben den Zahlen "0" bis "6" am linken Fensterrand der
+"SCSI-Einstellungen" dienen dazu, einzelne logische SCSI-IDs ein- bzw.
+auszuschalten. Damit können Sie z.B. verhindern, daß Sie auf Geräte, die
+Sie nicht benutzen wollen, die aber eine lange Initialisierungsphase haben,
+warten müssen oder Sie können Geräte abschalten, die mit bestimmten
+Programmen nicht zusammenarbeiten.
+
+@ENDNODE
+
+
+@NODE SCSIMemType "Geschwindigkeit und Speicherbedarf"
+
+ShapeShifter benutzt bei der SCSI-Datenübertragung Puffer, die im Speicher
+angelegt werden. Je nachdem, in welchem Speicherbereich diese Puffer
+liegen, kann die Geschwindigkeit der Übertragung stark schwanken.
+
+Mit dem Symbol "Speichertyp" können Sie auswählen, in welchem
+Speicherbereich die Puffer angelegt werden sollen. Die Einstellung
+beeinflußt bei einem richtig konfigurierten SCSI-Adapter nur seine
+Geschwindigkeit und nicht die Sicherheit der Übertragung.
+
+Besitzen Sie einen PIO-Adapter können Sie "Egal" einstellen, bei einem
+DMA-fähigen Zorro-II-Adapter (z.B. GVP Serie II) sollten Sie auf dem
+Amiga 2000/3000 "24-Bit-DMA" und auf dem Amiga 4000 "Chip-RAM" wählen,
+bei einem Zorro-III-Adapter (z.B. A4091 oder Fastlane Z3) ist "Egal" die
+beste Einstellung. Wenn Sie vom letzten Satz nur die Hälfte verstanden
+haben, macht auch nichts. Setzen Sie die Einstellung einfach auf "Egal"
+oder experimentieren Sie etwas herum (sie können auch ein Macintosh-
+Programm zur SCSI-Geschwindigkeitsmessung benutzen, um die beste
+Einstellung zu finden).
+
+Wenn das Symbol "Direkte Übertragung" aktiviert ist, umgeht ShapeShifter
+seine Puffer wenn möglich, und überträgt die Daten direkt von der SCSI-
+Karte in den Macintosh-Speicher (und zurück). Dies ist mit einigen
+Macintosh-Programmen weniger kompatibel, aber es benötigt weniger Speicher
+und ist mit SCSI-Adaptern, die DMA in 32-Bit-Speicher ausführen können,
+schneller. Wenn Sie wiederholt Meldungen wie "Could not allocate buffer
+for reading" von ShapeShifter bekommen, sollten Sie auch dieses Symbol
+aktivieren. Einige SCSI-Treiber mit @{"defekter" LINK SCSIOptions} HD_SCSICMD-Schnittstelle
+benötigen ebenfalls diese Einstellung.
+
+Der "Sommer"-Modus dient zur Umgehung eines @{"Fehlers" LINK SCSIOptions} in SCSI-Karten von
+phase 5. Benutzer anderer SCSI-Karten sollten diese Option ausgeschaltet
+lassen.
+
+@ENDNODE
+
+
+@NODE SCSIOptions "SCSI-Optionen und defekte Treiber"
+
+Die Treiber von Amiga-SCSI-Karten fallen in eine von zwei Kategorien:
+Fehlerfreie Treiber und fehlerhafte Treiber. Leider gehören sehr viele
+Treiber der zweiten Kategorie an.
+
+Ein fehlerfreier Treiber (z.B. GVP-Adapter mit Guru-ROM, neuere Versionen
+des Oktagon, Masoboshi) ist daran zu erkennen, daß er unter ShapeShifter
+mit den folgenden Einstellungen funktioniert:
+
+ · SCSI-Speichertyp: Egal
+ · Direkte Übertragung: An
+ · "Sommer"-Modus: Aus
+
+Funktioniert ein Treiber nicht mit dieser Einstellung, ist er defekt. Punkt.
+Um auch kaputte Treiber einigermaßen zur Zusammenarbeit zu überreden,
+bietet ShapeShifter einige Möglichkeiten an:
+
+Für alte DMA-SCSI-Karten, die auch von der Amiga-Seite aus ohne eine
+korrekte Einstellung des "Mask"-Wertes nicht funktionieren (z.B. GVP-
+Adapter ohne Guru-ROM), muß der "Speichertyp" auf "Chip-RAM" oder
+"24-Bit DMA" stehen und die "Direkte Übertragung" ausgeschaltet sein.
+
+Für ältere Oktagon/AT-Bus 2008/AlfaPower/TandemAT/ALF2/ALF3 wird das
+Programm "SSOktaPatch" mitgeliefert, das die Fehler in deren Treibern
+korrigiert (siehe die Datei "README" im Archiv "SSOktaPatch.lha").
+
+SCSI-Produkte von phase 5 mit Treibern <V7 haben eine defekte HD_SCSICMD-
+Schnittstelle, die den Betrieb mit ShapeShifter einschränkt. Es gibt
+drei Lösungen:
+
+ a) Besorgen Sie sich ein neueres ROM für ihre SCSI-Karte.
+
+ b) Schalten Sie mit dem Programm "UnitControl", das der SCSI-Karte
+    beiliegt, den Übertragungsmodus für HD_SCSICMD-Befehle auf "polling".
+    Dadurch werden alle SCSI-Vorgänge stark verlangsamt, aber es
+    funktioniert.
+
+ c) Wenn Sie kein Polling verwenden möchten, muß die Option "Direkte
+    Übertragung" unbedingt eingeschaltet werden. Für einige Mac-CD-ROM-
+    Treiber ist zusätzlich die Benutzung des "Sommer"-Modus notwendig.
+    Der "Sommer"-Modus betrifft nur Fest-/Wechselplatten und CD-ROMs und
+    setzt die generelle Kompatibilität auf Mac-Seite stark herab. Er
+    sollte daher nur benutzt werden, wenn dies notwendig ist.
+
+Uralte SCSI-Karten, die überhaupt keine HD_SCSICMD-Schnittstelle haben
+(z.B. "Next Generation") können mit ShapeShifter nicht verwendet werden.
+Daran wird sich auch nichts ändern.
+
+@ENDNODE
+
+
+@NODE Serial "Benutzen der Amiga-Schnittstellen vom Macintosh"
+
+Die Modem- und Druckerports des Macintosh werden von ShapeShifter auf
+Amiga-Schnittstellen umgeleitet. In den seriellen Einstellungen von
+ShapeShifter geben Sie an, welcher Port auf welchen Treiber gelegt werden
+soll. ShapeShifter unterstützt alle Treiber, die zum "serial.device" oder
+zum "parallel.device" des AmigaOS kompatibel sind, also auch die Treiber
+der meisten I/O-Erweiterungskarten.
+
+Alle hierzu nötigen Einstellungen nehmen Sie im Fenster "Serielle
+Einstellungen" vor, das sich nach einem Klick auf das Symbol "Seriell..."
+im @{"Hauptfenster" LINK RefMain} von ShapeShifter öffnet. Für Modem- und Druckerport sind
+jeweils dieselben Symbole vorhanden.
+
+In dem großen Textfeld steht der Name des Treibers (z.B. "serial.device").
+Bei Treibern auf Diskette kann dieser auch mit dem Symbol "Auswählen..."
+ausgesucht werden.
+
+Verwenden Sie eine I/O-Erweiterungskarte, die mehrere Anschlüsse besitzt,
+können Sie im Feld "Geräte-Einheit" die Einheiten-Nummer des von Ihnen
+gewünschten Anschlusses eingeben. Lesen Sie bitte im Handbuch Ihrer Karte
+nach, welche Nummer welchem Anschluß entspricht. Für Standard-Amigas mit
+einer seriellen und einer parallelen Schnittstelle geben Sie hier "0" ein.
+
+Sie müssen ShapeShifter nun noch mitteilen, ob der gewählte Anschluß ein
+serieller oder ein paralleler ist, da diese unterschiedliche Eigenschaften
+besitzen (z.B. besitzt eine parallele Schnittstelle keine Einstellung für
+die Baudrate). Aktivieren oder deaktivieren Sie hierzu das Feld "Paralleles
+Gerät".
+
+Wollen Sie z.B. den Modemport auf den eingebauten seriellen Anschluß des
+Amiga und den Druckerport auf den parallelen Anschluß umleiten, geben Sie
+bitte folgendes ein:
+
+ · Für den Modemport: "serial.device", Einheit 0, kein paralleles Gerät
+ · Für den Druckerport: "parallel.device", Einheit 0, paralleles Gerät
+
+Wenn Sie eine A-Max-II+/IV- oder Emplant-Karte in Ihrem Amiga installiert
+haben, können Sie die Modem- und Druckerports der Karte von ShapeShifter
+aus benutzen, wenn Sie das Symbol "A-Max/Emplant" aktivieren.
+
+Macintosh-Rechner verwenden runde Mini-DIN-Buchsen für die Ports, Sie
+können also Macintosh-Geräte nicht an normale Amigas anschließen (die
+7-fach serielle Karte von Commodore und die A-Max-/Emplant-Karten haben
+jedoch diese Anschlüsse). Dazu gibt es folgende Lösung: Die allerersten
+Macintosh- Modelle hatten keine Mini-DIN-Buchsen, sondern 9-polige
+D-SUB-Stecker, wie sie z.B. auch an PC/ATs vorhanden sind. Mit einem
+Adapter von einer 25-poligen D-SUB-Buchse auf einen 9-poligen D-SUB-Stecker
+(gibt's in jedem PC-Geschäft) und einem Adapter von einer 9-poligen
+D-SUB-Buchse auf eine Mini-DIN-Buchse (erhältlich bei Apple und
+Drittanbietern) kann jeder Amiga mit einem Macintosh-gerechten Anschluß
+versehen werden.
+
+Noch ein Wort zu parallelen Geräten: Da diese für den Macintosh auch
+seriell sind, stehen natürlich dort auch alle Einstellungen zur Verfügung,
+die für serielle Schnittstellen typisch sind, z.B. Baudrate, Parität
+etc. Bei paralellen Geräten werden alle diese Einstellungen ignoriert,
+bis auf "Hardware-(CTS)-Handshake", das auf das parallele "ACK-Handshake"
+umgeleitet wird. Damit können Sie Datenverluste beim Übertragen von
+Daten zu parallelen Druckern verhindern.
+
+@ENDNODE
+
+
+@NODE Printers "Benutzen von Druckern"
+
+Um einen Drucker mit Centronics-Schnittstelle zu benutzen, müssen Sie in
+den @{"seriellen Einstellungen" LINK Serial} von ShapeShifter für den Druckerport das
+zum Druckeranschluß gehörige Device auswählen (i.A. wird dies für den
+eingebauten Parallelport "parallel.device" sein, auf keinen Fall jedoch
+"printer.device"!) und das Feld "Paralleles Gerät" aktivieren.
+
+Dann müssen Sie auf Mac-Seite einen geeigneten Druckertreiber installieren.
+Sie können keinen einzigen der mit MacOS mitgelieferten Treiber mit
+ShapeShifter verwenden (die einzige Ausnahme ist ein Apple LaserWriter
+mit EtherTalk-Anschluß). Der "DeskWriter"-Treiber funktioniert nicht mit
+dem "DeskJet". Für Epson-kompatible Drucker können Sie "Chuck's Printer
+Driver", für HP-PCL-kompatible Drucker den "HPDJ" benutzen (beide sind
+per FTP und auch in vielen Mailboxen frei erhältlich). Für einige Drucker
+gibt es spezielle Mac-Treiber, die auch mit ShapeShifter funktionieren
+(z.B. für den Epson Stylus). Von GDT Softworks gibt es ein recht
+universelles Treiberpaket namens "Power Print" (siehe @{"hier" LINK FAQ}).
+
+@ENDNODE
+
+
+@NODE Network "Einbindung in Ethernet-Netzwerke"
+
+ShapeShifter unterstützt Ethernet-Karten mit SANA-II-Treiber (z.B. A2065
+oder Ariadne) zur Verwendung mit AppleTalk, MacTCP und MacIPX. Die
+Verwendung von Arcnet ist nicht möglich.
+
+Alle hierzu nötigen Einstellungen nehmen Sie im Fenster "Netzwerk-
+Einstellungen" vor, das sich nach einem Klick auf das Symbol "Netzwerk..."
+im @{"Hauptfenster" LINK RefMain} von ShapeShifter öffnet.
+
+Im Feld "Netzwerk-Treiber" geben Sie den kompletten Pfad zu dem zu
+verwendenden SANA-II-Treiber an (z.B. "DEVS:Networks/a2065.device").
+Sie können den Treiber auch mit einem Klick auf "Auswählen..." mit
+einem Dateiauswahlfenster aussuchen. Die Einstellung "Geräte-Einheit"
+dient zur Auswahl der Netzwerkkarte, falls Sie mehrere installiert
+haben, die über denselben Treiber angesprochen werden.
+
+Wichtige Dinge, die Sie beachten sollten:
+ - Die Verwendung von Ethernet erfordert eine korrekte Installation der
+   Macintosh-Systemssoftware (inklusive EtherTalk-Software!). Von der
+   Verwendung von System 7.0.1 wird dringend abgeraten.
+ - Wenn MacTCP benutzt werden soll, darf auf der Amiga-Seite zur gleichen
+   Zeit weder AmiTCP noch Envoy auf derselben Ethernet-Karte laufen.
+
+@ENDNODE
+
+
+@NODE LocalTalk "Einbindung in LocalTalk-Netzwerke"
+
+Die Benutzung von LocalTalk ist nur in Verbindung mit einer Emplant-Karte
+mit SCC möglich. Die Karte wird von ShapeShifter automatisch erkannt und
+benutzt. Sie müssen nur im "Netzwerk"-Kontrollfeld auf LocalTalk schalten,
+da ShapeShifter als Vorgabe EtherTalk benutzt. Der Anschluß an das
+Netzwerk erfolgt über die "Printer"-Buchse der Emplant-Karte.
+
+Ohne eine Emplant-Karte ist LocalTalk nicht möglich und das Umschalten
+auf LocalTalk im "Netzwerk"-Kontrollfeld führt zu einem Systemabsturz.
+
+@ENDNODE
+
+
+@NODE PLIP "Vernetzen zweier Amigas mit PLIP"
+
+Zwei mit MacOS unter ShapeShifter laufende Amigas können über PLIP vernetzt
+werden, wobei fast alle Netzwerkfunktionen von MacOS zur Verfügung stehen.
+Die PLIP-Hardware erscheint dabei auf Mac-Seite als Ethernet-Hardware und
+wird genau wie eine Ethernet-Karte konfiguriert und angesprochen.
+
+Benötigt wird dazu ein SANA-II-PLIP-Treiber, der über das Aminet verfügbar
+ist (Verzeichnis "/comm/net"; ich empfehle "magPLIP" von Marius Gröger;
+andere PLIP-Treiber haben Fehler), sowie ein PLIP-Kabel. Bauanleitungen
+für PLIP-Kabel liegen den PLIP-Treibern bei. Weder PLIP-Treiber noch PLIP-
+Kabel sind beim Autor von ShapeShifter erhältlich.
+
+Alle nötigen Einstellungen nehmen Sie im Fenster "Netzwerk-Einstellungen"
+vor, das sich nach einem Klick auf das Symbol "Netzwerk..." im
+@{"Hauptfenster" LINK RefMain} von ShapeShifter öffnet.
+
+Im Feld "Netzwerk-Treiber" geben Sie den kompletten Pfad zu dem zu
+verwendenden SANA-II-PLIP-Treiber an (z.B. "DEVS:Networks/magplip.device").
+Sie können den Treiber auch mit einem Klick auf "Auswählen..." mit
+einem Dateiauswahlfenster aussuchen.
+
+Die Einstellung "Geräte-Einheit" muß bei einem der vernetzten Amigas auf
+"0", beim anderen auf "1" gestellt werden.
+
+Das PLIP-Netzwerk erscheint auf Mac-Seite als Ethernet-Netzwerk, daher muß
+auf Mac-Seite die EtherTalk-Software installiert sein und Mac-Netzwerk-
+Software (AppleTalk, MacTCP, MacIPX) auf "Ethernet" eingestellt werden.
+
+Die PLIP-Vernetzung funktioniert ausschließlich zwischen zwei Amigas mit
+ShapeShifter. Selbst bei Verwendung von MacTCP ist das Übertragungsformat
+anders als normalerweise bei TCP/IP über PLIP. Es ist also nicht möglich,
+eine TCP/IP-Verbindung über PLIP zwischen AmiTCP und MacTCP herzustellen.
+
+@ENDNODE
+
+
+@NODE Memory "Zuteilung von Speicher für den Macintosh"
+
+ShapeShifter benötigt für die Emulation einen Speicherbereich mit von Ihnen
+einstellbarer Größe, der vom Macintosh als Hauptspeicher benutzt wird. Wenn
+Sie z.B. 4 MB Speicher einstellen, werden beim Starten des Emulators 4 MB
+Amiga-Speicher belegt. Das Macintosh-Betriebssystem glaubt dann, auf einem
+Macintosh mit 4 MB installiertem Hauptspeicher zu laufen. Alle Macintosh-
+Programme benutzen nur diese 4 MB Speicher für Ihre Daten und wenn Sie ein
+Macintosh-Programm starten, bekommt es einen Teil dieser 4 MB zugewiesen,
+egal, wieviel freier Speicher Ihrem Amiga darüberhinaus zur Verfügung
+steht. Aufgrund einer Inflexibilität des Macintosh-Betriebssystems kann der
+Emulator nur einen einzigen zusammenhängenden Block verwenden.
+
+Alle den Speicher betreffenden Einstellungen nehmen Sie im Fenster
+"Speichereinstellungen" vor, das sich nach einem Klick auf das Symbol
+"Speicher..." im @{"Hauptfenster" LINK RefMain} öffnet.
+
+Sie können entweder mit "Mac-Speicher (KB)" die Größe des als Macintosh-
+Speicher zu verwendenden Blocks in KB eingeben oder durch Anwahl von
+"Größter freier Block" festlegen, daß ShapeShifter den größten zur
+Verfügung stehenden Speicherbereich verwenden soll. Beachten Sie bitte,
+daß System 7 mindestens 1,5 MB Speicher benötigt. Die maximal für
+ShapeShifter zur Verfügung stehende Menge an Speicher wird unter
+"Maximal (KB)" angezeigt.
+
+Wundern Sie sich nicht, wenn die Speicheranzeige in der Titelleiste des
+Workbench-Bildschirms wesentlich mehr freien Speicher anzeigt, als sie in
+ShapeShifter einstellen können. Der Speicher für den Macintosh muß - wie
+bereits erwähnt - an einem Stück zur Verfügung stehen, was bei
+fortgeschrittener Fragmentierung des Speichers nicht gewährleistet ist.
+Abhilfe schafft hier ein Neustart des Amiga oder der Befehl "avail flush".
+
+Ist das Symbol "Mac-ROM-Speicher zuerst belegen" abgehakt, belegt
+ShapeShifter den Speicher für das @{"Macintosh-ROM" LINK InstallROM} vor dem Macintosh-RAM,
+damit die Gefahr, daß das ROM in einem langsamen Speicherbereich landet,
+geringer ist. Dies erhöht die Geschwindigkeit des Macintosh-Betriebssystems,
+allerdings zumeist auf Kosten des maximal zur Verfügung stehenden Macintosh-
+Speichers.
+
+Das Blättersymbol "ROM-Speichertyp" gibt den bevorzugten Speichertyp an,
+in dem das Macintosh-ROM abgelegt werden soll ("24-Bit DMA" bedeutet
+16-Bit FastRAM). Sie können es bei "Egal" belassen, es sei denn, sie
+möchten mehr freien Speicher für den Macintosh haben.
+
+Mit der Einstellung "ROM schreibschützen" im "Sonstiges"-Fenster versucht
+ShapeShifter, das Macintosh-ROM für Schreibzugriffe zu sperren. Dadurch
+wird die Emulation stabiler und ist besser gegen fehlerhafte Programme
+geschützt. Allerdings funktioniert der Schreibschutz nur mit einem
+68040-Prozessor. Wenn Sie einen 68040 besitzen und Probleme beim Starten
+von ShapeShifter haben, können Sie versuchen, ob das Abschalten des
+Schreibschutzes hilft. Auf dem 68060 kann der Schreibschutz nicht
+eingeschaltet werden.
+
+Um den maximalen Speicher für den Macintosh herauszuholen, sollten Sie die
+Option "Größter freier Block" an-, die Option "Mac-ROM-Speicher zuerst
+belegen" ausschalten und den ROM-Speichertyp auf "24-Bit DMA" stellen.
+Legen Sie Wert auf maximale Geschwindigkeit der Emulation, schalten Sie
+"Mac-ROM-Speicher zuerst belegen" ein und setzen Sie den ROM-Speichertyp
+auf "Egal". Die Einstellung mit der höchsten Kompatibilität erhalten Sie,
+indem Sie beide Optionen abschalten, den Speichertyp auf "Egal" stellen
+und in "Mac-Speicher" den Wert in "Maximal" minus der ROM-Größe einstellen
+(z.B. angezeigtes Maximum: 3120 KB, Größe des Macintosh-ROMs: 512 KB
+-> geben Sie "2608" in "Mac-Speicher (KB)" ein).
+
+Noch ein Wort zu den Speicherangaben mancher Macintosh-Programme. In dem
+Fenster, das nach Auswahl von "Über diesen Macintosh" im Finder erscheint,
+wird die Speichermenge angezeigt, die Sie eingegeben haben, bzw. die
+ShapeShifter als "größten Block" belegen konnte. Sollte Ihnen ein
+Macintosh-Hilfsprogramm weismachen wollen, Sie hätten in Ihrem Amiga
+127 MB und mehr verfügbar, liegt das daran, das diese Hilfsprogramme
+davon ausgehen, der Speicher beginne an Adresse Null, was auf dem Amiga
+nicht der Fall ist.
+
+@ENDNODE
+
+
+@NODE SaveSettings "Sichern der Einstellungen"
+
+Durch einen Klick auf "Speichern" im @{"Hauptfenster" LINK RefMain} von ShapeShifter oder
+die Auswahl des Menüpunktes "Sichern" (Kurzbefehl Amiga-S) werden die von
+Ihnen getroffenen Einstellungen dauerhaft in der Datei "ShapeShifter Prefs"
+gespeichert und stehen dann beim nächsten Start von ShapeShifter wieder zur
+Verfügung.
+
+Mit dem Menüpunkt "Sichern als..." können Sie die Einstellungen unter einem
+anderen Namen speichern und mit "Öffnen..." andere Einstellungsdateien
+laden. Startet man ShapeShifter durch Doppelklick auf das Icon einer
+Einstellungsdatei oder von der Shell mit dem Namen der Datei als Argument,
+werden automatisch die Einstellungen aus dieser Datei geladen. So können
+Sie verschiedene Einstellungen auf der Festplatte bereit halten.
+
+@ENDNODE
+
+
+@NODE StartQuitMac "Starten und Beenden der Emulation"
+
+Zum Starten der Macintosh-Emulation klicken Sie im @{"Einstellungsfenster" LINK RefMain} von
+ShapeShifter auf das Symbol "Starten" oder wählen Sie den gleichnamigen
+Menüpunkt an (Kurzbefehl Amiga-R). ShapeShifter schließt daraufhin alle
+seine Fenster und öffnet einen Bildschirm für die Macintosh-Oberfläche.
+Maus- und Tastatureingaben gehen nun an den Macintosh.
+
+Wenn Sie im Icon von ShapeShifter das Merkmal "QUICKSTART" eingeben
+oder "QUICKSTART" als Argument beim Start von der Shell verwenden,
+startet ShapeShifter direkt in die Emulation durch, ohne das
+Einstellungsfenster darzustellen. Dies können Sie verwenden, wenn Sie
+die Einstellungen nur noch gelegentlich verändern.
+
+Bevor der Mac startet, prüft ShapeShifter auf Einstellungen, die bekannt
+schiefgehen, und erklärt sie in einem Fenster, mit einer Abhilfe, wo es
+eine gibt:
+
+ · eine FileDisk, deren Abbild-Datei nicht da ist
+ · das ROM in "24 Bit DMA"-Speicher auf einem Amiga ohne 24-Bit-FastRAM:
+   das ROM würde ein Megabyte ChipRAM belegen, und 256-Farben-Bildschirme
+   werden weiß. "Egal" behebt es für diesen Start.
+ · ein 68060 unter UAE ohne NOCOPYBACK: der Mac bliebe bei einem grauen
+   Bildschirm stehen. "Einschalten" behebt es für diesen Start.
+
+"Einstellungen" führt zurück ins Einstellungsfenster (auch bei QUICKSTART),
+wo die Änderung gespeichert werden kann.
+
+Wollen Sie die Emulation beenden, wählen Sie im Macintosh-Finder den
+Menüpunkt "Ausschalten" aus dem Menü "Spezial". ShapeShifter schließt
+darauf den Bildschirm, speichert das Macintosh-PRAM in die Datei
+"ShapeShifter PRAM" und beendet sich. Während der Mac läuft, sichert
+ShapeShifter das PRAM außerdem ein paar Sekunden, nachdem der Mac es
+geändert hat, so daß Mac-Einstellungen (wie die Farbtiefe eines
+Bildschirms) auch nach einem Absturz oder Reset erhalten bleiben.
+
+Beachten Sie, daß beim Starten der Emulation Ihre Einstellungen beim
+nächsten Start von ShapeShifter verloren sind, wenn sie nicht @{"gesichert" LINK SaveSettings}
+wurden.
+
+@ENDNODE
+
+
+@NODE SwitchAmigaMac "Wechseln zwischen Amiga- und Macintosh-Seite"
+
+Durch Drücken von @{b}<Ctrl><Tab>@{ub} können Sie die Macintosh-Maus- und
+Tastaturabfrage aus- und einschalten. Solange die Macintosh-Abfrage
+eingeschaltet ist, bleibt der Amiga-Mauszeiger unsichtbar bis Sie ein
+Fenster auf einem anderen Bildschirm anwählen oder <Ctrl><Tab> drücken.
+Außerdem finden bei sichtbarem Amiga-Mauszeiger keine Grafik-Umrechnungen
+mehr statt.
+
+Wollen Sie z.B. während der Emulator läuft, auf ein anderes Amiga-Programm
+wechseln, so können Sie zuerst <Ctrl><Tab> drücken, worauf der Amiga-
+Mauszeiger sichtbar wird und mit Amiga-M den Bildschirm des Amiga-Programms
+nach vorne holen. Wenn Sie auf der Macintosh-Seite weiterarbeiten wollen,
+holen Sie den Bildschirm von ShapeShifter nach vorne, klicken einmal hinein
+und drücken wieder <Ctrl><Tab>. Der Amiga-Mauspfeil verschwindet und der
+Macintosh nimmt wieder Eingaben an.
+
+Der Macintosh-Bildschirm läßt sich wie jeder andere Amiga-Bildschirm
+bedienen. Sie können ihn mit Amiga-M nach hinten legen und ihn durch Ziehen
+mit der Maus bei gedrückter <Amiga>-taste und linker Amiga-Taste
+verschieben.
+
+@ENDNODE
+
+
+@NODE KeyboardMouse "Benutzen von Tastatur und Maus"
+
+Die Zuordnung der Macintosh-Sondertasten auf die Amiga-Tastatur ist wie
+folgt:
+
+Option      -> <Alt>
+Befehl      -> <Amiga>
+Umschalt    -> <Shift>
+Ctrl        -> <Ctrl>
+Feststell   -> <Caps Lock>
+F1-F10      -> <F1>-<F10>
+Help        -> <Help>
+Rückschritt -> <Backspace> (<-)
+Lösch       -> <Del>
+
+Durch Drücken von @{"<Ctrl><Tab>" LINK SwitchAmigaMac} können Sie die Macintosh-Maus- und
+Tastaturabfrage und den Grafik-Refresh aus- und einschalten.
+
+Die rechte Maustaste hat die selbe Funktion wie die <Alt>-(Options)-Taste,
+wenn Sie eine Maus mit drei Tasten verwenden, entspricht die mittlere Taste
+der <Shift>-(Umschalt)-Taste.
+
+Beachten Sie bitte, daß alle System-Tastenkombinationen des Amiga erhalten
+bleiben. Wenn Sie also Option und Befehl gedrückt halten wollen, um z.B.
+die Schreibtischdatei eines Volumes neu anzulegen, müssen Sie eine <Amiga>-
+Taste und die rechte Maustaste drücken, da der Amiga die Kombination
+<Alt><Amiga> als Ersatz für die linke Maustaste interpretiert. Ebenso legt
+die Kombination <Amiga links>-N keinen neuen Ordner an, sondern holt die
+Workbench nach vorne. Zum Anlegen eines neuen Ordners müssen Sie
+<Amiga rechts>-N drücken.
+
+Die Tastenkombination @{b}<Ctrl><Shift links><Alt links><Esc>@{ub} dient dazu,
+ShapeShifter im Notfall "hart" zu beenden, wenn der Menüpunkt "Ausschalten"
+im Finder nicht erreichbar ist (z.B. Mac startet nicht, Grafik-Müll etc.).
+Dieser Tastenbefehl ist aber nur für Notfälle gedacht.
+
+Die Tastenkombination @{b}<Ctrl><Shift links><Alt links><Del>@{ub} ist die
+Einschalttaste des Mac: der Mac fragt, ob er ausgeschaltet werden soll,
+und fährt nach Return ordentlich herunter (ab System 7.5). Nehmen Sie
+diese, solange der Mac noch reagiert: seine Datenträger werden sauber
+geschlossen, und er beschwert sich beim nächsten Start nicht, er sei nicht
+richtig ausgeschaltet worden.
+
+Mit der Taskenkombination @{b}<Ctrl><Shift links><Alt links><Help>@{ub} können
+Sie @{"Macintosh-Debugger" LINK NoteDebuggers} aktivieren. Sofern Sie nicht "MacsBug" installiert
+haben, erscheint der ROM-Debugger. Falls Sie einmal aus Versehen auf diese
+Tasten gekommen sind, können Sie durch Eingabe von "G" den Debugger wieder
+beenden.
+
+Statt einer Maus können Sie auch Grafiktabletts oder berührungsempfindliche
+Bildschirme benutzen, wenn diese für den Amiga wie eine Maus erscheinen und
+mit allen Programmen verwendbar sind.
+
+Mit dem Feld "Maus direkt abfragen" im Fenster "Sonstige Einstellungen"
+legen Sie fest, ob ShapeShifter die Maus selbständig direkt abfragt oder
+dazu das Amiga-Betriebssystem verwendet. Die direkte Abfrage ist mit
+einigen Macintosh-Programmen kompatibler, Sie können dann allerdings keine
+Grafiktabletts oder berührungsempfindliche Bildschirme einsetzen.
+
+@ENDNODE
+
+
+@NODE Clipboard "Datenaustausch über die Zwischenablage"
+
+Über die Zwischenablage lassen sich Texte zwischen der Amiga- und der
+Macintosh-Seite austauschen. D.h., wenn Sie in einem Macintosh-Programm
+Text markieren und ausschneiden, können Sie diesen Text in einem Amiga-
+Programm einfügen und umgekehrt. Dabei findet eine automatische
+Konvertierung zwischen den Mac- und Amiga-Zeichensätzen statt.
+
+@ENDNODE
+
+
+@NODE Sound "Tonein- und ausgabe"
+
+ShapeShifter verwendet zur Tonausgabe standardmäßig die eingebauten
+Audio-Funktionen Ihres Amiga. Mit "AHI" von Martin Blom kann man die
+Ausgabe auch auf Soundkarten umleiten (das verbessert allerdings nicht
+die Tonqualität). Schalten Sie dazu das Symbol "AHI benutzen" im Fenster
+"Sonstiges" ein und wählen einen Audio-Modus. ShapeShifter benötigt die
+Version 4 des ahi.device, die auf http://www.lysator.liu.se/~lcs/ahi.html
+verfügbar ist.
+
+Sie können die Macintosh-Tonausgabe komplett abschalten, indem Sie das
+Symbol "Tonausgabe ein" im Fenster "Sonstiges" deaktivieren.
+
+Beachten Sie bitte, daß einige Macintosh-Programme, insbesondere ältere
+Spiele direkt auf die Soundchips des Macintosh zugreifen. Dies führt mit
+ShapeShifter zwar nicht zu einem Absturz, aber es ist kein Ton zu hören.
+
+Besitzen Sie einen Sounddigitizer, der an den parallelen Port des Amiga
+angeschlossen wird, können Sie ihn auch von der Macintosh-Seite aus
+verwenden und z.B. mit dem "Ton"-Kontrollfeld einen eigenen Systemklang
+aufnehmen. Beachten Sie bitte, daß ShapeShifter zur Zeit nur in Mono
+aufnimmt.
+
+@ENDNODE
+
+
+@NODE Notes "Hinweise zur Emulation"
+
+Hier erfahren Sie, was Sie beim Einsatz von ShapeShifter beachten und mit
+welchen Problemen bei der Macintosh-Emulation sie rechnen müssen.
+
+ @{" Neustart, Ausschalten u.a.        " LINK NoteRestart}  Kontrolle über den Emulator
+ @{" Macintosh-Debugger                " LINK NoteDebuggers}  Der Kammerjäger kommt
+
+ @{" Was kann ShapeShifter nicht?      " LINK NoteUnsupported}  Noch nicht... :-)
+
+ @{" Hinweise für DraCo-Besitzer       " LINK NoteDraCo}  Ein Amiga ist ein Amiga ist ein DraCo
+
+ @{" Wenn nichts läuft                 " LINK NoteTrouble}  Der Mac startet nicht. Was nun?
+ @{" Mögliche Probleme auf Amiga-Seite " LINK NoteAmigaProblems}  Wichtig! Bitte lesen!
+
+@ENDNODE
+
+
+@NODE NoteRestart "Neustart, Ausschalten u.a."
+
+Nach Auswahl des Finder-Menüpunkts "Neustart" wird nur ein Neustart der
+Macintosh-Seite durchgeführt, alle Amiga-Programme und -Daten im Speicher
+bleiben erhalten.
+
+Der Menüpunkt @{"Ausschalten" LINK StartQuitMac} beendet ShapeShifter und schließt die
+Macintosh-Emulation.
+
+Die "Neustart"/"Ausschalten"-Schalter in manchen Systemfehler-Dialogboxen
+funktionieren jedoch nicht immer in der gewünschten Weise.
+
+Das "harte" Beenden eines Programms mit Befehl-Shift-Escape wird von
+ShapeShifter nicht unterstützt.
+
+Wollen Sie ShapeShifter beenden, aber der Finder-Menüpunkt "Ausschalten"
+ist nicht erreichbar (z.B. wegen Absturz/Problemen beim Starten),
+können Sie mit der Tastenkombination @{b}<Ctrl><Shift links><Alt links><Esc>@{ub}
+ShapeShifter verlassen. Diesen Befehl sollten Sie aber nur im Notfall
+benutzen.
+
+@ENDNODE
+
+
+@NODE NoteDebuggers "Macintosh-Debugger"
+
+Die Tastenkombination @{b}<Ctrl><Shift links><Alt links><Help>@{ub} simuliert auf
+der Macintosh-Seite einen NMI und kann zum Aufruf von Debuggern benutzt
+werden. Sofern nicht "MacsBug" installiert ist, erscheint der ins Macintosh-
+ROM eingebaute Debugger. Beide können durch Eingabe von "G" wieder beendet
+werden.
+
+
+MacsBug ist auf einem 68060 nicht ohne weiteres lauffähig. Um ihn zu
+benutzen, müssen mit einem Dateieditor an der Data-Fork einige Änderungen
+vorgenommen werden (MacsBug 6.5.2):
+
+  Suchen nach    Ersetzen durch
+   4e7a 9803  ->    224f 4e71
+   4e7a 9804  ->    224f 4e71
+   4e7b 9803  ->    4e71 4e71
+   4e7b 9804  ->    4e71 4e71
+   4e7a 0805  ->    7000 4e71
+   4e7b 0805  ->    4e71 4e71
+
+Nach diesen Änderungen sollten die meisten Funktionen laufen. Auf dem DraCo
+ist MacsBug nicht lauffähig.
+
+
+Der ROM-Debugger (erkennbar am ">"-Prompt) versteht die folgenden Befehle
+([] kennzeichnet ein optionales Argument):
+
+G  [xxxxxxxx]            : Programm ab angegebener Adresse ausführen,
+                           "G" ohne Argument beendet den Debugger
+DM [xxxxxxxx]            : Speicherinhalt darstellen
+SM [xxxxxxxx] [yy yy...] : Speicherinhalt ändern
+TD                       : Speicher ab $0C30 anzeigen (dort sind die
+                           Prozessorregister gespeichert)
+D0..D7 [xxxxxxxx]        : Datenregister anzeigen/ändern
+A0..A7 [xxxxxxxx]        : Adreßregister anzeigen/ändern
+PC [xxxxxxxx]            : Programmzähler anzeigen/ändern
+SR [xxxx]                : Statusregister anzeigen/ändern
+
+Dabei steht "xxxxxxxx" für einen hexadezimalen Ausdruck, der die folgenden
+speziellen Symbole enthalten kann, die auch mit '+' und '-' verknüpft
+werden können:
+
+RD0..RD7  : Inhalt eines Datenregisters
+RA0..RA7  : Inhalt eines Adreßregisters
+.         : Die "aktuelle" Adresse, ab der der Speicher dargestellt wird
+\@xxxxxxxx : Der Inhalt von Adresse xxxxxxxx
+
+Drückt man nur "Return", wird der letzte Befehl wiederholt und bei "DM"
+der nächste Speicherbereich dargestellt.
+
+@ENDNODE
+
+
+@NODE NoteUnsupported "Was kann ShapeShifter nicht?"
+
+Folgende Macintosh-Eigenschaften werden von ShapeShifter (noch) nicht
+emuliert:
+
+ · Virtueller Speicher. Auch auf Amigas mit MMU sollten Sie den virtuellen
+   Speicher nicht anschalten.
+
+ · 24-Bit-Adressierung. Sie können nur Programme verwenden, die
+   32-Bit-clean sind.
+
+ · Programme, die die Macintosh-Hardware direkt ansprechen, stürzen unter
+   ShapeShifter zwar nicht unbedingt ab, sind aber in ihrer Funktion
+   eingeschränkt. So fehlt bei dem Spiel "Lemmings" z.B. der Ton (die
+   Amiga-Version ist sowieso schöner).
+
+ · Die seriellen Treiber unterstützen kein Auflegen per Hardware mit DTR.
+
+ · Der Ethernet-Treiber hat keinen ERead-Aufruf
+
+ · Die SCSI-Routinen unterstützen weder den Befehl scComp noch
+   SCSI-Messaging
+
+ · Der Soundeingabe-Treiber kann nur in Mono aufnehmen und hat kein
+   VOX-Recording
+
+ · Die Benutzung von MIDI ist nicht möglich
+
+ · Das Ansprechen der seriellen Ports von A-Max-Karten ist nicht zuverlässig
+
+Folgende Macintosh-Programme/Utilities laufen nicht mit ShapeShifter
+oder zeigen Fehler:
+
+ · Peace of Mind, ein Hardware-Diagnose-Programm
+
+ · Snooper, noch ein Diagnose-Programm
+
+ · SoundEdit 16
+
+ · System 7.0.1 "Ton"-Kontrollfeld
+
+ · T-Online software (German Telekom)
+
+@ENDNODE
+
+
+@NODE NoteDraCo "Hinweise für DraCo-Besitzer"
+
+ShapeShifter läuft auf dem "DraCo"-Rechner von MacroSystem. Dabei gibt es
+nur wenige Dinge zu beachten:
+
+ · PrepareEmul wird nicht benötigt
+ · Im Einsteller "DraCoSystem" muß die Option "Enforcer ab 0" abgeschaltet
+   sein
+ · Um Sound zu bekommen müssen AHI und eine von AHI unterstützte Soundkarte
+   installiert sein (vorzugsweise die Toccata von MacroSystem)
+ · Es werden nur HD-Disketten unterstützt. Wenn der Zugriff auf das
+   Diskettenlaufwerk eingeschaltet wird ("Floppy"-Einstellungen), stürzt
+   ShapeShifter beim Beenden ab. Dies ist ein Fehler im dracodisk.device.
+ · MacsBug funktioniert nicht
+
+@ENDNODE
+
+
+@NODE NoteTrouble "Wenn nichts mehr läuft"
+
+In seltenen Fällen kann es vorkommen, daß sich der Macintosh nicht mehr
+starten läßt oder beim Starten abstürzt. In diesem Fall sollten Sie
+folgendes probieren:
+
+ · Aktivieren Sie die Option "Mac-ROM-Speicher zuerst belegen".
+
+ · Deaktivieren Sie die Option "ROM schreibschützen".
+
+ · Schalten Sie den Cache der CPU aus (Befehl "CPU NODATACACHE" in der
+   Shell).
+
+ · Starten Sie ShapeShifter mit dem Merkmal "NOCOPYBACK".
+
+ · Löschen Sie die Datei "ShapeShifter PRAM" und starten Sie ShapeShifter
+   erneut.
+
+ · Ändern Sie die Grafikeinstellungen auf "Amiga Bitplanes", "1 Bit"
+   oder probieren Sie den "Amiga-Fenster"-Modus.
+
+ · Halten Sie beim Starten die linke Shift-Taste gedrückt (erst, wenn
+   der gerasterte Mac-Hintergrund erscheint). Damit werden alle
+   Systemerweiterungen abgeschaltet.
+
+ · Bei Problemen mit File-/DeviceDisks/SCSI: Stellen Sie sicher, daß
+   die maximalen Transfergrößen (MaxTransfer) sowohl auf der Amiga-Seite
+   als auch in den ShapeShifter-Einstellungen richtig gesetzt sind.
+   Bei SCSI-Geräten ist auf korrekte Terminierung zu achten.
+
+ · Starten Sie den Macintosh von Diskette und überprüfen Sie mit Hilfe von
+   "Erste Hilfe" oder dem Norton Disk Doctor die Integrität des
+   Startvolumes und der Systemdatei.
+
+ · Installieren Sie das Macintosh-System neu, "für jeden Macintosh",
+   inklusive EtherTalk-Software.
+
+ · Probieren Sie ein anderes Macintosh-ROM
+
+@ENDNODE
+
+
+@NODE NoteAmigaProblems "Mögliche Probleme auf Amiga-Seite"
+
+Einige Eigenschaften von ShapeShifter können auf Amiga-Seite zu Problemen
+führen oder parallel laufende Amiga-Programme stören:
+
+ · PrepareEmul verschiebt das Vektor-Basis-Register (VBR) des Prozessors.
+   Dies führt bei einigen, sehr sehr wenigen Amiga-Programmen zu Problemen.
+
+ · Die @{"FileDisks" LINK VolFileDisk} arbeiten mit automatisch (de)komprimierenden Dateisystemen
+   wie XFH nicht zusammen. Wenn Sie ein solches Dateisystem benutzen,
+   müssen Sie die FileDisk-Dateien über den Namen des originalen
+   (komprimierten) Datenträgers einrichten (z.B. "DH1:MacFileDisk" und
+   nicht "XH1:MacFileDisk", wenn "XH1:" ein über XFH angesprochenes Abbild
+   von "DH1:" ist).
+
+ · Das Debugging-Tool "Enforcer" ist aus prinzipiellen Gründen nicht mit
+   ShapeShifter kompatibel. Sie müssen es ausschalten.
+
+ · Besitzer von 68060-Turbokarten von Phase 5 müssen das Utility
+   "CyberPatcher" ausschalten.
+
+ · Hilfsprogramme, die das Verhalten des AmigaOS-Task-Schedulers
+   beeinflussen oder Task-Prioritäten ändern, sind i.A. nicht mit
+   ShapeShifter kompatibel und können alle möglichen seltsamen Probleme
+   nach sich ziehen. Lassen Sie solche Programme nicht laufen oder
+   schließen Sie ShapeShifter aus ihren Modifikationen aus, wenn möglich.
+
+@ENDNODE
+
+
+@NODE FAQ "Fragen und Antworten"
+
+Frage:
+  Warum funktioniert MacOS 8 nicht?
+
+Antwort:
+  Es sind zwei Dinge notwendig, damit MacOS 8 läuft:
+    1) Ein 1MB-Mac-ROM. Mit einem 512K-ROM funktioniert es nicht.
+    2) Im "Sonstiges"-Einstellungsfenster muß die Option "MacOS-8-Modus"
+       aktiviert sein.
+
+
+Frage:
+  Wie baue ich die Schreibtischdatei beim Starten des Macintosh neu auf?
+
+Antwort:
+  Sie müssen beim Starten die linke Amiga-Taste und die rechte Maustaste
+  gedrückt halten. Die an sich dazu notwendige Tastenkombination
+  <Alt links><Amiga links> funktioniert nicht, da diese Kombination vom
+  Amiga-Betriebssystem als Ersatz für die linke Maustaste abgefangen wird.
+
+
+Frage:
+  Wie verhindere ich, daß Datenträger beim Neustart des Macintosh
+  ausgeworfen werden?
+
+Antwort:
+  Halten Sie die Alt-Taste (oder die rechte Maustaste) gedrückt, wählen
+  Sie den Menüpunkt "Neustart" und halten Sie die Alt-Taste so lange
+  gedrückt, bis der Macintosh-Bildschirm gelöscht wird.
+
+
+Frage:
+  Ich habe xx MB Speicher in meinem Amiga, aber ShapeShifter benutzt
+  nur einen Bruchteil davon.
+
+Antwort:
+  ShapeShifter kann nur einen zusammenhängenden Speicherblock benutzen.
+  Wenn Sie z.B. 2MB Chip-RAM, 8MB 32-Bit Fast-RAM und 4MB 16-Bit Fast-RAM
+  benutzen, ist die theoretisch für ShapeShifter verfügbare Speichermenge
+  8MB (und nicht 14MB). Diese schrumpft natürlich noch weiter zusammen,
+  da das Amiga-Betriebssystem auch noch Speicher belegt.
+
+
+Frage:
+  Der Macintosh startet nicht. Wie kann ich nun ShapeShifter beenden? Der
+  Finder ist ja nicht geladen.
+
+Antwort:
+  Drücken Sie <Ctrl><Shift links><Alt links><Esc>. ShapeShifter sollte sich
+  dann von selbst beenden.
+
+
+Frage:
+  Ich habe die Grafikeinstellungen verändert und habe nun nur noch Müll auf
+  dem Bildschirm. Wie kann ich nun ShapeShifter beenden?
+
+Antwort:
+  Drücken Sie <Ctrl><Shift links><Alt links><Esc> (evtl. gedrückt lassen).
+  ShapeShifter sollte sich dann von selbst beenden.
+
+
+Frage:
+  Wenn ich von der laufenden Emulation auf meinen Workbench-Bildschirm
+  umschalte, werden Teile der Macintosh-Grafik über die Workbench
+  gezeichnet.
+
+Antwort:
+  Das ist leider nicht zu ändern. Drücken Sie <Ctrl><Tab> vor dem
+  Umschalten der Bildschirme und achten Sie darauf, daß kein Macintosh-
+  Programm auf den Bildschirm zeichnet, solange der Workbench-Bildschirm
+  vorne ist, um den Effekt zu minimieren. Wenn Sie eine Verlangsamung der
+  Grafik in Kauf nehmen, können Sie auch das Feld "Immer refreshen" in
+  den Grafikeinstellungen aktivieren.
+
+
+Frage:
+  Es kommt mit einer Grafikkarte unter CyberGraphX/Picasso96 zu
+  gelegentlichen Grafikfehlern, die mit ShapeShifter 3.5 nicht auftreten.
+
+Antwort:
+  Dies liegt vermutlich an der QuickDraw-Beschleunigung. Diese kann mit
+  dem Merkmal "NOQDACCEL" abgeschaltet werden.
+
+
+Frage:
+  Warum ist die Grafik nur in Graustufen?
+
+Antwort:
+  Öffnen Sie das Kontrollfeld "Monitore" auf dem Mac und schalten Sie
+  auf Farbe.
+
+
+Frage:
+  Wird es Videotreiber für die OpalVision/IV24-Karten geben?
+
+Antwort:
+  Von mir nicht.
+
+
+Frage:
+  Wird es eine PowerPC-Version von ShapeShifter geben?
+
+Antwort:
+  Ein PowerPC-ShapeShifter für AmigaOS ist nicht geplant.
+
+
+Frage:
+  Trotz meines 68040 ist die Macintosh-Emulation langsamer als auf einem
+  Amiga 3000. Wie kann das sein?
+
+Antwort:
+  Sie verwenden vermutlich ein 512K-ROM. Dieses ROM ist nicht ganz 68040-
+  kompatibel und ShapeShifter muß den Daten-Cache abschalten, um mit
+  diesem ROM zu laufen. Wenn Sie ein 1MB-ROM (z.B. aus einem Quadra)
+  verwenden, sollte die Geschwindigkeit merklich zunehmen.
+
+
+Frage:
+  PrepareEmul funktioniert nicht, es bootet den Rechner nur immer und
+  immer wieder neu. Ich benutze ein Softkick-Programm.
+
+Antwort:
+  PrepareEmul läuft nicht mit Softkick-Programmen. Die einzige Lösung ist,
+  die Kickstart-Datei zu ändern, wie @{"hier" LINK InstallPrepEmul} beschrieben.
+
+
+Frage:
+  PrepareEmul funktioniert nicht auf meinem erweiterten A1200.
+
+Antwort:
+  Starten Sie PrepareEmul mit dem "A1200"-Schalter.
+
+
+Frage:
+  PrepareEmul funktioniert immer noch nicht.
+
+Antwort:
+  Suchen Sie @{"hier" LINK InstallPrepEmul} nach Alternativen.
+
+
+Frage:
+  Ich habe auf einem A2000 mit G-Force040-Turbokarte und einem 1MB-ROM
+  Probleme.
+
+Antwort:
+  (Laut Oliver Stein <SYLVESTER@dreamlnd.ruhr.de>):
+  Besorgen Sie sich das Programm "Set040" von Nic Wilson und bauen Sie
+  die folgende Zeile in die "Startup-Sequence" direkt hinter PrepareEmul
+  ein:
+
+    Set040 >NIL: FASTROM NOLOCAL NOZCACHE
+
+  Wenn Sie alle 16-Bit-RAM-Erweiterungen entfernen, können Sie die
+  originale (AmigaOS) "68040.library" benutzen, müssen dann allerdings
+  PrepareEmul mit der Option "A1200" starten.
+
+  (Laut Stefan Raudonis <SRaudonis@cosmos-l.gun.de>):
+  Das Programm "GVPCPUCtrl" darf nicht in der Startup-Sequence aufgerufen
+  werden. Nur der Befehl alleine, schon ohne Parameter bewirkt, daß
+  Programme unter ShapeShifter abstürzen.
+
+
+Frage:
+  Ich habe auf einem A2000 mit Fusion-Forty-Turbokarte Probleme.
+
+Antwort:
+  Um ALLE Probleme mit der Fusion-Forty und ShapeShifter zu beheben und
+  um die MMU-Funktionen von ShapeShifter benutzen zu können, müssen Sie die
+  originale (AmigaOS) "68040.library" in LIBS: installieren und die
+  folgenden zwei Zeilen am Anfang Ihrer Startup-Sequence einfügen:
+
+    SetFF FASTKICK AMAXIV
+    SetPatch NOAGA REVERSE QUIET
+
+  Oder, wenn Sie eine andere Kickstart-Version nachladen:
+
+    SetFF FASTKICK devs:kickstart AMAXIV
+    SetPatch NOAGA REVERSE QUIET
+
+  "PrepareEmul" brauchen Sie dann nicht mehr.
+
+
+Frage:
+  Ich habe mit meiner Phase 5 68060-Karte Probleme.
+
+Antwort:
+  Schalten Sie das "CyberPatcher"-Utility ab.
+
+
+Frage:
+  Meine SCSI-Geräte werden nicht erkannt.
+
+Antwort:
+  1. Der Name des SCSI-Treibers muß richtig eingegeben sein. Beim A3000
+     ist dies z.B. "scsi.device" klein geschrieben, ohne Anführungszeichen
+     und ohne "DEVS:" davor.
+  2. Die IDs der Geräte, die Sie verwenden möchten, müssen in den
+     SCSI-Einstellungen abgehakt sein (die Symbole direkt neben den
+     Nummern 0..6).
+  3. Der SCSI-Bus muß korrekt terminiert sein.
+
+
+Frage:
+  Ich kann mit meinem Oktagon/AT-Bus 2008/AlfaPower/TandemAT/ALF-2/ALF-3-
+  Kontroller keine DeviceDisks und/oder SCSI-Geräte benutzen.
+
+Antwort:
+  Sie müssen "SSOktaPatch" benutzen. Lesen Sie bitte die Datei "ReadMe" im
+  Archiv "SSOktaPatch.lha".
+
+
+Frage:
+  Ich habe Probleme mit SCSI-Geräten an einer Fastlane/CyberSCSI/Blizzard-
+  SCSI-Karte.
+
+Antwort:
+  Siehe @{"hier" LINK SCSIOptions}.
+
+
+Frage:
+  Wie kann ich das Macintosh-System ohne HD-Laufwerke installieren?
+
+Antwort:
+  (Laut Mike Carlson <carlson@kaiwan.com>):
+  · Benutzen Sie das Programm "DiskDup+" auf einem echten Mac, um eine
+    Mac-Systemdiskette einzulesen. Ich habe die "Dienstprogramme"-Diskette
+    von System 7.5 zum Testen benutzt. Es ist egal, daß diese Diskette
+    1,44 MB groß ist.
+  · Nachdem DiskDup+ die Diskette gelesen hat, speichern Sie sie als
+    "Image" in eine Datei.
+  · Übertragen Sie diese Datei auf Ihren Amiga. Ich habe ein Null-Modem-
+    Kabel benutzt. Man kann jedoch auch mit den Programmen "Splitz" und
+    "Joinz" die Datei in kleinere Stücke aufteilen, die man über DD-
+    Disketten übertragen kann.
+  · Wählen Sie diese Image-Datei als FileDisk für ShapeShifter aus.
+  · Starten Sie ShapeShifter.
+
+
+Frage:
+  Wie drucke ich unter ShapeShifter?
+
+Antwort:
+  Sie brauchen einen geeigneten Macintosh-Druckertreiber. Für Epson-
+  kompatible parallele Drucker können Sie "Chuck's Printer Driver", für
+  HP DeskJets/LaserJets den "HPDJ 3.0" benutzen (beide sind auf dem
+  @{"FTP-Server" LINK Support} zu finden). Einfach den Druckerport des Mac für die parallele
+  Schnittstelle konfigurieren und diesen im Mac-Druckertreiber auswählen.
+  Die seriellen Einstellungen (Baudrate etc.) sind egal, aber "Hardware
+  Handshake" sollte ausgewählt sein.
+
+  Sie können auch das kommerzielle Paket "Power Print" benutzen, das
+  Treiber für die meisten gebräuchlichen Drucker enthält. Für nähere
+  Informationen, wenden Sie sich an:
+
+    GTD Softworks INC.
+    4664 Lougheed Highway
+    Suite #188
+    Burnaby,BC
+    Canada V5C6B7
+
+    Telefon: ++1-604-291-9121
+    Fax:     ++1-604-291-9689
+    EMail:   GDT.MKT@applelink.apple.com
+
+
+Frage:
+  Ich kann unter System 7.5/7.6 keine 720K-Disketten mehr formatieren.
+  Unter System 7.1 hat das noch funktioniert.
+
+Antwork:
+  Aufgrund einer bescheuerten Änderung im Disk Initialization Package
+  weigert sich System 7.5/7.6, 720K-Disketten zu formatieren, solange nicht
+  die "720K Diskettenformatierer"-Erweiterung vorhanden ist. Wenn man
+  ShapeShifter mit dem Merkmal "720KKLUDGE" startet, formatiert er diese
+  Disketten mit 719,5K. Abgesehen davon, daß man 512 Bytes Speicherplatz
+  verliert, macht das keinen Unterschied. 719,5K-Disketten können mit
+  einem echten Mac genauso gelesen werden, wie ShapeShifter 720K-Disketten
+  unter System 7.5/7.6 lesen kann.
+
+
+Frage:
+  Ich kann meinen Sound-Sampler nicht benutzen. Der Amiga hängt, sobald
+  ich auf das "Aufnehmen"-Symbol klicke.
+
+Antwort:
+  Vermutlich ist Ihre CPU für das Sampling nicht schnell genug. Die CPU-
+  Last einer Aufnahme bei 22kHz entspricht der einer seriellen Übertragung
+  bei einer ständigen Datenrate von ca. 250000bps. Genauso, wie man eine
+  schnelle CPU braucht, um dies mit dem "serial.device" zu erreichen,
+  braucht man eine schnelle CPU, um unter ShapeShifter Klänge zu samplen.
+  "Aber mein A500 kann mit 48kHz samplen!" könnten Sie antworten. Dann
+  nennen Sie ein einziges Amiga-Sampling-Programm, das bei der Aufnahme
+  das Multitasking nicht abschaltet.
+
+
+Frage:
+  Was ist "AHI" und wo bekomme ich es?
+
+Antwort:
+  AHI (Audio Hardware Interface) ist ein geräteunabhängiger Audiotreiber
+  von Martin Blom <lcs@lysator.liu.se>. Weitere Informationen und AHI
+  selbst finden sich auf http://www.lysator.liu.se/~lcs/ahi.html.
+  ShapeShifter benötigt ahi.device Version 4 oder höher.
+
+
+Frage:
+  Wie gebe ich '~' ein?
+
+Antwort:
+  <Alt>-<N> und dann die Leertaste. Für weitere Tasten siehe das "Tastatur"-
+  Schreibtischzubehör.
+
+
+Frage:
+  Nichts funktionert! Nach dem Starten von ShapeShifter erscheint nur ein
+  weißer/grauer/grau gerasterter Bildschirm mit/ohne Startton (der sich
+  verzerrt anhört/ständig wiederholt wird).
+
+Antwort:
+  Probieren Sie alles aus, was @{"hier" LINK NoteTrouble} steht. Wenn das nicht hilft, weiß
+  ich's auch nicht (d.h. Bugreports sind sinnlos).
+
+@ENDNODE
+
+
+@NODE MacHandler "Der Mac-Handler"
+
+Der @{b}Mac-Handler@{ub} erlaubt Ihnen, zwischen Amiga- und Mac-Seite Dateien
+auszutauschen: Mit ihm kann man bei laufender Emulation Macintosh-
+Datenträger wie Amiga-Datenträger ansprechen, also z.B. von der Workbench
+aus Dateien kopieren.
+
+Zur Installation kopieren Sie bitte die Datei "Mac-Handler" ins
+Verzeichnis L:. Die Datei "MAC" sollten Sie @{b}nicht@{ub} nach DEVS:DOSDrivers
+kopieren, wie man vielleicht vermuten könnte. Damit würde der Mac-Handler
+bei jedem Neustart automatisch angemeldet. Da er jedoch nur bei laufendem
+ShapeShifter arbeitet, funktioniert das so nicht. Stattdessen sollten Sie
+"MAC" nach SYS:Storage oder sonst irgendwo hin kopieren.
+
+Zur Benutzung müssen Sie zunächst ShapeShifter starten, warten, bis der
+Macintosh komplett gestartet ist und dann das "MAC"-Icon doppelklicken.
+Nun sollte auf der Workbench ein Icon für das Mac-Startvolume erscheinen.
+Sie können nun mit jedem beliebigen Amiga-Programm darauf zugreifen, als
+ob es ein Amiga-Datenträger wäre.
+
+Um andere als das Startvolume ansprechen zu können, muß man im "MAC"-Icon
+das Merkmal "STARTUP" ändern. Dort gibt man die Nummer des zu verwendenden
+Macintosh-Volumes an. 1 ist immer das Startvolume, die anderen Volumes
+werden ab 2 aufwärts durchgezählt.
+
+Alle Dateien auf dem Mac-Volume besitzen einen Kommentar der Form
+"xxxx/yyyy". Dabei ist "xxxx" der Macintosh-Dateityp und "yyyy" die
+Kennung des erzeugenden Programms, z.B. "TEXT/ttxt" für eine TeachText-
+Textdatei. Durch entsprechendes Ändern des Kommentars kann man Type und
+Creator von Mac-Dateien ändern. Alle Ordner haben als Kommentar die
+Anzahl enthaltener Objekte (Dateien oder weitere Ordner).
+
+Der Mac-Handler kann nur entweder auf die Data- oder auf die Resource-
+Fork des Mac-Volumes zugreifen, entsprechend werden auch die Dateilängen
+angezeigt. In der Voreinstellung greift er auf die Data-Fork zu. Zum
+Umschalten dient das kleine Programm "MacControl". Es ist nur von der
+Shell zu benutzen und erwartet als Argumente den Gerätenamen des
+Mac-Handlers (z.B. "MAC:") und eines der Schlüsselworte "DATA" oder
+"RESOURCE". Hat man z.B. ein Mac-Volume als "MAC:" gemounted, lautet der
+Befehl zum Umschalten auf Resource-Fork-Zugriff:
+
+  MacControl MAC: RESOURCE
+
+Und zum Zurückschalten auf die Data-Forks verwendet man:
+
+  MacControl MAC: DATA
+
+@ENDNODE
+
+
+@NODE Reference "Referenzteil"
+
+In diesem Abschnitt werden die Bedienelemente der Fenster von ShapeShifter
+der Reihe nach in ihrer Funktion beschrieben. Sie sollten den Referenzteil
+zum Nachschlagen benutzen, wenn Sie mehr über die Wirkungsweise einer
+einzelnen Einstellung erfahren möchten. Wie die Einstellungen
+zusammenhängen und wie Sie ShapeShifter für bestimmte Aufgaben
+konfigurieren, erfahren Sie @{"hier" LINK Using}.
+
+ @{" Einstellungsfenster" LINK RefMain}
+
+ @{" Grafik             " LINK RefGraphics}
+ @{" Datenträger        " LINK RefVolumes}
+ @{" Diskettenlaufwerke " LINK RefFloppy}
+ @{" SCSI               " LINK RefSCSI}
+ @{" Speicher           " LINK RefMemory}
+ @{" Seriell            " LINK RefSerial}
+ @{" Netzwerk           " LINK RefNetwork}
+ @{" Sonstiges          " LINK RefMisc}
+ @{" CPU                " LINK RefCPU}
+
+@ENDNODE
+
+
+@NODE RefMain "Referenz Einstellungsfenster"
+
+Das @{b}Einstellungsfenster@{ub} erscheint direkt nach dem Start von ShapeShifter.
+
+Oben liegt eine Reihe von Karteireitern: @{"Grafik" LINK RefGraphics}, @{"Datenträger" LINK RefVolumes},
+@{"Diskettenlaufwerke" LINK RefFloppy}, @{"SCSI" LINK RefSCSI}, @{"Speicher" LINK RefMemory}, @{"Seriell" LINK RefSerial}, @{"Netzwerk" LINK RefNetwork},
+@{"Sonstiges" LINK RefMisc} und @{"CPU" LINK RefCPU}. Ein Klick auf einen Reiter zeigt seine
+Einstellungen darunter an. Die Tasten des alten Hauptfensters wählen
+weiterhin einen Reiter (G, D, F, C, P, L, N, O), und die Tabulatortaste
+geht zum nächsten. Das Fenster zu schließen ist dasselbe wie "Beenden".
+
+Steht der Mauszeiger über einem Bedienelement, zeigt die Titelzeile des
+Fensters eine Zeile Hilfe dazu.
+
+Auf dem Fenster abgelegte Icons von Disk-Abbildern kommen in die erste
+freie FileDisk (die Seite "Datenträger" wird dann gezeigt).
+
+@{b}Konfiguration:@{ub} wählt eine gespeicherte Konfiguration aus. Die Liste
+enthält "ShapeShifter Prefs" und jede Datei in der Schublade
+"Configurations" neben ShapeShifter; die gewählte wird sofort geladen.
+@{b}"Speichern als..."@{ub} öffnet einen Dateiauswahl-Requester, der die
+benutzte Datei vorschlägt: "ShapeShifter Prefs", die Einstellungen, die
+ShapeShifter bei jedem Start lädt, oder die gewählte Konfiguration. Für
+eine neue Konfiguration speichern Sie unter einem neuen Namen in der
+Schublade "Configurations", zum Beispiel "Mac OS 8 AGA" oder "System 7.5".
+"Speichern" sichert ohne Nachfrage in die benutzte Datei.
+
+@{b}"Vorgaben"@{ub} schlägt Bildschirm, Mac-Speicher und CPU-Optionen für
+diesen Amiga vor, wie die Einrichtung beim ersten Start, und sagt, was es
+gewählt hat. Disks, ROM und Geräte bleiben, wie sie sind. Gesichert wird
+erst mit "Speichern". Siehe @{"Einstellungen im Überblick" LINK Defaults}.
+
+@{b}"Erweitert"@{ub} zeigt alle neun Seiten. Ohne das Häkchen hat das Fenster
+die vier Seiten, die jeder braucht: Grafik, Datenträger, Speicher und
+Netzwerk. Die Seiten Diskettenlaufwerke, SCSI, Seriell, Sonstiges und CPU
+behalten ihre Einstellungen (eine neue Installation hat sinnvolle) und
+werden nur nicht gezeigt. Eine Einstellungsdatei einer früheren Version
+öffnet sich mit "Erweitert" ein.
+
+Ein Klick auf @{b}"Starten"@{ub} schließt das Einstellungsfenster und startet die
+Macintosh-Emulation. Vor dem Start des Mac prüft ShapeShifter einige
+Einstellungen, die bekannt schiefgehen (siehe @{"Starten der Emulation" LINK StartQuitMac}).
+
+Mit @{b}"Speichern"@{ub} werden Ihre Einstellungen in der Datei "ShapeShifter Prefs"
+gespeichert, so daß sie auch beim nächsten Start von ShapeShifter wieder
+zur Verfügung stehen.
+
+Durch Auswahl von @{b}"Beenden"@{ub} wird ShapeShifter verlassen, wobei die nicht
+gesicherten Einstellungen verloren gehen.
+
+ShapeShifter verfügt nur über ein Menü, "Projekt", das Ihnen diese Punkte
+anbietet:
+
+@{b}"Öffnen..."@{ub} lädt Einstellungen aus einer anderen Datei.
+
+@{b}"Sichern"@{ub} (Kurzbefehl Amiga-S) entspricht dem Symbol "Speichern".
+@{b}"Sichern als..."@{ub} speichert sie in einer Datei Ihrer Wahl; eine solche
+Datei wird mit dem @{"Merkmal" LINK ToolTypes} FILE benutzt.
+
+@{b}"Über ShapeShifter..."@{ub} zeigt einige Informationen über die von Ihnen
+benutzte Version von ShapeShifter und den Autor des Programms an.
+
+Mit @{b}"Beenden"@{ub} (Kurzbefehl Amiga-Q) verlassen Sie ShapeShifter, ohne die
+Einstellungen zu sichern.
+
+@ENDNODE
+
+
+@NODE RefGraphics "Referenz Grafikeinstellungen"
+
+@{b}1 Monitor/2 Monitore:@{ub} Diese Einstellung gibt an, ob ShapeShifter mit
+einem oder zwei Monitoren benutzt werden soll. Für einen Monitor wird die
+linke Symbolgruppe benutzt, für zwei Monitore die linke Gruppe für den
+ersten und die rechte Gruppe für den zweiten Monitor.
+
+@{b}Farbtiefe:@{ub} Hier stellen Sie die Anzahl Farben ein, die der Macintosh
+für den Monitor verwenden soll. Diese Einstellung erfolgt hier und nicht
+im Monitor-Kontrollfeld, da es Ihnen die Möglichkeit bietet, ohne Probleme
+auf eine niedrigere Farbtiefe zurückzuschalten, falls die Geschwindigkeit
+in den höheren Tiefen zu langsam wird.
+
+@{b}Bildschirmtyp:@{ub} Hier wählen Sie, wie der Bildschirmspeicher von ShapeShifter
+behandlelt werden soll. Diese Einstellung hängt unmittelbar mit dem
+gewählten Bildschirmmodus zusammen. Die Möglichkeiten werden nun einzeln
+erläutert:
+
+"Amiga Bitplanes" ist die Einstellung für die normalen Amiga-Grafik-Modi.
+Sie können 2 bis 256 Farben verwenden. Bei mehr als zwei Farben muß die
+Grafik regelmäßig @{"umgerechnet" LINK GraBasics} werden, wobei die Geschwindigkeit abnimmt.
+Nur bei 2 Farben läuft die Grafik mit voller Geschwindigkeit. Dieser Typ
+kann nur mit einem Monitor gleichzeitig benutzt werden.
+
+"CyberGfx/P96" ist für Grafikkarten mit CyberGraphX/Picasso96-Treiber. Es
+sind nur Farbtiefen von 8, 15 und 24 Bit auswählbar, wobei bei den meisten
+Karten bei 15 und 24 Bit ein @{"Umrechnen" LINK GraBasics} notwendig ist.
+
+"EGS": Wenn Ihre Grafikkarte mit dem "EGS" (Enhanced Graphics System) von
+Viona Development arbeitet, müssen Sie diese Einstellung verwenden. Es
+sind nur Farbtiefen von 8, 15 und 24 Bit möglich, wobei bei 15 und 24 Bit
+ein @{"Umrechnen" LINK GraBasics} notwendig ist.
+
+"Amiga-Fenster" stellt die Macintosh-Oberfläche in 2 Farben in einem
+Fenster auf der Workbench dar. Dabei wird der Amiga-Mauszeiger zur
+Auswahl von Symbolen und Menüs des Macintosh benutzt. Dieser Typ kann
+nicht mit zwei Monitoren benutzt werden.
+
+"Extern" benutzt den unter "Externer Treiber" angegebenen externen
+Videotreiber.
+
+@{b}Externer Treiber:@{ub} Dieses Feld gibt den Pfadnamen des externen
+Videotreibers an, wenn als Bildschirmtyp "Extern" gewählt ist.
+
+@{b}Bildschirmmodus:@{ub} Nach einem Klick auf "Auswählen..." öffnet sich der
+Screenmode-Requester und erlaubt die Auswahl eines beliebigen
+Amiga-Grafikmodus zur Darstellung des Macintosh-Bildschirms und die Angabe
+des zu verwendenden Randbereichs. Empfohlen wird ein hochauflösender,
+flimmerfreier Modus, wie z.B. "Productivity" oder der Modus einer
+Grafikkarte. Für @{"Videoanwendungen" LINK GraVideo} können Sie durch Einstellen des
+Randbereichs den gesamten verfügbaren Bildschirm zur Darstellung verwenden.
+Wenn Sie einen Bildschirmmodus gewählt haben, werden die Angaben "Größe"
+automatisch auf die normalen Werte für den Modus gesetzt.
+
+@{b}Größe:@{ub} Hier läßt sich die Größe des Bildschirms in Pixeln manuell
+einstellen. Durch Eingabe einer kleineren Größe (z.B. 512×384) können Sie
+z.B. die Geschwindigkeit in den höheren Farbtiefen verbessern. Beim
+Bildschirm-Typ "Amiga-Fenster" wird hier die Größe des Fensters angegeben.
+
+@{b}Refresh-Rate:@{ub} Hier läßt sich angeben, wieviele 1/50 Sekunden zwischen
+den @{"Refreshs" LINK GraBasics} vergehen sollen. Ein Wert von 5 läßt zum Beispiel
+eine Zehntelsekunde zwischen den Umrechnungen an Rechenzeit für den
+Emulator. Zur optimalen Wahl dieser Werte lesen Sie bitte
+@{"Einstellen des Refreshs" LINK GraRefresh}.
+
+@{b}Schwarzer Rahmen:@{ub} Ist das Feld ausgewählt, wird der Rahmen um den
+Macintosh-Bildschirm schwarz dargestellt (benötigt ECS/AA), wie beim
+richtigen Macintosh. Bei Grafikkarten bleibt dies meist ohne Wirkung,
+sie stellen den Rahmen immer schwarz dar.
+
+@{b}Immer refreshen:@{ub} In den 8-Bit-Grafikkarten-Modi geht die Macintosh-
+Grafikausgabe immer in den vordersten Screen der Grafikkarte, auch wenn
+dies z.B. der Workbench-Screen ist. Durch Aktivieren dieses Feldes wird
+auch bei 8 Bit ein Umkopieren des Bildschirmspeichers erzwungen, was zwar
+langsamer ist, aber diesen unerwünschten Effekt verhindert.
+
+@{b}MMU-Refresh:@{ub} Wenn diese Option angeschaltet ist, versucht
+ShapeShifter, die MMU zu benutzen, um nur noch die geänderten Teile des
+Bildschirms zu refreshen. Das funktioniert nur auf 68040/060-Prozessoren
+mit der standardmäßigen MMU-Konfiguration und ist auf anderen Prozessoren
+ohne Wirkung.
+
+@{b}Amiga-Mauszeiger:@{ub} Wenn dieses Feld ausgewählt ist, wird auch
+auf Macintosh-Seite der Amiga-Mauszeiger zum Auswählen benutzt. Dies ist
+im Amiga-Fenster-Modus immer der Fall.
+
+@ENDNODE
+
+
+@NODE RefVolumes "Referenz Datenträger"
+
+@{b}FileDisk 1-4:@{ub} In diesen vier Feldern geben Sie die Namen der Dateien
+(Disk-Abbilder) an, die ShapeShifter als @{"FileDisks" LINK VolFileDisk} verwenden soll.
+Anstatt den Namen einzutippen, können Sie auch auf das Symbol rechts von
+den Textfeldern klicken, worauf sich ein Dateiauswahlfenster öffnet. Das
+Symbol @{b}"Anlegen..."@{ub} dient zur Erzeugung einer neuen FileDisk-Datei. Sie
+müssen zunächst die gewünschte Größe in KB eingeben und nach einem Klick
+auf "Datei auswählen..." im Dateiauswahlfenster den Namen der Datei
+festlegen (Sie können auch eine bereits bestehende Datei auswählen, diese
+wird dann überschrieben).
+
+@{b}DeviceDisk 1/2:@{ub} Hier wird der Name des Amiga-Treibers eingetragen, über den
+ShapeShifter die erste bzw. zweite @{"DeviceDisk" LINK VolDeviceDisk} anspricht. Für SCSI-Geräte
+ist dies i.A. der Name des SCSI-Treibers, es kann aber auch jeder andere
+"trackdisk"-kompatible Treiber verwendet werden. Mit einem Klick auf
+@{b}"Auswählen..."@{ub} erscheint ein Dateiauswahlfenster, in dem Sie den Namen
+eines bestehenden Datenträgers (z.B. eine Festplattenpartition) auswählen
+können. ShapeShifter prüft dann, ob dieser Datenträger als DeviceDisk
+geeignet ist und trägt den Namen des Treibers sowie alle anderen Daten
+automatisch in die dafür vorgesehenen Felder ein. In das Textfeld kann
+auch direkt der Gerätename einer Macintosh-Partition (inklusive ":")
+eingegeben werden. Dann werden die Daten zur Laufzeit ermittelt.
+
+@{b}Einheit:@{ub} Gibt die Nummer der Einheit an, über die der Treiber angesprochen
+wird. Bei SCSI-Treibern ist dies die ID des SCSI-Gerätes.
+
+@{b}Erster Sektor/Anzahl Sektoren:@{ub} Diese Angaben definieren den Bereich des
+Datenträgers, der von ShapeShifter benutzt wird. Besonders wichtig sind
+diese Angaben, wenn Sie für das Amiga-Betriebssystem und ShapeShifter
+eigene Partitionen auf einer gemeinsam genutzten Festplatte eingerichtet
+haben. Wenn dann die Sektorangaben falsch gewählt sind, kann ShapeShifter
+u.U. Daten auf der Amiga-Partition überschreiben. Wenn Sie sich nicht mit
+dem logischen Aufbau von Datenträgern auskennen, sollten Sie eine
+DeviceDisk nur über das Symbol "Auswählen..." einrichten und die
+automatisch eingetragenen Sektorangaben nicht nachträglich verändern.
+
+Ein Laufwerk, das der Mac ganz für sich hat, braucht gar keine Amiga-
+Partitionen: Tragen Sie Device-Name und Unit von Hand ein, lassen Sie
+"Erster Sektor" auf 0 und setzen Sie "Anzahl Sektoren" auf 0. 0 bedeutet
+"das ganze Laufwerk": ShapeShifter fragt das Device nach der Größe. Der
+Mac bietet dann an, das leere Laufwerk zu initialisieren. Für den Amiga
+sieht ein solches Laufwerk unformatiert aus: Lassen Sie weder HDToolBox
+noch "Formatieren" daran. Gelesen und geschrieben wird direkt auf dem
+Laufwerk, ohne Amiga-Dateisystem dazwischen - der schnellste Weg für eine
+Mac-Platte, vor allem an langsamen Controllern.
+
+@{b}"Format..."@{ub} unter "Auswählen..." schreibt eine leere Mac-Platte namens
+"Untitled" auf die DeviceDisk, deren Device, Unit und Sektoren eingetragen
+sind. Das dauert wenige Sekunden. Initialisiert der Mac eine Platte
+selbst, beschreibt er sie ganz und liest sie wieder zurück, was an einem
+langsamen Controller Stunden dauern kann. ShapeShifter fragt vor dem
+Schreiben nach; alles, was in diesen Sektoren stand, geht verloren. Ein
+Laufwerk mit Amiga-Partitionstabelle wird abgelehnt, wenn die DeviceDisk
+bei seinen ersten Sektoren beginnt: wählen Sie stattdessen eine seiner
+Partitionen mit "Auswählen...".
+
+@{b}Maximale Transfergröße:@{ub} Einige IDE- und ältere SCSI-Festplatten
+mögen es nicht, wenn die maximal am Stück übertragene Datenmenge eine
+bestimmte Größe überschreitet (z.B. 64KB). In diesem Fall kann man mit
+dieser Einstellung die maximale Blockgröße angeben. Die Einstellung
+entspricht direkt dem Wert "MaxTransfer" aus der MountList bzw. dem
+Rigid Disk Block und wird bei der Verwendung von "Auswählen..."
+automatisch richtig gesetzt. Hat die Festplatte keine Beschränkung bei
+der Transfergröße, kann man die Einstellung auf "-1" oder "0" setzen.
+
+@{b}Wechselmedium:@{ub} Ist dieses Feld abgehakt, erkennt ShapeShifter,
+wenn das Medium dieser DeviceDisk gewechselt wird (z.B. bei SyQuests oder
+CD-ROMs).
+
+@{b}Starten von:@{ub} dient zur Auswahl des Startvolumes. "Letzte Auswahl"
+beläßt die Einstellung, wie sie ist (bzw. wie sie mit dem "Startvolume"-
+Kontrollfeld vom Mac aus eingestellt wurde), "Egal" bewirkt, daß
+ShapeShifter vom ersten gefundenen Startvolume startet und "FileDisk 1"
+bzw. "DeviceDisk 1" erzwingen einen Start von der ersten File-/DeviceDisk.
+"CD-ROM" versucht, von CD-ROM zu starten, falls der eingebaute CD-ROM-Treiber
+aktiv ist.
+
+@ENDNODE
+
+
+@NODE RefFloppy "Referenz Diskettenlaufwerke"
+
+@{b}Floppy 1/2:@{ub} Hier stellen Sie ein, welche Amiga-Diskettenlaufwerke als
+erstes und zweites Macintosh-Laufwerk benutzt werden sollen. "DF0:" bis
+"DF3:" sind Amiga-Laufwerke, die über das mfm.device (bzw. dracodisk.device)
+angesprochen werden, "PH0:" und "PH1:" stehen für das erste und zweite
+Laufwerk an einem Catweasel-Controller (multidisk.device). Mit einem
+Klick auf "Suchen" ermittelt ShapeShifter selbständig die ersten beiden
+angeschlossenen Laufwerke.
+
+@{b}AmigaDOS sperren:@{ub} Hiermit wird der Zugriff von AmigaDOS auf das
+entsprechende Laufwerk gesperrt, solange die Emulation läuft. Dies
+beschleunigt die Erkennung von eingelegten Macintosh-Disketten.
+
+@ENDNODE
+
+
+@NODE RefSCSI "Referenz SCSI-Einstellungen"
+
+@{b}0..6:{ub} Mit diesen Auswahlfeldern lassen sich einzelne SCSI-IDs für den Mac
+ein- und ausschalten. Die Symbole in jeder Reihe gehören zu der jeweiligen
+ID.
+
+@{b}SCSI-Device:@{ub} Hier steht der Name des @{"Amiga-SCSI-Treibers" LINK SCSISelDriver}, der von
+ShapeShifter zum Ansprechen dieser ID verwendet wird. Für Amigas mit
+eingebauter SCSI-Schnittstelle oder die SCSI-Karten von Commodore ist dies
+"scsi.device". Benutzen Sie einen SCSI-Adapter eines Fremdherstellers,
+sehen Sie bitte in dessen Dokumentation nach, welchen Namen der Treiber
+hat.
+
+@{b}Einheit:@{ub} Diese Symbole enthalten die Einheitennummer, die von ShapeShifter
+zum Ansprechen der jeweiligen ID verwendet wird. Die Einheitennummer
+entspricht normalerweise der SCSI-ID des Gerätes. Die meisten SCSI-Treiber
+benutzen die Hunderterstelle dieser Nummer, um bei mehreren installierten
+SCSI-Karten die Karte auszuwählen.
+
+@{b}Speichertyp:@{ub} Hier stellen Sie ein, in welchem Speicherbereich die Puffer
+für die SCSI-Datenübertragung angelegt werden sollen. "Chip-RAM" verwendet
+das Chip-RAM, "24-Bit DMA" belegt Speicher im 24-Bit Adreßraum (wichtig für
+DMA-fähige Zorro-II-Karten) und "Egal" holt den erstbesten (aber nicht
+immer den schnellsten) freien Speicher. Lesen Sie hierzu bitte auch
+@{"Geschwindigkeit und Speicherbedarf" LINK SCSIMemType}.
+
+@{b}Generischen CD-ROM-Treiber verwenden:@{ub} Wenn dieses Feld mit einem Haken versehen ist,
+wird der eingebaute CD-ROM-Treiber von ShapeShifter aktiviert.
+
+@{b}Apple Festplatten-Emulation:@{ub} Diese Einstellung wird nur benötigt, um dem
+Festplatten-Installationsprogramm von Apple vorzugaukeln, es sei eine
+Apple-Festplatte angeschlossen. Ansonsten sollte es ausgeschaltet bleiben.
+
+@{b}Direkte Übertragung:@{ub} Wenn dieses Feld ausgewählt ist, versucht ShapeShifter,
+SCSI-Zugriffen ohne Verwendung eines Puffers direkt auszuführen. Näheres
+siehe @{"hier" LINK SCSIMemType}.
+
+@{b}"Sommer"-Modus:@{ub} Diese Option dient zur Umgehung eines @{"Fehlers" LINK SCSIOptions} in
+SCSI-Treibern von phase 5.
+
+@ENDNODE
+
+
+@NODE RefMemory "Referenz Speichereinstellungen"
+
+@{b}Mac-Speicher:@{ub} Hier geben Sie ein, wieviel @{"Speicher" LINK Memory} fest für den Macintosh
+reserviert werden soll (Angabe in KB, 1MB=1024KB). Für System 7 ist
+mindestens 1.5 MB erforderlich. ShapeShifter benötigt noch zusätzlichen
+Speicher für das ROM und den Grafikspeicher. Erscheint nach dem Start der
+Emulation die Meldung "Es steht nicht genügend Speicher zur Verfügung",
+verkleinern Sie bitte den eingestellten Wert.
+
+@{b}Maximal (KB):@{ub} Hier wird die maximal für ShapeShifter zur Verfügung
+stehende Speichermenge angezeigt.
+
+@{b}Größter freier Block:@{ub} Mit dieser Einstellung verwendet ShapeShifter den
+größten verfügbaren Speicherblock als Macintosh-Speicher. Der Wert unter
+"Mac-Speicher" spielt dann keine Rolle mehr, der Emulator holt sich, was
+er an Speicher kriegen kann.
+
+@{b}Mac-ROM-Speicher zuerst belegen:@{ub} Ist dieses Feld mit einem Haken versehen,
+belegt ShapeShifter den Speicher für das Macintosh-ROM vor dem restlichen
+Macintosh-Speicher. Damit ist die Chance höher, daß das ROM im schnellsten
+verfügbaren Speicher landet, was die Geschwindigkeit des Emulators erhöht.
+Ansonsten kann es z.B. passieren, daß bei der Einstellung "Größter freier
+Block" das ROM im Chip-RAM oder langsamen 16-Bit-Speicher landet.
+
+@{b}ROM-Speichertyp:@{ub} Hier stellen Sie ein, in welchem Speicherbereich das Mac-
+ROM abgelegt werden soll. "24-Bit DMA" bezieht sich normalerweise auf
+16-Bit FastRAM.
+
+@ENDNODE
+
+
+@NODE RefSerial "Referenz Serielle Einstellungen"
+
+@{b}Modemport/Druckerport:@{ub} Hier steht der Name des Amiga-Treibers (z.B.
+"serial.device"), der für die Ein-/Ausgaben über den Macintosh-@{"Modem-" LINK Serial} bzw.
+@{"Druckerport" LINK Serial} verwendet werden soll. Bei Treibern auf Diskette/Festplatte
+kann dieser auch mit dem Symbol @{b}"Auswählen..."@{ub} ausgesucht werden.
+
+@{b}Geräte-Einheit:@{ub} Bei Treibern, die mehrere Schnittstellen eines Typs
+unterstützen, wird hiermit der Anschluß ausgewählt. Lesen Sie bitte hierzu
+im Handbuch ihrer I/O-Karte nach. Für Standard-Amigas mit einer seriellen
+und einer parallelen Schnittstelle geben Sie hier "0" ein.
+
+@{b}Paralleles Gerät:@{ub} Hier müssen Sie einstellen, ob der gewählte Treiber zum
+"serial.device" oder zum "parallel.device" kompatibel ist, ob er also einen
+seriellen oder einen parallelen Anschluß ansteuert. Eine falsche
+Einstellung führt zur Fehlfunktion und kann sogar einen Absturz beim
+Ansprechen der Ports bewirken.
+
+@{b}A-Max/Emplant:@{ub} Diese Feld ist nur anwählbar, wenn eine A-Max II+/IV- oder
+Emplant-Karte installiert ist. Ist das Feld abgehakt, werden Modem- und
+Druckerport der Karte benutzt, statt der mit den anderen Symbolen
+angegebenen.
+
+@ENDNODE
+
+
+@NODE RefNetwork "Referenz Netzwerkeinstellungen"
+
+@{b}Netzwerk-Triber:@{ub} Hier steht der komplette Pfad des zu verwendenden
+SANA-II-Ethernet/PLIP-Treibers (z.B. "DEVS:Networks/a2065.device"). Andere
+Netzwerkhardware wie Arcnet wird nicht unterstützt (allerdings kann man
+AppleTalk Remote Access oder MacTCP mit InterSLIP oder MacPPP über eine
+serielle Verbindung laufen lassen).
+
+@{b}Geräte-Einheit:@{ub} Bei Treibern, die mehrere Karten eines Typs
+unterstützen, wird hiermit die Karte ausgewählt. Lesen Sie bitte hierzu
+im Handbuch Ihrer Ethernet-Karte nach. Normalerweise bezieht sich die
+Einstellung "0" auf die erste/einzige Karte.
+
+@ENDNODE
+
+
+@NODE RefMisc "Referenz Sonstige Einstellungen"
+
+@{b}Maus direkt abfragen:@{ub} Hiermit legen Sie fest, ob ShapeShifter die @{"Maus" LINK KeyboardMouse}
+selbständig direkt abfragt oder dazu das Amiga-Betriebssystem verwendet.
+Die direkte Abfrage ist mit einigen Macintosh-Programmen kompatibler, Sie
+können dann allerdings keine Grafiktabletts oder berührungsempfindliche
+Bildschirme benutzen.
+
+@{b}ROM schreibschützen:@{ub} Wenn diese Option angeschaltet ist, versucht
+ShapeShifter, das Macintosh-ROM schreibzuschützen. Das funktioniert nur auf
+68040-Prozessoren mit der standardmäßigen MMU-Konfiguration und ist auf
+anderen Prozessoren ohne Wirkung.
+
+@{b}MacOS-8-Modus:@{ub} Das Einschalten dieser Option bewirkt, daß ShapeShifter
+sich für MacOS als "Quadra 900" statt als "Mac IIci" meldet. Dies ist zum
+Betrieb von MacOS 8 notwendig. Allerdings funktioniert diese Einstellung
+nicht mit einigen älteren MacOS-Versionen. Wenn sie nicht MacOS 8 benutzen,
+sollten sie diese Option daher ausgeschaltet lassen.
+
+@{b}Tonausgabe ein:@{ub} Wenn dieses Feld abgehakt ist, ist die Tonausgabe
+des Macintosh aktiv, ansonsten ist sie komplett abgeschaltet.
+
+@{b}AHI benutzen:@{ub} Mit diesem Symbol wird ausgewählt, ob die Tonausgabe
+direkt über die Amiga-Hardware oder über AHI-Treiber erfolgt. Auf dem DraCo
+wird immer AHI benutzt, wenn "Tonausgabe ein" aktiviert ist.
+
+@{b}AHI-Modus:@{ub} Nach einem Klick auf "Auswählen..." öffnet sich ein
+AHI-Requester zur Auswahl des zu benutzenden AHI-Audio-Modus, falls "AHI
+benutzen" angeschaltet ist
+
+@ENDNODE
+
+
+@NODE RefCPU "Referenz CPU-Einstellungen"
+
+Die Seite @{b}CPU@{ub} zeigt den Prozessor, den ShapeShifter gefunden hat, und hat
+ein Kästchen für jede der Startoptionen, die es bisher nur als @{"Merkmale" LINK ToolTypes}
+gab. Die Kästchen werden mit den anderen Einstellungen gespeichert. Eine
+Option, die auch als Merkmal oder Argument angegeben wurde, ist angekreuzt
+und läßt sich hier nicht ändern.
+
+@{b}Prozessor:@{ub} die CPU, und ob es eine FPU und eine brauchbare MMU gibt.
+
+@{b}Copyback-Cache aus (NOCOPYBACK):@{ub} der Datencache des 68040/060 schreibt
+durch, solange der Mac läuft. Ein 68060 unter UAE braucht das; ohne bleibt
+der Mac bei einem grauen Bildschirm stehen.
+
+@{b}Untere 8K mit der MMU umlenken (REMAP8K):@{ub} legt auf dem 68040/060 den am
+meisten benutzten Speicher des Mac in cachebares FastRAM. Braucht eine MMU.
+
+@{b}Enforcer-kompatibel (ENFORCER):@{ub} läßt "Enforcer" gleichzeitig laufen.
+Braucht eine MMU.
+
+@{b}US-Tastaturbelegung (USKEYMAP):@{ub} vertauscht zwei Keycodes, so daß die
+"`/~"-Taste auf amerikanischen Tastaturen funktioniert.
+
+@{b}Keine QuickDraw-Beschleunigung (NOQDACCEL):@{ub} wenn ein Programm falsch
+zeichnet, schaltet dies die eigenen Zeichenroutinen von ShapeShifter ab.
+
+@{b}720K-Disketten-Kludge (720KKLUDGE):@{ub} formatiert 720K-Disketten unter
+System 7.5 und später ohne die Erweiterung "720K Diskettenformatierer".
+
+@{b}Debug-Modus (DEBUG):@{ub} zum Debuggen von ShapeShifter selbst. Lassen Sie
+ihn aus.
+
+@{b}Farbtiefe auf dem Mac wählen (DEPTHSWITCH):@{ub} die Farbtiefe läßt sich auf
+dem Mac wechseln, in "Monitore". Der Bildschirm wird dann immer kopiert
+(siehe @{"Farbtiefe auf dem Mac wechseln" LINK GraDepthSwitch}).
+
+@ENDNODE
+
+
+@NODE LegalMush "Rechtliches"
+
+Die Programme "ShapeShifter", "PrepareEmul", "Mac-Handler", "MacControl",
+"Save ROM" und diese Anleitung sind © Copyright 1993-2001 Christian Bauer.
+Sie dürfen frei weitergegeben werden, solange sie unverändert bleiben
+(archivieren und packen ist erlaubt).
+
+Chris J. Schnurr <cjs@icbl.heriot-watt.ac.uk> erhält die besondere
+Erlaubnis, diese Anleitung im WWW unter http://www.icbl.hw.ac.uk/~cjs/shape/
+zur Verfügung zu stellen.
+
+Mit der Weitergabe von ShapeShifter darf kein Gewinn erzielt werden,
+insbesondere darf der Verkaufspreis einer Diskette, die ShapeShifter
+enthält, DM 10,- (bzw. den entsprechenden Betrag in anderen Währungen)
+nicht übersteigen. ShapeShifter darf nach Belieben über Mailboxen und
+Netzwerke und als Teil von Shareware/Freeware-CDs verteilt werden.
+Alle Rechte zur kommerziellen Nutzung verbleiben beim @{"Autor" LINK EmulationWizard}.
+
+
+Das Programm wird den Benutzern so zur Verfügung gestellt, wie es ist,
+ohne jegliche Garantie oder Haftung irgendeiner Art, sei es ausdrücklich
+oder implizit. Wer das Programm benutzt, erklärt sich damit einverstanden,
+jegliches @{b}Risiko@{ub}, das die Benutzung des Programms mit sich bringt,
+@{b}selbst zu tragen@{ub}. Der Autor haftet @{b}in keinem Fall@{ub} für Schäden, die
+direkt oder indirekt durch den Gebrauch oder Mißbrauch des Programms
+entstanden sind.
+
+
+Die zur Benutzung von ShapeShifter notwendigen Macintosh-ROM-Dateien
+sind nicht Teil von ShapeShifter und @{b}urheberrechtlich von Apple geschützt@{ub}.
+Für die rechtlichen Folgen, die die illegale Nutung einer solchen ROM-
+Datei nach sich ziehen kann, übernimmt der Autor @{b}keine@{ub} Verantwortung.
+
+
+Die Oberfläche des Programms wurde mit GadToolsBox © Copyright
+1991-1993 Jaba Development erstellt.
+
+Teile des Programms sind © Copyright 1992-1993 Jaba Development.
+
+"Amiga" und "Commodore" sind eingetragene Warenzeichen der Escom AG,
+Bochum.
+
+"Apple", "Macintosh", "AppleTalk" und "EtherTalk" sind eingetragene
+Warenzeichen von Apple Computer, Inc.
+
+In dieser Anleitung und in Programmtexten erwähnte Hard- und Software-
+Bezeichnungen sind in den meisten Fällen geschützte Warenzeichen der
+jeweiligen Firmen und nicht als solche kenntlich gemacht. Aus dem Fehlen
+eines solchen Hinweises darf also nicht geschlossen werden, daß es sich um
+einen freien Warennamen handelt.
+
+@ENDNODE
+
+
+@NODE Thanks "Danksagungen"
+
+Folgenden Personen/Firmen möchte ich meinen besonderen Dank aussprechen,
+da sie einen nicht unwesentlichen Beitrag zur Entwicklung von
+ShapeShifter geleistet haben:
+
+ · Daniel Bobbert <dabo@coli.uni-sb.de>, mein erster Betatester, der mir
+   Dutzende von Seiten aus der THINK Reference ausgedruckt hat
+ · Markus Winklbauer <sysop@ng-box.wwbnet.de>, mein zweiter Betatester
+   und der erste, der außer mir den Emulator zum Laufen bekam
+ · Bernd Limbach <beli@darkness.gun.de> für die "NetBSD"-Session,
+   nach der die Picasso-Grafik endlich funktionierte
+ · Allen anderen Betatestern für konstruktive Kritik
+ · Frank Wille <frank@phoenix.owl.de>, mit dessen PhxAss ShapeShifter
+   entwickelt wurde
+ · Jaba Development, deren GadToolsBox die Oberfläche von ShapeShifter
+   entwickelt hat
+ · Frank Mariak <fmariak@chaosengine.ping.de> für seine Hilfe bei der
+   Anpassung von CyberGraphX und vielem anderem
+ · Martin Berndt <m_berndt@wanderer.gun.de> für "KickShifter"
+ · Thomas Kessler <kessler@fim.uni-erlangen.de> für "ReKick"
+ · Dirk-Michael Brosig <Dirk-Michael_Brosig@maushro.baltic.de>, der
+   PrepareEmul auf erweiterten A1200 zum Laufen gebracht hat
+ · Tobias Abt <zcjc1121@rpool1.rus.uni-stuttgart.de> für den "Graffity"-
+   Videotreiber und Infos zu Picasso 96
+ · Nicola Salmoria <MC6489@mclink.it> für die Anpassung des "empcd.device"
+ · Lord Prayer für die Docs zur Merlin
+ · Gary Goldberg <gg0012@epfl2.epflbalto.org>, der die englische
+   Anleitung korrekturgelesen hat
+ · Jean-Luc "Synapse" Manchon für das französische Bestellformular
+ · Den folgenden Leuten für die Catalog-Dateien:
+     Italienisch  : Giovanni Gentile <gentile@dsi.unimi.it> und
+                    Bruno Vella <pyxart@cyberia.phoenix.it>
+     Französisch  : Tattoo Mabonzo <tattoo.mabonzo@ping.be> und
+                    Thierry Cuvelier <Thierry.Cuvelier@ping.be>
+     Dänisch      : Jens Kristian Jensen <32jkj@but.auc.dk> und
+                    Claus Østergaard <cos@dator.dk>
+     Schwedisch   : Thomas Andersson <steiner@kd.qd.se> und
+                    Patrik Nordvall <patrik@p52.anet.canit.se>
+     Holländisch  : Paul van der Heu <pvdh@motship.xs4all.nl> und
+                    Edmund Vermeulen <edmundv@grafix.xs4all.nl>
+     Polnisch     : Pawel Hernik <spi-ph@srv1.tu.kielce.pl>
+     Spanisch     : Jordi Casinos <fura.baus@servicom.es>
+     Griechisch   : Minas N. Miliaras <mmiliaras@prometheus.hol.gr>
+     Norwegisch   : Jan-Tore Eliassen <jteliassen@grandma.link.no> and
+                    Kjell Irgens <kjelli@stud.cs.iut.no>
+     Ungarisch    : László Török <phoenix@master.fok.hu>
+     Finnisch     : Jari Mikkila <jmikkila@paju.oulu.fi>
+     Portugiesisch: Alfredo Martins <alfredomartins@mail.telepac.pt>
+     Tschechisch  : Lubos Nemec <nemec@amiga.cz>
+     Serbisch     : Ljubomir Jankovic <lurch@afrodita.rcub.bg.ac.yu>
+ · Die Firma Apple Computer Inc., die dafür gesorgt hat, daß das
+   Schreiben eines Macintosh-Emulators zum Kinderspiel wurde
+ · Ace of Base, deren Musik mich beim Hardcore-Debugging wieder
+   aufgemuntert hat, wenn "gar nichts" lief
+
+@ENDNODE
+
+
+@NODE EmulationWizard "Der Autor"
+
+Keiner wollte einen Macintosh-Emulator als Softwarelösung entwickeln.
+Also mußte ich es tun. :-)
+
+EMail:
+  Christian.Bauer@uni-mainz.de (Christian Bauer)
+
+WWW:
+  http://www.uni-mainz.de/~bauec002/
+
+Ich werde @{b}auf keinen Fall@{ub} ROM-Dateien verschicken, auch nicht
+"von Freund zu Freund"! Keine Chance!
+
+@ENDNODE
+
+
+@NODE History "History"
+
+V1.14	29.Mär.95
+  - Erste veröffentlichte Version
+
+V2.0	11.Apr.95
+  - Präemptives Multitasking
+  - Quickstart funktioniert zuverlässig
+  - Fehler in der Handhabung des Stack korrigiert
+  - Grafikkarten im 24-Bit-Adreßbereich funktionieren mit dem ROM 34
+  - CyBERgraphics 15- und 24-Bit-Modi funktionieren nun, bei Auswahl
+    eines CyBERgraphics-Modus wird die Farbtiefe automatisch gesetzt
+  - Benötigt keine spezielle ROM-Subversion mehr
+  - Einstellung für Task-Priorität entfernt
+  - Macintosh-Reset-Routine überarbeitet
+  - Italienische Catalog-Dateien
+  - Wenn die eingestellte Menge an Mac-Speicher nicht verfügbar ist,
+    kann man wählen, ob stattdessen der größte freie Block benutzt
+    werden soll
+  - Zahlreiche interne Korrekturen und Verbesserungen
+  - SCSI-IDs einzeln schaltbar, wenn das Ansprechen von ID 0 fehlschlägt
+    werden die anderen IDs nicht mehr übergangen
+  - Der Refresh wird nun von einem Task übernommen, wenn der
+    Amiga-Mauszeiger eingeschaltet ist, findet kein Refresh statt
+  - ROM-Schreibschutz ist nun wählbar
+  - Der FileDisk-Treiber öffnet keine Dateien mit leeren Namen mehr
+
+V3.0	11.Jun.95
+  - Multitasking-Verhalten verbessert, keine "Hänger" mehr beim Warten
+    auf I/O-Vorgänge
+
+  - Ethernet-Unterstützung für MacTCP
+  - Serieller Treiber beherrscht nun asynchronen Voll-Duplex-Betrieb
+  - Die Benutzung des "serial.device" während ShapeShifter läuft, ist
+    nun sicher
+  - Fehler beim Öffnen von parallelen Geräten im seriellen Treiber
+    korrigiert
+  - Das serielle Flag "Hardware Handshake" wird nun zur Steuerung des
+    ACK-Handshake bei parallelen Geräten benutzt
+  - Die seriellen Treiber werden nun beim Ausschalten immer geschlossen
+
+  - Kompatiblere SCSI-Routinen
+  - Eine Auswahlmöglichkeit für das Startvolume wurde im Datenträger-
+    Fenster hinzugefügt
+  - Eigenes Fenster für Einstellungen der Diskettenlaufwerke
+  - Zuordnung der Macintosh- zu den Amiga-Diskettenlaufwerken einstellbar
+  - Option zum Sperren von Laufwerken für AmigaDOS während der Mac läuft
+  - Unter "DeviceDisk 1/2" kann nun auch direkt der Name einer Partition
+    eingegeben werden
+  - DeviceDisks sind nun immer Festplatten
+  - Verbesserte Erkennung von Diskettenwechseln
+  - Kompatibler zu V41 des mfm.device
+  - Merkmal "720KKLUDGE", das das Formatieren von 720K-Disketten unter
+    System 7.5 ohne die "720K Diskettenformatierer"-Erweiterung erlaubt
+  - Das Starten von der System 7.0.1-Dienstprogramme-Diskette ist nun
+    möglich (LocalTalk stürzt nicht mehr ab)
+
+  - Auf dem 68040 wird nun die MMU benutzt, um nur die veränderten
+    Teile des Bildschirms neu zu berechnen (sofern der ROM-Schreibschutz
+    eingeschaltet ist), ausgenommen der 8-Bit-Amiga-Modus
+  - Unterstützung für Merlin-Grafikkarte
+  - Unterscheidung zwischen EGS Chunky und EGS VGA entfernt
+  - Neuer Bildschirmtyp "Amiga-Fenster", der die Macintosh-Oberfläche in
+    einem Fenster auf der Amiga-Workbench mit dem Amiga-Mauszeiger als
+    Mac-Mauszeiger anzeigt. Die Symbole "Größe" geben die Fensterausmaße
+    an.
+  - Die Bildschirmbreite wird auf ein Vielfaches von 16 gerundet
+  - Modi mit Refresh lesen die Bildschirmspeicheradresse bei jedem
+    Refresh, kein Grafikmüll mehr
+  - Option "Immer refreshen", um auch in 8-Bit-Chunky-Modi einen Refresh
+    zu erzwingen, zur Verhinderung von Grafikmüll
+  - Die BytesPerRow des "Amiga Bitplanes"-Modus werden aus der BitMap
+    gelesen
+  - Bei Auswahl eines CyBERgraphics-Modus wird das "Farbtiefe"-Symbol
+    automatisch gesetzt
+  - Der CyBERgraphics-Modus berücksichtigt die unter "Größe" eingetragenen
+    Ausmaße des Bildschirms
+  - Ist nicht genügend Speicher für einen CyBERgraphics-Bildschirm
+    vorhanden, gibt es nun eine Fehlermeldung anstatt einen Absturz
+  - Hintergrund-Refresh-Rate entfernt, eine Refresh-Rate von 0 wird
+    abgefangen und zu 1 gewandelt
+  - Fehler beim Schließen des Bildschirms entfernt
+
+  - Neue Option, um den Zugriff des Macintosh auf die FPU zu verhindern
+    (für 68060)
+  - 68060-kompatibel bei abgeschalteter FPU und ROM-Schreibschutz
+  - Steuerung des 68040-Copyback-Cache verbessert
+  - Beim Beenden von ShapeShifter wird der ursprüngliche Zustand des
+    Cache wiederhergestellt
+  - Option "NOCOPYBACK" zum Abschalten des Copyback-Cache
+  - Busfehlerhandhabung komplett geändert, VMM läuft nun, wenn der
+    ROM-Schreibschutz ausgeschaltet ist
+
+  - Dynamische Speicherverwaltung entfernt
+  - Speichereinstellung nun über Integer-Gadget
+  - ROM-Prüfsumme wird getestet
+
+  - Dänische, französische, schwedische, niederländische und polnische
+    Catalog-Dateien
+  - PrepareEmul kann nun Olaf Barthels "shutdown.library" benutzen
+
+V3.1	12.Aug.95
+  - ROM Sub-Version 17 läuft wieder (jedoch ist diese Version für
+    ShapeShifter nicht zu empfehlen)
+  - Detailiertere Fehlermeldungen bezüglich des Mac-ROM
+
+  - FPU-Exceptions werden auf der Mac-Seite abgefangen
+  - Der Zustand des Copyback-Cache wird beim Beenden wiederhergestellt
+  - Getrennte Einstellungen für MMU-Refresh und ROM-Schreibschutz
+  - Die MMU-Routinen funktionieren nun auch mit 8K-Seiten
+  - Das Caching der unteren 8K RAM ist nun per ToolType steuerbar
+  - 68060-FPU-Probleme behoben
+  - Kleinere Korrekturen an den MMU- und FPU-Routinen
+
+  - EtherTalk läuft
+
+  - SCSI-Routinen komplett neu geschrieben
+  - Maximale Transfergrößen werden nun auf ein gerades Vielfaches einer
+    Sektorgröße abgerundet
+  - DeviceDisks rufen CMD_UPDATE beim Ausschalten auf
+  - Schreibschutzerkennung der DeviceDisks kompatibler mit bestimmten
+    SCSI-Treibern
+
+  - Schnittstelle für externe Videotreiber
+  - Schnellerer Grafik-Refresh in den 2-, 4- und 8-Bit Amiga-Bitplane-Modi,
+    der 8-Bit-Modus kann nun auch die MMU benutzen
+  - BGRA32- und RGBA32-Refresh-Modi implementiert
+
+  - Wenn das audio.device nicht geöffnet werden kann oder Kanäle 0 und 1
+    bereits belegt sind, setzt ShapeShifter nun einfach die Lautstärke
+    auf 0 und überspringt den Startsound, anstatt mit einer Fehlermeldung
+    auszusteigen
+
+  - Die '\|'-Taste auf amerikanischen Tastaturen wird nun korrekt verwendet
+  - ShapeShifter ist nun AppleScript-Bug-fest
+  - PRAM-Verwaltung neu geschrieben, die PRAM-Datei ist nun nur noch
+    256 Bytes lang; die alten (längeren) Dateien werden beim Laden
+    konvertiert
+  - Laden des Keyfiles sicherer
+  - Kleinere Korrekturen für zukünftige Draco-Kompatibilität
+
+  - MacMem über einen "A1200"-Schalter in PrepareEmul eingebaut
+
+V3.2	17.Sep.95
+  - ROM-Schreibschutz auf dem 68060 abgeschaltet
+  - Einstellung "FPU nicht benutzen" entfernt
+  - Früh auftretende Fehler (wie "PrepareEmul nicht installiert")
+    beeinflussen nicht mehr den Cache
+  - Volle Thread-Manager-Unterstützung, einschließlich des 68060 und
+    präemptiver Threads
+
+  - Ethernet-Treiber umgeschrieben, benutzt nun einen eigenen Task und
+    verbraucht 130KB weniger Speicher (Liebling, ich habe den .ENET-Treiber
+    geschrumpft!)
+  - Fehlerrequester für nicht unterstützte Ethernet Packet-Typen, Ethernet-
+    Karten, die kein Multicast können und für ERead-Aufrufe
+  - Einige Mac-ROMs haben den Ethernet-Treiber absorbiert
+
+  - Serielle Ports der A-Max-II+/IV-Karte werden unterstützt
+  - Unterstützung für serielle Übertragung bei 230kbps
+
+  - Fehler des mfm.device V38/V40 beim OpenDevice() wird umgangen
+  - Fehler beim Schließen von DeviceDisk 2 entfernt
+  - MaxTransfer-Berechnung korrigiert
+  - Device und Einheit können nun für jede SCSI-ID einzeln eingestellt werden
+  - Direkte SCSI-Übertragung implementiert
+  - Kleine Korrekturen in den SCSI-Routinen (Lesen, Autosense, Completion)
+
+  - Unterstützung für 2 Monitore, Videotreiber aufgeräumt
+  - Unterstützung für Merlin und Picasso in externe Treiber ausgelagert
+  - RTYPE_CUSTOM korrigiert
+  - RGBA32-Refreshmodus ist unter CyberGfx verfügbar
+  - Bessere Abschaltung des Mac-Mauszeigers im Amiga-Mauszeiger-Modus
+
+  - Zuverlässigeres Belegen/Freigeben des Audiokanäle
+  - Audio-Ausgabe kann komplett abgeschaltet werden
+  - Sound-Eingabetreiber läuft wieder asynchron
+  - Verbesserte Handhabung der Audio-Interrupts
+  - Mac-Startsound wird von einem ToolType kontrolliert
+
+  - ROM-Speichertyp einstellbar
+  - Taskname ist immer "ShapeShifter"
+  - OS-gerechtere Handhabung der Level-2-Interrupts
+  - Problem mit Mac-Mauszeigereinstellungen behoben
+  - Fehler bei Neustart behoben (Enable() ohne voriges Disable() aufgerufen)
+
+  - Fehler im Mac-Handler entfernt ("Destination file removed" beim
+    Kopieren aus der Shell)
+
+  - Griechische, spanische und norwegische Catalog-Dateien
+
+V3.2a	21.Sep.95
+  - Präemptive Threads auf externen FPUs repariert
+
+V3.3	20.Nov.95
+  - Komplett neuer Time-Manager
+
+  - Keine Phase-Errors beim SCSI-Autosense mehr möglich
+  - Unterstützung für SCSI-LUNs
+
+  - Level 2 des Interface für externe Videotreiber: Flags-Tag für
+    SHEV_OpenScreen hinzugefügt
+  - Bessere Bitmap-Modulo-Berechnung
+
+  - Alte Audio-Interrupt-Routinen implementiert
+
+  - Fehler in serieller Konfiguration behoben
+
+  - Lad-/Speicherbare Einstellungen, die Einstellungen sind die "Projekte"
+    von ShapeShifter
+
+  - Finnische und ungarische Catalog-Dateien
+
+V3.4	04.Mär.96
+  - 68040-CPU-sResource hinzugefügt
+  - Multitasking ist in Mac-Interrupts abgeschaltet
+  - "Hartes" Beenden (Befehl-Option-Esc) funktioniert
+
+  - Diverse Fehler in den Ethernet-Routinen entfernt (hauptsächlich EWrite)
+  - Ethernet-Treiber nicht mehr auf bestimmte Packet-Typen beschränkt,
+    DetachPH implementiert
+  - Besseres LocalTalk-Abschalten
+  - Netzwerk-Devices, die kein Ethernet sind, werden zurückgewiesen
+
+  - Emplant-Karte wird automatisch erkannt und benutzt (serielle Ports/
+    LocalTalk)
+
+  - Apple-CD300-Emulation mit AppleCD-Treiber 5.1.1 funktionierte mit
+    einigen Laufwerken nicht
+  - "Sommer"-Modus zur Umgehung von Fehlern in SCSI-Treibern von phase 5
+  - ShapeShifter versucht nicht, von anderen als SCSI-Geräten zu booten,
+    als Geräte der Klasse "Direct Access"
+
+  - Bei Aufruf von DebugStr() aus einem Mac-Programm zeigt ShapeShifter
+    den String in einem Requester
+  - Der AppleScript-Bug (Workaround in V3.0c eingebaut) wird nun von
+    ShapeShifter gefixt
+  - Fehler in den Maus-Routinen korrigiert (Apeiron)
+  - Einige Prüfroutinen im Time Manager eingebaut (Bug in der File-Sharing-
+    Systemerweiterung)
+
+  - Keine CIA-Zugriffe mehr auf dem DraCo
+  - Unterstützung für DraCo-Diskettenlaufwerke (nur HD)
+  - Tonausgabe auf dem DraCo abgeschaltet
+
+V3.5	01.Mai.96
+  - PLIP-Netzwerkfunktionen (Ethernet-Emulation)
+  - Weiteren Ethernet-Fehler behoben (ReadPacket)
+  - EWrite-Rücksprungssequenz geändert
+
+  - gpch-750-Patch (BlockMove) nur auf 68040/060 angewendet
+
+  - Seriellen Aufruf für 230kbps Übertragungsrate korrigiert, Aufruf für
+    115kbps eingebaut
+
+  - Bytes-pro-Zeile-Handhabung für externe Videotreiber korrigiert
+
+  - Fehler im Time Manager behoben (RmvTime Restzeit)
+  - Weitere Workarounds für weitere mfm.device-Fehler
+  - Fehler in System 7.5.1-Tastaturroutinen behoben (beim Loslassen von
+    Tasten)
+  - System-Patches an Systen 7.5.3 (bzw, 7.5 Update 2.0) angepaßt
+
+  - PrepareEmul arbeitet besser mit anderen KickTags zusammen
+
+V3.6	31.Okt.96
+  - Sollte nicht länger abstürzen, wenn eine Emplant-Karte ohne SCC
+    vorhanden ist
+
+  - QuickDraw-Beschleunigung für nicht-refreshte CyberGfx-Bildschirme
+    (BitBlt, FillRect, InvertRect, vertical lines)
+  - Externe Videotreiber: SHEV_CloseScreen wurde nicht aufgerufen, wenn
+    SHEV_OpenScreen fehlschlug, aber einen gültigen Context zurückgab
+  - "Amiga-Fenster"-Modus ist in 24 Bit Farbe, wenn das Fenster auf
+    einem CyberGfx-Bildschirm >8 Bit geöffnet wird
+
+  - Start-"bing" entfernt
+  - Effizientere Soundroutinen
+  - 8 Bit AHI-Unterstützung
+
+  - Kleinere Verbesserungen am seriellen Treiber
+
+  - Präziseres 60Hz-Timing auf dem DraCo
+
+  - Neue Merkmale: NOQDACCEL und USKEYMAP
+
+  - Portugiesische Catalog-Dateien
+
+V3.7	18.Dez.96
+  - Audio-Interrupts verändert
+  - In der Mac-Reset-Routine werden das VBR nicht mehr gelöscht und die
+    Interrupts nicht mehr gesperrt
+  - Unterstützung für multidisk.device (Catweasel-Controller), Floppy-
+    Einstellungen verändert
+  - Die ersten 2048 Bytes von neu angelegten FileDisks werden gelöscht
+  - Tschechische Catalog-Dateien
+
+V3.8	26.Mai 97
+  - Bessere AppleHD-Emulation
+  - Apple-CD300-Emulation durch generischen CD-ROM-Treiber ersetzte
+  - 15/24-Bit-Modi können nun unter Picasso96 ausgewählt werden
+  - RGBA32-Modi funktionieren nun
+  - Einige Änderungen an den seriellen Routinen (DTR-Modus impliziert kein
+    7-Draht-Handshaking mehr)
+  - Angepaßt an (und benötigt nun) AHI V4
+
+V3.9	28.Apr.98
+  - ModelID für 68040/060-Systeme auf Quadra700 geändert
+  - Kann von CD-ROM booten
+  - Ethernet-Packets werden immer auf 60 Byte Größe verlängert
+  - Einige Korrekturen an den seriellen und CD-ROM-Treibern
+  - FileDisks sind schneller
+
+V3.10	03.Jan.99
+  - Unterstützung für MacOS 8 (benötigt 1MB-ROM)
+  - Neue Option "MacOS-8-Modus", die zwischen IIci und Quadra900 ModelID
+    umschaltet
+  - Picasso96-PIP (15 Bit Farbtiefe) wird im "Amiga Fenster"-Modus
+    benutzt, falls vorhanden
+  - Diskwechsel-Symbole (blinkende Ziffern) werden in allen Modi korrekt
+    dargestellt
+  - ShapeShifter ist jetzt Freeware
+  - Kein Keyfile mehr zur Freischaltung aller Funktionen benötigt
+
+V3.11	25.Jan.2001
+  - Bug beim Dateikopieren unter MacOS 8 Finder gefixt
+  - 68060-Super-Bypass-Mode wegen eines CPU-Fehlers, der unter MacOS 8
+    zu Tage tritt, abgeschaltet
+
+V3.20	07.Nov.2026	(gebaut aus dem veröffentlichten 3.11-Quelltext)
+  - Läßt sich mit vasm und GNU ld bauen (build.sh); Kataloge werden aus
+    den Quellen erzeugt (tools/catcomp.py statt CatComp)
+  - Einstellungen in einem Fenster mit Karteireitern; neue Seite CPU für
+    NOCOPYBACK, REMAP8K, ENFORCER, USKEYMAP, NOQDACCEL,
+    720KKLUDGE und DEBUG, mit den Einstellungen gespeichert
+  - Konfigurationen: Liste in PROGDIR:Configurations, "Speichern als..."
+  - Eine Zeile Hilfe zu dem Bedienelement unter der Maus
+  - Die neuen Texte sind übersetzbar; Deutsch ist übersetzt
+  - Vier FileDisks (Mac-Laufwerke 5, 6, 8, 9); sie sind wechselbar:
+    auswerfen auf dem Mac, einlegen durch Ablegen eines Abbilds auf dem
+    AppIcon "Mac disk"
+  - DiskCopy-4.2-Abbilder und Abbilder mit Apple-Partitionstabelle (CDs,
+    Festplatten) als FileDisks
+  - Rohe CD-Abbilder (.bin/.cue) als FileDisks, nur lesbar
+  - Disk-Abbilder können auf dem Einstellungsfenster abgelegt werden
+  - Prüfungen vor dem Start des Mac (fehlende FileDisk, ROM im ChipRAM,
+    68060 unter UAE ohne NOCOPYBACK)
+  - Das PRAM wird gesichert, während der Mac läuft
+  - Einrichtung beim ersten Start: ROM, Einstellungen für diesen Amiga,
+    eine leere Mac-Disk
+  - 16-Bit-RGB565-Grafikkartenmodi für Tausende Farben (umgerechnet)
+  - PrismRTG: der Mac-Bildschirm bleibt im Speicher der Karte
+  - PrismRTG: die Wahl eines 16-Bit-Modus bietet den schnelleren
+    15-Bit-Modus an
+  - DEPTHSWITCH: die Farbtiefe läßt sich auf dem Mac wechseln
+    (Kontrollfeld Monitore); Amiga-Bildschirme 1-8 Bit, Grafikkarten 8,
+    15/16 und 24/32 Bit
+  - Behoben: Ethernet-Pakete kamen bei SANA-II-Treibern, die die CRC
+    entfernen (den meisten heutigen), 4 Bytes zu kurz beim Mac an
+  - Behoben: 256-Farben-Amiga-Bildschirme wurden weiß, wenn die
+    graphics.library keine Interleaved-Bitmap liefern konnte (jetzt ein
+    klares Hinweisfenster)
+
+@ENDNODE

@@ -1,0 +1,279 @@
+; -------------------------------------------------------------------------
+; ShapeShifter - Installer script
+;
+; Copies ShapeShifter, its manual and language files into a drawer of your
+; choice and, if you agree, sets up ReserveLow in the Startup-Sequence
+; (ShapeShifter needs the lowest memory left free from boot on).
+; Run it again to update: your settings, PRAM, ROM and Mac disks are kept.
+; -------------------------------------------------------------------------
+(set @app-name "ShapeShifter")
+(set #version "3.20")
+(set #reboot 0)
+(set #nope 0)
+(complete 0)
+
+(if (not (exists "ShapeShifter"))
+    (abort "Can't find the ShapeShifter files next to this script.\n\n"
+           "Run the installer from the drawer it came in."))
+
+(set #cpu (database "cpu"))
+(if (or (= #cpu "68000") (= #cpu "68010"))
+    (abort "ShapeShifter needs a 68020 processor or better.\n\n"
+           "This Amiga has a " #cpu "."))
+
+(message "ShapeShifter " #version " - a Macintosh II emulator\n\n"
+         "ShapeShifter runs the Macintosh system and its programs on your Amiga, "
+         "side by side with your Amiga programs.\n\n"
+         "You need a Macintosh ROM file (512 KB or 1 MB) and a Mac system to "
+         "install, for example from a system CD. Neither comes with ShapeShifter.")
+
+; -------------------------------------------------------------------------
+; Where
+; -------------------------------------------------------------------------
+(set #where
+    (askdir (prompt "Where should the ShapeShifter drawer go?")
+            (help "A drawer called ShapeShifter is made here (or updated, if it is "
+                  "already there). It holds the program, the manual and the language "
+                  "files. Your settings, the Mac ROM and the Mac's parameter RAM are "
+                  "kept in the same drawer.\n\n"
+                  "Mac disks can be large. They do not have to be in this drawer.")
+            (default (if (exists "Work:" (noreq)) "Work:" "SYS:"))))
+(set #target (tackon #where "ShapeShifter"))
+(set #update (exists (tackon #target "ShapeShifter") (noreq)))
+(complete 10)
+
+; the drawer gets this Workbench's own drawer icon (ENV:Sys/def_drawer.info)
+(if (not (exists #target (noreq))) (makedir #target (infos)))
+
+; The archive unpacks as a drawer "ShapeShifter" too: unpacked in the place
+; chosen here, the files would be copied onto themselves.
+(if (= (expandpath #target) (expandpath ""))
+    (abort "The place you chose holds the drawer you are installing from:\n\n"
+           #target "\n\n"
+           "Nothing was changed. Start the installer again and choose another "
+           "place, or move the unpacked drawer somewhere else first (to RAM:, "
+           "for example)."))
+
+; -------------------------------------------------------------------------
+; The files
+; -------------------------------------------------------------------------
+(copyfiles (prompt "Copying ShapeShifter")
+           (help @copyfiles-help)
+           (source "ShapeShifter")
+           (dest #target))
+; the program's icon holds the user's tooltypes: an update keeps it
+(if (not (exists (tackon #target "ShapeShifter.info") (noreq)))
+    (copyfiles (source "ShapeShifter.info") (dest #target) (nogauge)))
+(run (cat "C:Protect >NIL: \"" (tackon #target "ShapeShifter") "\" +rwed"))
+(complete 30)
+
+(copyfiles (prompt "Copying the manual (English and German)")
+           (help @copyfiles-help)
+           (source "")
+           (dest #target)
+           (pattern "ShapeShifter#?.guide")
+           (infos))
+(copyfiles (source "LICENSE.txt") (dest #target) (nogauge))
+(copyfiles (source "README") (dest #target) (nogauge))
+(complete 45)
+
+(copyfiles (prompt "Copying the language files")
+           (help "ShapeShifter looks for its language files in the drawer Catalogs "
+                 "next to the program. They do not have to be in LOCALE:.")
+           (source "Catalogs")
+           (dest (tackon #target "Catalogs"))
+           (all))
+(complete 60)
+
+; -------------------------------------------------------------------------
+; The low memory
+; -------------------------------------------------------------------------
+; ReserveLow always goes into the drawer, to be run by hand
+(copyfiles (source "ReserveLow") (dest #target) (nogauge))
+
+; Is the low memory looked after already? Search returns 0 when it finds
+; the word - also in a line that is commented out, so for the other tools
+; ReserveLow CHECK is asked whether the memory really is reserved right now.
+(set #hasrl 0)
+(if (= 0 (run "C:Search >NIL: S:Startup-Sequence ReserveLow QUIET" (safe)))  (set #hasrl 1))
+(set #has "")
+(if (= 0 (run "C:Search >NIL: S:Startup-Sequence PrepareEmul QUIET" (safe))) (set #has "PrepareEmul"))
+(if (= 0 (run "C:Search >NIL: S:Startup-Sequence RsrvWarm QUIET" (safe)))    (set #has "RsrvWarm"))
+(if (= 0 (run "C:Search >NIL: S:Startup-Sequence RsrvMem QUIET" (safe)))     (set #has "RsrvMem"))
+(if (= 0 (run "C:Search >NIL: S:Startup-Sequence A-MaxInit QUIET" (safe)))   (set #has "A-MaxInit"))
+(if (= 0 (run "C:Search >NIL: S:Startup-Sequence SetFF QUIET" (safe)))       (set #has "SetFF"))
+(set #reserved 0)
+(if (= 0 (run (cat "\"" (tackon (expandpath "") "ReserveLow") "\" >NIL: CHECK QUIET") (safe)))
+    (set #reserved 1))
+
+(set #ask 1)
+(if (= #hasrl 1)
+    (
+        (message "Your Startup-Sequence already runs ReserveLow, which keeps the "
+                 "lowest memory free for ShapeShifter.\n\n"
+                 "It is left as it is.")
+        (copyfiles (source "ReserveLow") (dest "C:") (nogauge))
+        (set #ask 0)
+    )
+)
+(if (and (= #hasrl 0) (and (<> #has "") (= #reserved 1)))
+    (
+        (message "Your Startup-Sequence already runs " #has ", which keeps the "
+                 "lowest memory free for ShapeShifter.\n\n"
+                 "It is left as it is.")
+        (set #ask 0)
+    )
+)
+(if (and (= #hasrl 0) (and (<> #has "") (= #reserved 0)))
+    (message "Your Startup-Sequence names " #has ", but the lowest memory is not "
+             "kept free at the moment: its line may be switched off, or it does "
+             "not work on this Amiga.\n\n"
+             "The next question offers ReserveLow instead.")
+)
+
+(if (= #ask 1)
+    (
+        (set #pe
+            (askchoice
+                (prompt "ShapeShifter needs the lowest memory of the Amiga left "
+                        "free from the moment it starts. ReserveLow does that; it "
+                        "has to be the first line of the Startup-Sequence.\n\n"
+                        "It is new: \"No\" is the careful choice (see Help).\n\n"
+                        "Add it now?")
+                (help "ReserveLow has been tested on few Amigas so far. With \"No\" "
+                      "you run it by hand from the ShapeShifter drawer before you "
+                      "start ShapeShifter, and can add it to the Startup-Sequence "
+                      "later, by running this installer again.\n\n"
+                      "With \"Yes\", ReserveLow is copied to C: and the line \"C:ReserveLow QUIET\" "
+                      "is put at the very top of S:Startup-Sequence. The old file is "
+                      "kept as S:Startup-Sequence.before-ShapeShifter.\n\n"
+                      "With ReserveLow the Amiga restarts once more after it is "
+                      "switched on. If the Amiga should not start any more: hold "
+                      "the left mouse button down while it starts. ReserveLow "
+                      "then does nothing, and you can take its line out again.\n\n"
+                      "Choose \"No\" if you would rather run ReserveLow by hand "
+                      "before you use ShapeShifter (it is in the ShapeShifter "
+                      "drawer), or use something else for this: PrepareEmul of 3.11, a "
+                      "patched Kickstart, A-Max IV or Emplant software. The manual "
+                      "has the details under \"Reserving the low memory\".")
+                (choices "Yes: C:ReserveLow"
+                         "No, leave the Startup-Sequence alone")
+                (default 1)))
+
+        (if (= #pe 0)
+            (
+                (set #line "C:ReserveLow QUIET")
+                (copyfiles (prompt "Copying ReserveLow to C:")
+                           (help @copyfiles-help)
+                           (source "ReserveLow")
+                           (dest "C:"))
+                (copyfiles (source "S:Startup-Sequence")
+                           (dest "S:")
+                           (newname "Startup-Sequence.before-ShapeShifter")
+                           (nogauge))
+                (textfile (prompt "Putting \"" #line "\" at the top of S:Startup-Sequence")
+                          (help "The line has to come before everything else in the "
+                                "Startup-Sequence. The file as it was is kept as "
+                                "S:Startup-Sequence.before-ShapeShifter.")
+                          (dest "T:Startup-Sequence.ShapeShifter")
+                          (append (cat #line "\n"))
+                          (include "S:Startup-Sequence")
+                          (confirm))
+                (copyfiles (source "T:Startup-Sequence.ShapeShifter")
+                           (dest "S:")
+                           (newname "Startup-Sequence")
+                           (nogauge))
+                (delete "T:Startup-Sequence.ShapeShifter")
+                (set #reboot 1)
+            )
+            (set #nope 1)
+        )
+    )
+)
+(complete 80)
+
+; -------------------------------------------------------------------------
+; The Mac ROM
+; -------------------------------------------------------------------------
+(if (not (exists (tackon #target "ShapeShifter ROM") (noreq)))
+    (if (askbool (prompt "ShapeShifter needs a Macintosh ROM file (512 KB or 1 MB, "
+                         "from a Mac with a 68020, 68030 or 68040).\n\n"
+                         "Do you have the file on this Amiga, to copy it now?")
+                 (help "The ROM is not part of ShapeShifter: it has to be read from "
+                       "a Macintosh you own. The manual explains how under "
+                       "\"Installing the Macintosh ROM\".\n\n"
+                       "If you answer No, put the file into the ShapeShifter drawer "
+                       "later, under any name: at its first start ShapeShifter looks "
+                       "for a ROM file there.")
+                 (choices "Yes" "No")
+                 (default 0))
+        (
+            (set #rom (askfile (prompt "Choose the Macintosh ROM file")
+                               (help "A file of exactly 524288 or 1048576 bytes.")
+                               (default #where)))
+            (set #romsize (getsize #rom))
+            (if (or (= #romsize 524288) (= #romsize 1048576))
+                (copyfiles (prompt "Copying the ROM")
+                           (help @copyfiles-help)
+                           (source #rom)
+                           (dest #target)
+                           (newname "ShapeShifter ROM"))
+                (message "\"" #rom "\" is " #romsize " bytes long. A Mac ROM for "
+                         "ShapeShifter has 524288 or 1048576 bytes.\n\n"
+                         "It was not copied."))
+        )
+    )
+)
+(complete 95)
+
+; the package drawer came with a plain drawer icon so it shows when unpacked;
+; from now on it has this Workbench's own (ENV:Sys/def_drawer.info). Not at a
+; disk root: a disk root has no drawer icon, and it may be locked.
+(set #pkgdir (expandpath ""))
+(if (and (exists "ENV:Sys/def_drawer.info" (noreq))
+         (<> (substr #pkgdir (- (strlen #pkgdir) 1) 1) ":"))
+    (if (exists (cat #pkgdir ".info") (noreq))
+        (run (cat "C:Copy >NIL: ENV:Sys/def_drawer.info \"" #pkgdir ".info\""))))
+(complete 100)
+
+; -------------------------------------------------------------------------
+; The Mac disk tools (MacBrowse, MacHFS-Handler, MacMount)
+; -------------------------------------------------------------------------
+(if (askbool
+        (prompt "Install the Mac disk tools as well?\n\n"
+                "MacBrowse copies files between the Amiga and a Mac disk image. "
+                "MacMount with MacHFS-Handler shows a Mac disk image as an "
+                "ordinary Amiga volume.")
+        (help "The drawer MacDiskTools is copied into the ShapeShifter drawer, "
+              "MacHFS-Handler to L: and MacMount to C:.\n\n"
+              "They work on the disk image files while ShapeShifter is not "
+              "running. They are new: keep a copy of a Mac disk you care about "
+              "before you write to it from the Amiga side, or mount it "
+              "read-only (MacMount HFV0: image RO). MacBrowse.readme in the "
+              "drawer has the details.")
+        (default 1))
+    (
+        (makedir (tackon #target "MacDiskTools") (infos))
+        (copyfiles (prompt "Copying the Mac disk tools")
+                   (help @copyfiles-help)
+                   (source "MacDiskTools")
+                   (dest (tackon #target "MacDiskTools"))
+                   (all))
+        (copyfiles (source "MacDiskTools/MacHFS-Handler") (dest "L:") (nogauge))
+        (copyfiles (source "MacDiskTools/MacMount") (dest "C:") (nogauge))
+    )
+)
+
+(message "ShapeShifter " #version " is " (if #update "updated" "installed") " in " #target ".\n\n"
+         (if #reboot
+             "Restart the Amiga now, so that ReserveLow can do its work. Then double-click ShapeShifter: "
+             "Double-click ShapeShifter: ")
+         "at its first start it offers to set itself up (the ROM, the screen, "
+         "memory and an empty Mac disk).\n\n"
+         (if #nope
+             (cat "The Startup-Sequence was not changed: before you start ShapeShifter, "
+                  "run ReserveLow from its drawer (the Amiga restarts once), unless "
+                  "the lowest memory is kept free some other way.\n\n")
+             "")
+         "The manual is ShapeShifter_E.guide (English) and ShapeShifter.guide (German).")
+(exit (quiet))

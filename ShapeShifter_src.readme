@@ -1,0 +1,49 @@
+Short:        ShapeShifter source code
+Uploader:     amigasourcecodepreservation@gmail.com
+Author:       Christian Bauer
+Type:         misc/emu
+Version:      3.11
+Architecture: generic
+
+Source code for the Macintosh-II emulator ShapeShifter.
+Binaries: http://aminet.net/package/misc/emu/ShapeShifter
+Uploaded to aminet for historical preservation.
+Many thanks to Christian Bauer for releasing the code.
+
+Authors notes
+=======
+
+The entire thing is written in assembler, using PhxAss/PhxLnk (latest released versions) for building, GadToolsBox V2.0b for the preferences GUI, and some standard Commodore SDK tools like BumpRev and CatComp.
+
+There is no Makefile or anything like that. The program was built by manually executing the alias commands defined in ShapeShifter-Startup (I resolved all dependencies in my head .
+
+MacEmulTCP.asm was an attempt at providing TCP support for Mac programs by forwarding it to AmiTCP, but it's incomplete, never made it into an officially released version of ShapeShifter, and can only be activated via an undocumented ToolType.
+
+As a little bonus, I've also included the (single) source file for ShapeShifter V0.3, the earliest working version which I have. It probably only works on an Amiga 4000/030, where all my original development took place on (later upgraded to an Amiga 4000/040 and then a Cyberstorm Mk1 060/50, which is the machine that I still have sitting on my desk - the only recent upgrade being a replacement of the loud-as-shit SCSI hard drive with an SSD).
+
+Sorry for all the comments in the source code being in German... X-) 
+
+Two more bits of trivia:
+1) ShapeShifter, like Basilisk, was named after a creature from the C64 game "Archon", although many people at the time mistakenly believed that it was named after the character Odo from "Deep Space Nine".
+2) The "Summer mode" in the ShapeShifter preferences (actually called "FastCrap mode" in the source code) refers to a workaround for a bug in the Fastlane Z3's z3scsi.device written by Ralph Schmidt who went by the nickname "Laire" which, in Tolkien's lore, is the Elvish word for summer. I had a heated email exchange with Ralph about this at the time, and I still believe that the z3scsi.device is violating the specs by returning wrong values in the scsi_Actual field. 
+
+License
+=======
+ShapeShifter is released under the ISC License, see LICENSE.txt.
+
+Cheers!
+https://twitter.com/AmigaSourcePres
+
+  _____ ___   _   __  __     _   __  __ ___ ___   _   
+ |_   _| __| /_\ |  \/  |   /_\ |  \/  |_ _/ __| /_\  
+   | | | _| / _ \| |\/| |  / _ \| |\/| || | (_ |/ _ \ 
+  _|_| |___/_/ \_\_|_ |_|_/_/_\_\_|__|_|___\___/_/_\_\
+ / __|/ _ \| | | | _ \/ __| __|  / __/ _ \|   \| __|  
+ \__ \ (_) | |_| |   / (__| _|  | (_| (_) | |) | _|   
+ |___/\___/_\___/|_|_\\___|___|__\___\___/|___/|___|_ 
+ | _ \ _ \ __/ __| __| _ \ \ / /_\_   _|_ _/ _ \| \| |
+ |  _/   / _|\__ \ _||   /\ V / _ \| |  | | (_) | .` |
+ |_| |_|_\___|___/___|_|_\ \_/_/ \_\_| |___\___/|_|\_|
+                                                      
+
+

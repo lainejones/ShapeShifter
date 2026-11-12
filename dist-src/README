@@ -1,0 +1,115 @@
+ShapeShifter 3.20 beta 1 - a Macintosh II emulator for the Amiga
+
+ShapeShifter runs the Macintosh system (System 7 to Mac OS 8.1) and its
+programs on an Amiga with a 68020 or better, next to your Amiga programs.
+
+THIS IS A BETA. It has run on few Amigas so far (see "Tested" below).
+Keep copies of Mac disks you care about, and read the part on ReserveLow
+before you let it into your Startup-Sequence.
+
+To install, double-click Install_ShapeShifter. It copies the program, the
+manual and the language files into a drawer of your choice. Run it again
+to update: settings, ROM and Mac disks are kept.
+
+You also need, and ShapeShifter does not contain:
+ - a Macintosh ROM file (512 KB or 1 MB) read from a Mac you own
+ - a Macintosh system to install, for example from a system CD
+
+At its first start ShapeShifter offers to set itself up. The manual is
+ShapeShifter_E.guide (English) and ShapeShifter.guide (German). In the
+English one, "Quick start" takes you from this archive to the Mac desktop,
+"Troubleshooting" helps when it does not start, and "Settings at a glance"
+lists every setting with its default; the "Defaults" button in the
+settings window chooses settings that fit your Amiga. The German manual
+has the same chapters ("Schnellstart", "Fehlersuche", "Einstellungen im
+Ueberblick").
+
+The low memory (ReserveLow)
+---------------------------
+ShapeShifter needs the lowest memory of the Amiga free from boot on.
+ReserveLow does that: run it once after the Amiga is switched on (it
+restarts the Amiga), or let the installer put "C:ReserveLow QUIET" at the
+top of your Startup-Sequence. The installer suggests "No" for now.
+
+ReserveLow is new. If your Amiga does not start with it: hold the LEFT
+MOUSE BUTTON down while the Amiga starts or resets. ReserveLow then does
+nothing, the Amiga starts as usual, and you can take the line out of
+S:Startup-Sequence (the file as it was is
+S:Startup-Sequence.before-ShapeShifter). Switching the Amiga off also
+removes ReserveLow from memory. Other software uses the same button as
+its "not this time" key (the PrismRTG graphics driver, for one), so a
+start with the left button held is a safe start with all of it off.
+
+PrepareEmul, the tool of ShapeShifter 3.11, is not in this archive any
+more. ReserveLow cannot do its work on an Amiga whose only fast memory is
+on Zorro cards (it says so and changes nothing): use PrepareEmul from the
+3.11 archive there. The manual has the details under "Reserving the low
+memory".
+
+The Mac disk tools (drawer MacDiskTools, optional)
+--------------------------------------------------
+MacBrowse copies files between the Amiga and a Mac disk image (.hfv and
+others); MacMount with L:MacHFS-Handler shows an image as an Amiga
+volume. They work on the image file while ShapeShifter is NOT running.
+See MacDiskTools/MacBrowse.readme. They are new as well: mount read-only
+(MacMount HFV0: image RO) or work on a copy until you trust them.
+
+Tested
+------
+ - Amiga 1200, 68030 + 68882, Kickstart 3.2.3, AGA: Mac OS 8.0 and 8.1,
+   sound through the Amiga's own audio (heard), a Mac disk on a SCSI
+   drive, the installer, ReserveLow
+ - Amiga 4000, 68060, Kickstart 3.2.3, graphics card and AGA: Mac OS 8.0
+   and 8.1, TCP/IP through a SANA-II driver, sound through AHI (recorded
+   to a file), ReserveLow
+ - The same Amiga 4000 with Kickstart 3.1, AGA: Mac OS 8.1
+ - Amiga 2000, 68030 accelerator (no FPU), Kickstart 3.2.3, ECS and a
+   Picasso II+ card: System 7.5 in 2, 4 and 16 colours on the ECS
+   screen, System 7.5 and Mac OS 8.1 in 256 and thousands of colours
+   on the card, sound, the installer, ReserveLow, the Mac disk tools
+ - WinUAE: A1200 68030 with Kickstart 3.1 and 3.2.3, A4000 68060;
+   System 7.5, Mac OS 8.0 and 8.1; the installer on Workbench 3.1 and 3.2
+
+Known problems
+--------------
+Not tested, so expect surprises and please report them:
+ - 68020 and 68040 processors, OCS screens, the DraCo.
+ - Long sessions (many hours).
+ - CD music on real hardware.
+ - AGA screens whose width is not a multiple of 64 (800x600, for one)
+   together with "MMU refresh" or with the Mac switching colour depth.
+   Without those two they work.
+ - "Format..." for device disks above 2 GB, and Disk First Aid on a disk
+   that ShapeShifter formatted.
+ - The left mouse button of ReserveLow with a real button: Amiga 4000
+   only.
+ - A cold start of ReserveLow under Kickstart 3.1 on real hardware.
+
+Seen:
+ - A Mac disk image on a Fast File System partition of a slow drive
+   makes the Mac start extremely slowly. ShapeShifter measures this and
+   warns before the Mac starts. Put the image on a PFS3 or SFS
+   partition, or use a device disk.
+ - A device disk set to "whole drive" on a drive larger than 4 GB is
+   left out without a message.
+ - "Format..." with a start sector typed by hand checks the partition
+   table only when the disk starts in the first 16 sectors. Use
+   "Choose..." to pick a partition.
+ - A settings file from 3.11 may name a screen mode that no longer
+   exists: ShapeShifter says so and opens the settings. Click "Defaults"
+   or choose a screen mode on the Graphics tab, and save.
+ - Each SCSI ID that is switched on but has no drive adds a few seconds
+   of grey screen before the Mac starts (3.11 took minutes). Switch
+   unused IDs off on the SCSI tab.
+ - The extras of the 3.11 archive (PrepareEmul, SaveROM, KickShifter,
+   Mac-Handler, the external video drivers) are not in this archive;
+   those of 3.11 still work.
+
+To remove ShapeShifter, delete its drawer, take the ReserveLow line out
+of S:Startup-Sequence and delete C:ReserveLow, C:MacMount and
+L:MacHFS-Handler.
+
+ShapeShifter was written by Christian Bauer, who released its source
+under the ISC licence (LICENSE.txt). This version is built from that
+source with fixes and additions; it is not his release, so please do not
+send him bug reports for it.

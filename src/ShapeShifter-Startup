@@ -1,0 +1,87 @@
+Stack 100000
+
+; Editieren - Emulator
+Alias e CED MacEmul.asm
+Alias eadd CED MacEmulADD.asm
+Alias eafd CED MacEmulAFD.asm
+Alias eclip CED MacEmulClip.asm
+Alias enet CED MacEmulNet.asm
+Alias epatch CED MacEmulPatches.asm
+Alias eprefs CED MacEmulPrefs.asm
+Alias eqd CED MacEmulQDAccel.asm
+Alias escsi CED MacEmulSCSI.asm
+Alias eserd CED MacEmulSERD.asm
+Alias eslot CED MacEmulSlot.asm
+Alias esound CED MacEmulSound.asm
+Alias etcp CED MacEmulTCP.asm
+Alias evideo CED MacEmulVideo.asm
+
+; Editieren - Zubehör
+Alias eprep CED PrepareEmul.asm
+Alias ehand CED MacHandler.asm
+Alias econt CED MacControl.asm
+Alias eret CED RetinaZ3.asm
+Alias edrac CED DracoGfx.asm
+Alias epic CED Picasso.asm
+Alias emerl CED Merlin.asm
+Alias eex CED Example.asm
+
+; Assemblieren - Emulator
+Alias a PhxAss MacEmul.asm INCPATH Include: OPT !
+Alias agui PhxAss MacEmulGUI.s INCPATH Include: OPT !
+Alias aadd PhxAss MacEmulADD.asm INCPATH Include: OPT !
+Alias aafd PhxAss MacEmulAFD.asm INCPATH Include: OPT !
+Alias aclip PhxAss MacEmulClip.asm INCPATH Include: OPT !
+Alias anet PhxAss MacEmulNet.asm INCPATH Include: OPT !
+Alias apatch PhxAss MacEmulPatches.asm INCPATH Include: OPT !
+Alias aprefs PhxAss MacEmulPrefs.asm INCPATH Include: OPT !
+Alias ascsi PhxAss MacEmulSCSI.asm INCPATH Include: OPT !
+Alias aserd PhxAss MacEmulSERD.asm INCPATH Include: ;Keine PEA-Optimierung!
+Alias aslot PhxAss MacEmulSlot.asm INCPATH Include: OPT !
+Alias asound PhxAss MacEmulSound.asm INCPATH Include: OPT !
+Alias atcp PhxAss MacEmulTCP.asm INCPATH Include: OPT !
+Alias avideo PhxAss MacEmulVideo.asm INCPATH Include: OPT !
+
+; Assemblieren - Zubehör
+Alias aprep PhxAss PrepareEmul.asm INCPATH Include: OPT !
+Alias ahand PhxAss MacHandler.asm INCPATH Include: OPT !
+Alias acont PhxAss MacControl.asm INCPATH Include: OPT !
+Alias aret PhxAss RetinaZ3.asm INCPATH Include: OPT !
+Alias adrac PhxAss DracoGfx.asm INCPATH Include: OPT !
+Alias apic PhxAss Picasso.asm INCPATH Include: OPT !
+Alias amerl PhxAss Merlin.asm INCPATH Include: OPT !
+Alias aex PhxAss Example.asm INCPATH Include: OPT !
+
+; Linken - Emulator
+Alias l PhxLnk @MacEmulLnk TO ShapeShifter NODEBUG
+
+; Linken - Zubehör
+Alias lprep PhxLnk Lib:Qstartup.obj PrepareEmul.o Lib:small.lib TO PrepareEmul NODEBUG
+Alias lhand PhxLnk MacHandler.o Lib:small.lib Lib:debug.lib NODEBUG
+Alias lcont PhxLnk Lib:Astartup.obj MacControl.o Lib:small.lib TO MacControl NODEBUG
+Alias lret PhxLnk RetinaZ3.o Lib:small.lib TO "Video Drivers/Retina Z3" NODEBUG
+Alias ldrac PhxLnk DracoGfx.o Lib:small.lib Lib:debug.lib TO "Video Drivers/DraCo" NODEBUG
+Alias lpic PhxLnk Picasso.o Lib:small.lib Lib:debug.lib TO "Video Drivers/Picasso" NODEBUG
+Alias lmerl PhxLnk Merlin.o Lib:small.lib Lib:debug.lib TO "Video Drivers/Merlin" NODEBUG
+Alias lex PhxLnk Example.o Lib:small.lib Lib:debug.lib TO "Video Drivers/Example" NODEBUG
+
+; Revision Control
+Alias b BumpRev 3 ShapeShifter_rev
+
+; Catalog-Dateien
+Alias cat CatComp Catalogs/ShapeShifter.cd ASMFILE Strings.i OBJFILE Strings.o NOSTRINGS NOARRAY NOBLOCK NOCODE
+Alias trans CatComp Catalogs/ShapeShifter.cd Catalogs/deutsch/ShapeShifter.ct CATALOG Catalogs/deutsch/ShapeShifter.catalog
+Alias transczech CatComp Catalogs/ShapeShifter.cd Catalogs/ÃeÓtina/ShapeShifter.ct CATALOG Catalogs/ÃeÓtina/ShapeShifter.catalog
+Alias transdansk CatComp Catalogs/ShapeShifter.cd Catalogs/dansk/ShapeShifter.ct CATALOG Catalogs/dansk/ShapeShifter.catalog
+Alias transfranc CatComp Catalogs/ShapeShifter.cd Catalogs/français/ShapeShifter.ct CATALOG Catalogs/français/ShapeShifter.catalog
+Alias transgreek CatComp Catalogs/ShapeShifter.cd Catalogs/greek/ShapeShifter.ct CATALOG Catalogs/greek/ShapeShifter.catalog
+Alias transital CatComp Catalogs/ShapeShifter.cd Catalogs/italiano/ShapeShifter.ct CATALOG Catalogs/italiano/ShapeShifter.catalog
+Alias transneder CatComp Catalogs/ShapeShifter.cd Catalogs/nederlands/ShapeShifter.ct CATALOG Catalogs/nederlands/ShapeShifter.catalog
+Alias transnorsk CatComp Catalogs/ShapeShifter.cd Catalogs/norsk/ShapeShifter.ct CATALOG Catalogs/norsk/ShapeShifter.catalog
+Alias transpolski CatComp Catalogs/ShapeShifter.cd Catalogs/polski/ShapeShifter.ct CATALOG Catalogs/polski/ShapeShifter.catalog
+Alias transport CatComp Catalogs/ShapeShifter.cd Catalogs/português/ShapeShifter.ct CATALOG Catalogs/português/ShapeShifter.catalog
+Alias transserb CatComp Catalogs/ShapeShifter.cd Catalogs/srpski/ShapeShifter.ct CATALOG Catalogs/srpski/ShapeShifter.catalog
+Alias transspan CatComp Catalogs/ShapeShifter.cd Catalogs/español/ShapeShifter.ct CATALOG Catalogs/español/ShapeShifter.catalog
+Alias transsuomi CatComp Catalogs/ShapeShifter.cd Catalogs/suomi/ShapeShifter.ct CATALOG Catalogs/suomi/ShapeShifter.catalog
+Alias transsvenska CatComp Catalogs/ShapeShifter.cd Catalogs/svenska/ShapeShifter.ct CATALOG Catalogs/svenska/ShapeShifter.catalog
+Alias transungar CatComp Catalogs/ShapeShifter.cd Catalogs/magyar/ShapeShifter.ct CATALOG Catalogs/magyar/ShapeShifter.catalog

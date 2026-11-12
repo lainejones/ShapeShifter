@@ -1,0 +1,488 @@
+V0.1-V1.5
+  - Interne Versionen
+
+Changes from V1.5 to V1.6 (09.Nov.94):
+  - ShapeShifter läuft jetzt mit dem 68040, allerdings nur mit
+    einem 1MB-ROM in voller Geschwindigkeit
+  - DropDTR im seriellen Treiber abgeschaltet, da fehlerhaft
+    implementiert
+
+Changes from V1.6 to V1.6d (12.Nov.94):
+  - Ungetestete Hacks für Picasso-II Grafikkarte
+  - Funktioniert jetzt wieder mit 1MB-ROM und 68030
+
+Changes from V1.6d to V1.7 (20.Nov.94):
+  - Interface zum Aufruf von Macintosh-Routinen aus Amiga-
+    Programmen heraus eingebaut (für den zukünftigen Mac-
+    FileHandler)
+
+Changes from V1.7 to V1.8 (24.Nov.94):
+  - Fehler im EGS-Message-Handling korrigiert
+
+Changes from V1.8 to V1.9 (10.Dec.94):
+  - Fehler in Cache-Funktionen korrigiert, Cache-Handhabung
+    ist jetzt effizienter
+  - Verschiedene interne Optimierungen
+
+Changes from V1.9 to V1.10 (29.Dec.94):
+  - Fehler im Time Manager korrigiert, Speedometer 4.0 läuft jetzt
+  - ShapeShifter arbeitet jetzt mit der Picasso-II zusammen
+
+Changes from V1.10 to V1.11 (30.Dec.94):
+  - Serieller Treiber funktioniert wieder
+
+Changes from V1.11 to V1.12 (28.Jan.95):
+  - Fehler in SCSI-Speicherallozierung behoben
+  - Gadgets im Einstellungshauptfenster lassen sich nun auch mit der
+    Tastatur bedienen
+  - Neuer Menüpunkt "Starten"
+  - Ist "Mac-ROM im schnellen Speicher" aktiviert, wird die ROM-Größe
+    von der dargestellten Menge freien Speichers abgezogen
+  - Die Picasso ist nun vollständig implementiert (inkl. 16- und 24-Bit)
+  - Eigenes Fenster für Speichereinstellungen
+  - Mit dem Tooltype "QUICKSTART" (oder der Angabe von "QUICKSTART" beim
+    Start von der Shell aus) stellt ShapeShifter nicht mehr das
+    Einstellungsfenster dar, sondern startet die Emulation direkt
+  - Soundausgabe verbessert
+
+Changes from V1.12 to V1.13 (Feb.95):
+  - Picasso-Farbfehler korrigiert
+  - Datenträger, die beim Neustart eingelegt waren, werden nun korrekt
+    erneut gemountet
+  - PrepareEmul macht jetzt keinen Reset mehr, wenn ein Datenträger
+    am Validieren ist und sollte auch sonst keine validierenden
+    Festplatten hinterlassen
+  - ShapeShifter ist nun mit Hilfe der "locale.library" mehrsprachig
+  - Einstellung für maximale Transfergröße bei den DeviceDisks eingebaut
+  - CyBERgraphics wird nun unterstützt, Amiga-Chunky-Modus entfernt
+  - 15- und 24-Bit-Konvertierungen sind schneller
+  - "Patch System" ist nicht mehr notwendig
+  - Zum Betrieb ist nun ein Keyfile notwendig. Ohne Keyfile sind
+    ADD und SCSI nicht verfügbar.
+  - Komplett neue Sound-Routinen, Sound Manager 3.0 läuft jetzt
+  - Es werden keine Devices mehr mit leerem Namen geöffnet
+  - .Sony-Treiber verbessert, das Apple DiskCopy funktioniert nun
+  - Auf einem 68040 wird das Mac-ROM schreibgeschützt
+  - ShapeShifter läuft nun mit System 7.5
+
+Changes from V1.13 to V1.13a (Feb.95):
+  - Beim Starten ertönt nun je nach ROM-Version das Macintosh-"Bing"
+  - "Apple Festplatten-Emulation" zur Benutzung des Apple-HD-Installers
+  - System 7.1 läuft jetzt wieder
+
+Changes from V1.13a to V1.14 (29.Mar.95):
+  - ROM Sub-Version $22 läuft
+  - Amiga Exchange wird nicht mehr unterstützt
+  - Tastatur- und Mausabfrage komplett umgeschrieben
+  - Statt "PrepareEmul" kann nun auch "RsrvMem" vom Emplant benutzt werden
+  - MacsBug läuft und kann mittels <Alt links><Shift links><Ctrl><Help>
+    aktiviert werden
+  - <Ctrl>-'<' geändert in <Ctrl><Tab>
+  - Bei <Ctrl><Tab> klemmt die Ctrl-Taste nicht mehr
+
+Changes from V1.14 to V2.0 (11.Apr.95):
+  - Präemptives Multitasking
+  - Quickstart funktioniert zuverlässig
+  - Fehler in der Handhabung des Stack korrigiert
+  - Grafikkarten im 24-Bit-Adreßbereich funktionieren mit dem ROM 34
+  - CyBERgraphics 15- und 24-Bit-Modi funktionieren nun, bei Auswahl
+    eines CyBERgraphics-Modus wird die Farbtiefe automatisch gesetzt
+  - Benötigt keine spezielle ROM-Subversion mehr
+  - Einstellung für Task-Priorität entfernt
+  - Macintosh-Reset-Routine überarbeitet
+  - Italienische Catalog-Dateien
+  - Wenn die eingestellte Menge an Mac-Speicher nicht verfügbar ist,
+    kann man wählen, ob stattdessen der größte freie Block benutzt
+    werden soll
+  - Zahlreiche interne Korrekturen und Verbesserungen
+  - SCSI-IDs einzeln schaltbar, wenn das Ansprechen von ID 0 fehlschlägt
+    werden die anderen IDs nicht mehr übergangen
+  - Der Refresh wird nun von einem Task übernommen, wenn der
+    Amiga-Mauszeiger eingeschaltet ist, findet kein Refresh statt
+  - ROM-Schreibschutz ist nun wählbar
+  - Der FileDisk-Treiber öffnet keine Dateien mit leeren Namen mehr
+
+Changes from V2.0 to 2.0e:
+  - All busy loops replaced by Wait(), no more deadlocks should occur
+    (especially when opening the serial port)
+  - SCSI routines are more compatible (but slower)
+  - Now you can select custom file system partitions as DeviceDisk
+    (enter the name in the ASL requester)
+  - The screen width is rounded to a multiple of 16
+  - The screen type "Amiga Bitplanes" will no longer calculate the
+    BytesPerRow but read them from the BitMap and multiply with the
+    color depth
+  - Selecting a CyberGfx mode will set the "Color depth" gadget
+    automatically
+  - The CyberGfx mode will respect the screen size settings
+  - Refreshes are done by a task, when the Amiga mouse pointer is
+    visible, there won't be any refreshes
+  - On a 68040, the MMU is used for the refresh to only refresh the
+    modified portions of the screen (except the Amiga 8 bit mode).
+    This can also be disabled with the "Write-protect ROM" switch.
+    The mouse pointer is still making problems.
+  - A refresh rate of 0 is intercepted and converted to 1
+  - Bug when closing the screen removed
+  - Better but not yet fully adapted to 68060
+  - Dynamic memory handling removed
+  - New option to pretend for the Mac that there's no FPU
+  - Cache handling more intensive, cache status will be restored to
+    the original state on quitting ShapeShifter
+
+Changes from V2.0e to V2.0k:
+  - SCSI routines are faster again
+  - Memory setting now with an integer gadget
+  - The Mac-to-Amiga floppy drive mapping is now adjustable
+  - Selecting LocalTalk will no longer crash the emulation
+  - Bus error handling revamped, VMM now runs if the ROM write-protection
+    is switched off
+  - Duplex mode in serial driver now works reliably
+  - Under "DeviceDisk 1/2" you may directly enter the name of a partition
+  - Booting with System 7.0.1 is possible (LocalTalk will no longer crash)
+  - Fixed mouse pointer problem with MMU refresh
+  - Support for Merlin graphics card
+  - Distinction between EGS Chunky and EGS VGA removed
+  - New option to prevent the Macintosh from accessing the FPU (for 68060)
+  - 68060 compatible when FPU and ROM write-protection are disabled
+  - CIA timer allocated using "lowlevel.library"
+  - Danish, french, and swedish catalog files
+  - PrepareEmul can now use Olaf Barthel's "shutdown.library"
+
+Changes from 2.0k to 2.0l:
+  - "Do not use FPU" gadget is now ghosted correctly
+  - Added a boot drive selector in the volumes window
+  - DeviceDisks are now always fixed disks
+  - Option NOCOPYBACK to switch off the copyback cache
+  - ROM checksum is tested
+  - Using serial.device while ShapeShifter is running is now safe
+  - New screen type "Amiga window" that will display the Macintosh
+    desktop in a window on the Amiga workbench using the Amiga
+    mouse pointer. The size gadgets specifiy the window dimensions.
+
+Changes from 2.0l to 2.0p:
+  - Amiga window screen type uses ObtainPen on V39
+  - Removed a bug when opening parallel devices in the serial driver
+  - The serial hardware handshake flag is now mapped to ACK handshake
+    on parallel devices
+  - Serial devices are now always closed on shutdown
+  - Ethernet support (MacTCP works)
+  - Now complains when there's not enough free memory for CyberGfx
+    screens
+  - Separate window for floppy disk settings
+  - Option to inhibit AmigaDOS from accessing floppy drives while the
+    Mac is running
+  - Refreshed modes read the screen base at every refresh, no more
+    screen trashing
+  - Option "Refresh always" to force a refresh even in 8 bit chunky
+    modes to prevent screen trashing
+
+Changes from 2.0p to 3.0 (11.Jun.95):
+  - Improved disk change detection
+  - Tooltype "720KKLUDGE" to allow 720K disks to be formatted
+    under System 7.5 without the 720K Disk Formatter extension
+  - More compatible to mfm.device V41
+  - Amiga window mode works under AmigaOS V37
+
+Changes from 3.0 to 3.0a:
+  - DeviceDisk drivers are opened with a flag value of zero (instead of
+    TDF_ALLOW_NON_3_5)
+  - 1MB ROMs now work in 24 bit address space
+  - ShapeShifter now works without FPU (ooops...)
+  - Processor exceptions occuring on the Mac side are intercepted
+  - In case of an error on startup, the Mac screen is always closed
+  - Floppy disks inserted before the emulation started weren't checked
+    for HD/DD
+
+Changes from 3.0a to 3.0b:
+  - Exception handling adapted for 68060
+
+Changes from 3.0b to 3.0c:
+  - ROM sub-version 17 runs again (but in general, this version is not
+    recommended for ShapeShifter)
+  - FPU exceptions intercepted on the Mac side
+  - State of copyback cache is restored on exit
+  - The '\|' key on american keyboards is now mapped correctly
+  - SCSI routines completely rewritten
+  - ShapeShifter is now AppleScript bug-proof
+
+Changes from 3.0c to 3.0d:
+  - AppleCD and AppleHD emulation adapted to new SCSI routines
+  - Safer keyfile loading
+  - Interface for external video drivers
+  - When audio.device cannot be opened or channels 0 and 1 are already
+    allocated, ShapeShifter will now simply set the volume to 0 and
+    skip the startup sound instead of quitting with an error message
+  - DeviceDisk write-protection detection more compatible with certain
+    SCSI drivers
+  - Faster graphics refresh in 2, 4 and 8 bit in Amiga bitplanes mode,
+    8 bit mode can now also use the MMU
+
+Changes from 3.0d to 3.0e:
+  - Maximum transfer sizes are rounded down to an even multiple of 512
+  - Minor fixes for future Draco compatibility
+  - DeviceDisks do CMD_UPDATE on shutdown
+  - MacMem integrated into PrepareEmul by means of an "A1200" switch
+  - Added refresh handling for external video drivers
+  - External video drivers can now be selected
+  - Implemented BGRA32 and RGBA32 refresh modes
+  - More detailed error messages concerning the Mac ROM
+
+Changes from 3.0e to 3.0f:
+  - PRAM handling rewritten, the PRAM file is now only 256 bytes long;
+    the old (longer) files are converted on loading
+  - More fixes for Draco compatibility
+  - Tuned-up the serial driver; minimum buffer size is now 8K, fixed
+    handshaking options, uses highspeed mode when appropriate, better
+    error handling
+  - Removed a serious bug in the task switching code introduced in 3.0d
+
+Changes from 3.0f to 3.0g:
+  - Option to use the Amiga mouse pointer as in window mode
+  - DeviceDisks can be recognized as removable again
+
+Changes from 3.0g to 3.1 (12.Aug.95):
+  - Added error requesters for the SCSI routines
+  - Implemented SHEV_PtrVisible and SHEV_PtrInvisible for external video
+    drivers
+  - Separate settings for MMU refresh and ROM write-protection
+  - Implemented handling of 8K pages
+  - Caching of lower 8K RAM switchable with a ToolType
+  - EtherTalk tested and runs
+
+Changes from 3.1 to 3.1a:
+  - Corrected memory allocation bug on 68020/030
+  - 68060 FPU problems fixed
+  - Fixed bug in external video driver interface
+  - Even more fixes for Draco compatibility
+  - Sound routines won't crash any longer when audio.device could
+    not be opened
+  - Minor correction in SCSI error handling
+
+Changes from 3.1a to 3.1b:
+  - Workaround for mfm.device V40.9 bug
+  - Fixed bug in restart code (called Enable() without preceding Disable())
+  - Fixed bug in DeviceDisk 2 cleanup
+  - A-Max II+/IV board is automatically detected and used if present
+    (VIA reliably, SCC (LocalTalk) largely untested)
+  - Device and unit for each SCSI ID can now be set individually
+  - Corrected MaxTransfer calculation
+
+Changes from 3.1b to 3.1c:
+  - Better Mac mouse blanking in Amiga mouse pointer mode
+  - More reliable audio channel allocation/deallocation
+  - Audio output can be disabled completely
+  - Sound input driver works asynchonously again
+  - Audio interrupt handling improved
+  - TimeSCCDBRA calculated correctly when AMAX card present
+  - Added an error requester for unsupported Ethernet packet types
+  - Small fix in SCSI read
+
+Changes from 3.1c to 3.1d:
+  - External video drivers work again
+  - Merlin and Picasso support moved into external drivers
+  - RTYPE_CUSTOM corrected
+  - Settings item for Mac ROM memory type
+  - Mac startup sound is controlled by a tool type
+  - RGBA32 refresh mode available under CyberGfx
+  - Handling of level 2 interrupts more OS compliant
+
+Changes from 3.1d to 3.1e:
+  - Early startup errors (e.g. PrepareEmul not installed) no longer affect
+    the cache
+  - 2 Monitor support added, video driver code cleaned up
+
+Changes from 3.1e to 3.1f:
+  - Fixed problem with Mac mouse pointer settings
+  - Fixed bugs in SCSI autosense and command completion handling
+  - Implemented direct SCSI transfers
+
+Changes from 3.1f to 3.1g:
+  - Small corrections to Ethernet driver
+  - Fixed EGS palette setting bug introduced in 3.1e
+  - Added an error requester for Ethernet cards that don't support
+    multicast and for ERead calls
+
+Changes from 3.1g to 3.1h:
+  - Problems with Thread Manager on 68060 fixed
+  - ROM write-protection disabled on 68060
+  - Ethernet driver eats 130k less memory
+  - A-Max II+/IV board serial ports supported (no LocalTalk)
+
+Changes from 3.1h to 3.1i:
+  - Ethernet driver rewritten, using a subtask
+
+Changes from 3.1i to 3.1j:
+  - Support for pre-emptive threads
+  - Task name is now always "ShapeShifter"
+
+Changes from 3.1j to 3.1k:
+  - Changed Ethernet sResource hardware ID
+  - Support for 230kbps serial transmission
+  - Fixed bug in Mac-Handler ("Destination file removed" when copying
+    files from Shell)
+
+Changes from 3.1k to 3.1l:
+  - Under rare circumstances, all caches could be turned off on
+    startup on very new ROMs
+  - Small change to color palette handling
+
+Changes from 3.1l to 3.2 (17.Sep.95):
+  - Ethernet driver is no longer absorbed by newer ROMs
+  - Fixed signal allocation bug
+
+Changes from 3.2 to 3.2a (21.Sep.95):
+  - Pre-emptive threads fixed for external FPUs
+
+Changes from 3.2a to 3.2b:
+  - Disabled phase errors on SCSI autosense
+  - Support for SCSI LUNs
+  - Better bitmap modulo calculation
+  - Fixed bug in serial configuration
+  - Loadable/saveable preferences, prefs files are ShapeShifter's
+    "projects"
+
+Changes from 3.2b to 3.2c:
+  - Fixed bug in SCSI init code
+
+Changes from 3.2c to 3.2d:
+  - Completely new Time Manager
+
+Changes from 3.2d to 3.2e:
+  - Reimplemented old audio interrupt handling
+
+Changes from 3.2e to 3.3 (20.Nov.95):
+  - Level 2 of the external video driver interface: Added a flags tag
+    for SHEV_OpenScreen
+
+Changes from 3.3 to 3.3a:
+  - Removed various bugs in the Ethernet routines (mostly EWrite)
+  - Ethernet driver now handles all packet types, DetachPH implemented
+  - Included some firewall code in the Time Manager (File Sharing
+    Extension bug)
+
+Changes from 3.3a to 3.3b:
+  - Mac programs calling DebugStr() with no debugger installed will
+    make ShapeShifter display the string in a requester
+  - Added 68040 CPU sResource
+  - Ethernet driver EGetInfo call correctly sets eDataSize, ERead and
+    ERdCancel return controlImplErr
+  - Fixed a bug in the mouse routines (Apeiron)
+
+Changes from 3.3b to 3.3c:
+  - Ethernet driver EGetInfo was broken in 3.3b, AttachPH/DetachPH report
+    result codes
+  - Apple CD300 emulation with AppleCD driver 5.1.1 didn't work on
+    some drives
+  - "Fastcrap" mode to avoid bugs in SCSI device drivers from phase 5
+
+Changes from 3.3c to 3.3d:
+  - Disabled multitasking in Mac interrupts
+  - Emplant board is automatically detected and used if present (serial
+    ports/LocalTalk)
+  - Forced quit (Command Option Esc) works
+
+Changes from 3.3d to 3.3e:
+  - Better LocalTalk disabling
+  - Network devices that are not Ethernet are rejected
+  - ShapeShifter won't try to boot from SCSI devices other than direct
+    access devices
+
+Changes from 3.3e to 3.3f:
+  - The AppleScript bug (workaround introduced in V3.0c) is now fixed by
+    ShapeShifter
+  - No more CIA accesses on the DraCo
+
+Changes from 3.3f to 3.3g:
+  - Ctrl-Tab works if direct mouse polling is turned off
+  - DraCo disk drives supported (HD only)
+  - Audio disabled on DraCo
+
+Changes from 3.3g to 3.4 (04.Mar.96):
+  - Ethernet was broken in 3.3e, fixed
+
+Changes from 3.4 to 3.4a:
+  - Fixed another Ethernet bug (ReadPacket)
+  - gpch 750 patch (BlockMove) only applied on 68040/060
+  - More workarounds for more mfm.device bugs
+  - SLIP/PLIP networking (Ethernet emulation)
+
+Changes from 3.4a to 3.4b:
+  - Fixed bug in Time Manager (RmvTime remaining time)
+  - Fixed 230kbps serial transmission speed call, implemented 115kbps speed
+    call
+  - Fixed bug in System 7.5.1 keyboard routines (key releases)
+  - Modified EWrite return sequence
+  - Fixed system patches for System 7.5.3 (AKA 7.5 Update 2.0)
+  - Corrected bytes-per-row handling for external video drivers
+
+Changes from 3.4b to 3.5 (01.May.96):
+  - SLIP Ethernet emulation removed (DAU protection)
+  - PrepareEmul co-operates better with other KickTags
+
+Changes from 3.5 to 3.5a:
+  - Modified SERD InPrime/OutPrime return sequence
+  - Implemented SERD control call 15
+  - JSRLIB SendIO -> EJSRLIB SendIO
+  - Portuguese catalog files
+  - QuickDraw acceleration for CyberGfx (FastLine, BitBlt and FillRect)
+
+Changes from 3.5a to 3.5b:
+  - More QuickDraw acceleration (InvertRect)
+
+Changes from 3.5b to 3.5c:
+  - Experimental AmokNet support
+  - External video drivers: SHEV_CloseScreen wasn't called if
+    SHEV_OpenScreen failed but returned a valid Context
+  - ADD/AFD: NoSuchDrive (-56) -> NoDrive (-64)
+  - All accelerated QuickDraw calls use WaitBlit()
+  - Emplant card is ignored if no SCC is found
+  - New USKEYMAP ToolType
+
+Changes from 3.5c to 3.6 (31.Oct.96):
+  - More QuickDraw acceleration (InvertRect/FillRect in 15/24 Bit)
+  - Removed the startup bing
+  - More efficient sound routines
+  - Added 8-bit AHI support
+  - "Amiga Window" mode in 24 bit color when the window opens on a
+    >8 Bit CyberGfx screen
+  - More precise timing on the DraCo
+  - New NOQDACCEL ToolType
+
+Changes from 3.6 to 3.7 (18.Dec.96):
+  - Modified audio interrupt handling
+  - VBR is no longer cleared and interrupts are no longer disabled
+    during Mac reset routine
+  - Support for multidisk.device (Catweasel controller), modified the
+    floppy unit prefs items
+  - The first 2048 bytes of newly created FileDisks are cleared
+  - Czech catalog files
+
+Changes from 3.7 to 3.8 (26.May 97):
+  - Better Apple HD emulation
+  - Replaced Apple CD300 emulation with generic CD-ROM driver
+  - Can now select 15/24 Bit modes under Picasso96
+  - RGBA32 modes work now
+  - Some changes to the serial routines (DTR mode doesn't imply 7-wire
+    handshaking)
+  - Modified for (and now requires) AHI V4
+
+Changes from 3.8 to 3.9 (28.Apr.98):
+  - ModelID changed to Quadra700 on 68040/060 systems
+  - Can boot from CD-ROM
+  - Ethernet packets are always padded to 60 bytes
+  - Some fixes in the serial and CD-ROM drivers
+  - FileDisks are faster
+
+Changes from 3.9 to 3.10 (03.Jan.99):
+  - MacOS 8 support (requires 1MB ROM)
+  - New "MacOS 8 mode" option that switches between IIci and Quadra900
+    ModelID
+  - Picasso96 PIP (15 bit color depth) is used in window mode when available
+  - Disk change icons (blinking digits) are drawn correctly in all modes
+  - ShapeShifter is now freeware
+  - Keyfile no longer needed to enable all features
+
+Changes from 3.10 to 3.11 (25.Jan.2001):
+  - Fixed MacOS 8 Finder file copy bug
+  - Disabled 68060 Super Bypass mode because of a CPU bug that is
+    triggered by MacOS 8
