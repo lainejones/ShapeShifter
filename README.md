@@ -74,8 +74,9 @@ The sources are 68k assembler in Latin-1. They build under Linux or WSL with
 python3 mkdist.py   # dist/ShapeShifter-3.20-beta1.lha
 ```
 
-`mkdist.py` takes the Mac disk tools from a MacBrowse checkout next to this
-one (`../MacBrowse/out`, or set `MACBROWSE`).
+`mkdist.py` takes the Mac disk tools from a checkout of
+[MacBrowse](https://github.com/lainejones/MacBrowse) next to this one
+(`../MacBrowse/out` after `make` there, or set `MACBROWSE`).
 
 Texts live in `src/Catalogs/ShapeShifter.cd`; `tools/catcomp.py` turns them
 into `src/Strings.i` and the catalogs. `tools/mkhfs.py` is the reference for
