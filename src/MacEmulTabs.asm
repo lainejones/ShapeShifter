@@ -596,6 +596,8 @@ TabComputeFont	movem.l	d0-d3/a0-a1,-(sp)
 **
 SwitchTab	movem.l	d0-d7/a0-a6,-(sp)
 		move.w	d0,d7
+		bsr	TabIsHidden		;(a shortcut key for a page that is not on show)
+		bne	3$
 		cmp.w	CurTab,d7
 		beq	3$
 		tst.l	SettingsWnd

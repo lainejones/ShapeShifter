@@ -1685,6 +1685,15 @@ DTQuit		move.l	_ExecBase(pc),a6
 		lea	DiskInterrupt4,a4
 		bsr	DTCloseDevice
 
+		tst.b	ADDWhole1		;"The whole drive" stays that in the settings
+		beq	31$
+		clr.l	ADDSectors1
+		clr.b	ADDWhole1
+31$		tst.b	ADDWhole2
+		beq	32$
+		clr.l	ADDSectors2
+		clr.b	ADDWhole2
+32$
 		move.l	DiskMsgPort,d0
 		beq	1$
 		move.l	d0,a0
@@ -1754,6 +1763,11 @@ ADDWholeDrive	movem.l	d2/a3/a6,-(sp)
 		sub.l	d2,d0
 		bls	9$
 		move.l	d0,(a3)
+		cmp.l	#ADDSectors1,a3		;(put back to 0 when the drives are closed)
+		bne	8$
+		st.b	ADDWhole1
+		bra	9$
+8$		st.b	ADDWhole2
 9$		movem.l	(sp)+,d2/a3/a6
 		rts
 
@@ -2233,6 +2247,8 @@ FloppyDOSChar	dc.b	0
 
 		SECTION	"BSS",BSS
 ADDGeometry	ds.b	dg_SIZEOF+2	;TD_GETGEOMETRY (ADDWholeDrive)
+ADDWhole1	ds.b	1		;ADDSectors1/2 were filled in by ADDWholeDrive
+ADDWhole2	ds.b	1
 		EVEN
 DriveStatus1	ds.b	MyDrvSts_SIZEOF	;Diskettenlaufwerk 1 (Sony)
 DriveStatus2	ds.b	MyDrvSts_SIZEOF	;Diskettenlaufwerk 2 (Sony)

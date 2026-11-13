@@ -19,12 +19,15 @@
 		INCLUDE	"exec/io.i"
 		INCLUDE	"devices/trackdisk.i"
 		INCLUDE	"dos/dos.i"
+		INCLUDE	"dos/dosextens.i"
+		INCLUDE	"dos/filehandler.i"
 		INCLUDE	"macros.i"
 CATCOMP_NUMBERS	= 1
 		INCLUDE	"Strings.i"
 
 		XDEF	FormatFileDisk
 		XDEF	FormatDevDisk
+		XDEF	DevTotalSectors
 
 		XREF	SReq
 
@@ -485,13 +488,17 @@ FormatDevDisk	movem.l	d2-d7/a2-a6,-(sp)
 		cmp.l	#HFSMAXSEC,d0		;All of it within the first 4 GB
 		bhi	FDDTell
 
-; From the start of a drive with an Amiga partition table: no. All of the
-; first 16 sectors are looked at, also those in front of the start sector
-; (the partition blocks follow the RDSK block), and a sector that cannot
-; be read stops it as well.
-		move.l	#MSG_FMT_RDB_TXT,d7
-		cmp.l	#16,HFSDevStart
-		bhs	6$
+; The mounted Amiga partitions of this drive: which ones the range touches
+; (they are switched off while it is written), and whether it lies inside one
+		bsr	FDDParts
+		move.l	_ExecBase,a6
+
+; An Amiga partition table? All of the first 16 sectors are looked at (the
+; partition blocks follow the RDSK block). With one, a range from the start
+; of the drive is refused, and so is a range elsewhere that does not lie
+; inside one mounted partition. From the start of the drive a sector that
+; cannot be read stops it as well.
+		moveq	#0,d3			;d3: a table was found
 		moveq	#0,d4			;d4: sector
 4$		move.l	HFSReq,a1
 		move.w	#CMD_READ,IO_COMMAND(a1)
@@ -504,13 +511,24 @@ FormatDevDisk	movem.l	d2-d7/a2-a6,-(sp)
 		JSRLIB	DoIO
 		tst.l	d0
 		beq	5$
+		cmp.l	#16,HFSDevStart
+		bhs	51$
 		move.l	#MSG_FMT_NODEV_TXT,d7
 		bra	FDDTell
 5$		cmp.l	#'RDSK',HFSSector
-		beq	FDDTell
-		addq.l	#1,d4
+		bne	51$
+		moveq	#1,d3
+51$		addq.l	#1,d4
 		cmp.l	#16,d4
 		blo	4$
+		tst.l	d3
+		beq	6$
+		move.l	#MSG_FMT_RDB_TXT,d7
+		cmp.l	#16,HFSDevStart
+		blo	FDDTell
+		move.l	#MSG_FMT_PART_TXT,d7
+		tst.b	FDDInside
+		beq	FDDTell
 6$
 ; Ask
 		move.l	d5,d0
@@ -524,7 +542,11 @@ FormatDevDisk	movem.l	d2-d7/a2-a6,-(sp)
 		tst.l	d0
 		beq	FDDClose
 
-; Format
+; Format. An Amiga file system on the range is switched off meanwhile: it
+; would write its own blocks over the new Mac disk later. Switched on again
+; it reads the disk anew and finds no Amiga disk there.
+		moveq	#DOSTRUE,d2
+		bsr	FDDInhibit
 		move.l	d5,d0
 		lea	HFSDefName,a0
 		lea	HFSDevWrite,a1
@@ -534,6 +556,8 @@ FormatDevDisk	movem.l	d2-d7/a2-a6,-(sp)
 		move.l	HFSReq,a1
 		move.w	#CMD_UPDATE,IO_COMMAND(a1)
 		JSRLIB	DoIO
+		moveq	#DOSFALSE,d2
+		bsr	FDDInhibit
 		move.l	#MSG_FMT_SIZE_TXT,d7
 		cmp.l	#1,d4
 		beq	FDDTell
@@ -562,6 +586,171 @@ FDDClose	move.l	_ExecBase,a6
 		move.l	d0,a0
 		JSRLIB	DeleteMsgPort
 3$		movem.l	(sp)+,d2-d7/a2-a6
+		rts
+
+**
+** The DOS devices (mounted partitions) on device a4, unit d6 that the range
+** HFSDevStart, d5 sectors touches: their names go to FDDInhNames (FDDInhCnt
+** of them), and FDDInside says whether the range lies inside one of them.
+**
+FDDMAXINH	= 4
+
+FDDParts	movem.l	d2-d7/a2-a6,-(sp)
+		clr.b	FDDInside
+		clr.w	FDDInhCnt
+		move.l	HFSDevStart,d3		;d3: first sector
+		move.l	d3,d4
+		add.l	d5,d4			;d4: the sector behind the last
+		move.l	_DOSBase,a6
+		moveq	#LDF_DEVICES|LDF_READ,d1
+		JSRLIB	LockDosList
+		move.l	d0,d7			;d7: place in the list
+1$		move.l	d7,d1
+		moveq	#LDF_DEVICES|LDF_READ,d2
+		JSRLIB	NextDosEntry
+		move.l	d0,d7
+		beq	9$
+		move.l	d0,a3			;a3: device node
+		move.l	dol_Startup(a3),d0
+		cmp.l	#64,d0			;(nothing or a number: no partition)
+		bls	1$
+		move.l	d0,d1
+		and.l	#$c0000000,d1
+		bne	1$
+		lsl.l	#2,d0
+		move.l	d0,a0			;a0: FileSysStartupMsg
+		cmp.l	fssm_Unit(a0),d6
+		bne	1$
+		move.l	fssm_Environ(a0),d0
+		beq	1$
+		lsl.l	#2,d0
+		move.l	d0,a2			;a2: DosEnvec
+		move.l	fssm_Device(a0),d0
+		beq	1$
+		lsl.l	#2,d0
+		move.l	d0,a0			;a0: its device name (BSTR)
+		moveq	#0,d0
+		move.b	(a0)+,d0
+		move.l	a4,a1
+2$		subq.w	#1,d0
+		bmi	3$
+		move.b	(a0)+,d1
+		beq	3$
+		move.b	(a1)+,d2
+		beq	1$
+		eor.b	d1,d2			;(upper and lower case are the same)
+		and.b	#$df,d2
+		beq	2$
+		bra	1$
+3$		tst.b	(a1)
+		bne	1$
+
+		move.l	de_BlocksPerTrack(a2),d0
+		mulu.l	de_Surfaces(a2),d0
+		move.l	de_SizeBlock(a2),d1
+		lsr.l	#7,d1
+		mulu.l	d1,d0			;512-byte sectors in a cylinder
+		move.l	d0,d1
+		mulu.l	de_LowCyl(a2),d0	;d0: its first sector
+		move.l	de_HighCyl(a2),d2
+		addq.l	#1,d2
+		mulu.l	d2,d1			;d1: the sector behind its last
+		cmp.l	d1,d3
+		bhs	1$			;The range starts behind it
+		cmp.l	d0,d4
+		bls	1$			; or ends in front of it
+		cmp.l	d0,d3
+		blo	4$
+		cmp.l	d1,d4
+		bhi	4$
+		st.b	FDDInside
+4$		move.w	FDDInhCnt,d0
+		cmp.w	#FDDMAXINH,d0
+		bhs	1$
+		addq.w	#1,FDDInhCnt
+		lsl.w	#5,d0
+		lea	FDDInhNames,a1
+		add.w	d0,a1
+		move.l	dol_Name(a3),d0
+		lsl.l	#2,d0
+		move.l	d0,a0
+		moveq	#0,d0
+		move.b	(a0)+,d0
+		cmp.w	#30,d0
+		bls	5$
+		moveq	#30,d0
+5$		subq.w	#1,d0
+		bmi	6$
+		move.b	(a0)+,(a1)+
+		bra	5$
+6$		move.b	#':',(a1)+
+		clr.b	(a1)
+		bra	1$
+9$		moveq	#LDF_DEVICES|LDF_READ,d1
+		JSRLIB	UnLockDosList
+		movem.l	(sp)+,d2-d7/a2-a6
+		rts
+
+; Switch the file systems found by FDDParts off (d2 = DOSTRUE) or on again
+FDDInhibit	movem.l	d2-d3/a2/a6,-(sp)
+		move.l	_DOSBase,a6
+		move.w	FDDInhCnt,d3
+		lea	FDDInhNames,a2
+1$		subq.w	#1,d3
+		bmi	2$
+		move.l	a2,d1
+		JSRLIB	Inhibit
+		lea	32(a2),a2
+		bra	1$
+2$		movem.l	(sp)+,d2-d3/a2/a6
+		rts
+
+**
+** How many 512-byte sectors has device a0, unit d0? 0: cannot tell
+** (not there, no geometry, other sector size).
+**
+DevTotalSectors	movem.l	d2-d7/a2-a6,-(sp)
+		move.l	a0,a4
+		move.l	d0,d6
+		moveq	#0,d7			;d7: the answer
+		moveq	#0,d4			;d4: port
+		moveq	#0,d5			;d5: request
+		tst.b	(a4)
+		beq	9$
+		move.l	_ExecBase,a6
+		JSRLIB	CreateMsgPort
+		move.l	d0,d4
+		beq	9$
+		move.l	d0,a0
+		moveq	#IOTD_SIZE,d0
+		JSRLIB	CreateIORequest
+		move.l	d0,d5
+		beq	8$
+		move.l	a4,a0
+		move.l	d6,d0
+		move.l	d5,a1
+		moveq	#0,d1
+		JSRLIB	OpenDevice
+		tst.l	d0
+		bne	7$
+		move.l	d5,a1
+		move.w	#TD_GETGEOMETRY,IO_COMMAND(a1)
+		move.l	#HFSGeo,IO_DATA(a1)
+		move.l	#dg_SIZEOF,IO_LENGTH(a1)
+		JSRLIB	DoIO
+		tst.l	d0
+		bne	6$
+		cmp.l	#512,HFSGeo+dg_SectorSize
+		bne	6$
+		move.l	HFSGeo+dg_TotalSectors,d7
+6$		move.l	d5,a1
+		JSRLIB	CloseDevice
+7$		move.l	d5,a0
+		JSRLIB	DeleteIORequest
+8$		move.l	d4,a0
+		JSRLIB	DeleteMsgPort
+9$		move.l	d7,d0
+		movem.l	(sp)+,d2-d7/a2-a6
 		rts
 
 HFSDevWrite	move.l	_ExecBase,a6
@@ -608,5 +797,8 @@ HFSGeo		ds.b	dg_SIZEOF
 HFSSector	ds.b	512
 HFSName		ds.b	28		;Pascal string
 HFSDevOpen	ds.b	1
+FDDInside	ds.b	1
+FDDInhCnt	ds.w	1
+FDDInhNames	ds.b	FDDMAXINH*32
 
 		END

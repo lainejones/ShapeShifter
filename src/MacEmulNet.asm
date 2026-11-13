@@ -922,6 +922,16 @@ NTReadDone	move.l	_ExecBase,a6
 		moveq	#10,d1
 		JSRLIB	Delay
 		move.l	(sp)+,a1
+		move.b	IOFlags,IO_FLAGS(a1)
+		move.l	IO_DEVICE(a1),a6
+		jsr	-30(a6)
+		move.l	_ExecBase,a6		;It may fail again at once: look at the other
+		sub.l	a1,a1			; signals first (this task may be asked to end
+		JSRLIB	FindTask		; while the device is offline), then go on here
+		move.l	d0,a1
+		move.l	ReadPortSet,d0
+		JSRLIB	Signal
+		bra	NTSigLoop
 1$		move.b	IOFlags,IO_FLAGS(a1)
 		move.l	IO_DEVICE(a1),a6
 		jsr	-30(a6)

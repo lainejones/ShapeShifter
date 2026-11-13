@@ -1,4 +1,4 @@
-ShapeShifter 3.20 beta 1 - a Macintosh II emulator for the Amiga
+ShapeShifter 3.20 beta 2 - a Macintosh II emulator for the Amiga
 
 ShapeShifter runs the Macintosh system (System 7 to Mac OS 8.1) and its
 programs on an Amiga with a 68020 or better, next to your Amiga programs.
@@ -66,7 +66,9 @@ Tested
  - Amiga 2000, 68030 accelerator (no FPU), Kickstart 3.2.3, ECS and a
    Picasso II+ card: System 7.5 in 2, 4 and 16 colours on the ECS
    screen, System 7.5 and Mac OS 8.1 in 256 and thousands of colours
-   on the card, sound, the installer, ReserveLow, the Mac disk tools
+   on the card, sound, TCP/IP (DHCP) through a SANA-II driver shared
+   with the Amiga's own stack, the installer, ReserveLow, the Mac
+   disk tools
  - WinUAE: A1200 68030 with Kickstart 3.1 and 3.2.3, A4000 68060;
    System 7.5, Mac OS 8.0 and 8.1; the installer on Workbench 3.1 and 3.2
 
@@ -90,11 +92,6 @@ Seen:
    makes the Mac start extremely slowly. ShapeShifter measures this and
    warns before the Mac starts. Put the image on a PFS3 or SFS
    partition, or use a device disk.
- - A device disk set to "whole drive" on a drive larger than 4 GB is
-   left out without a message.
- - "Format..." with a start sector typed by hand checks the partition
-   table only when the disk starts in the first 16 sectors. Use
-   "Choose..." to pick a partition.
  - A settings file from 3.11 may name a screen mode that no longer
    exists: ShapeShifter says so and opens the settings. Click "Defaults"
    or choose a screen mode on the Graphics tab, and save.
@@ -110,6 +107,7 @@ of S:Startup-Sequence and delete C:ReserveLow, C:MacMount and
 L:MacHFS-Handler.
 
 ShapeShifter was written by Christian Bauer, who released its source
-under the ISC licence (LICENSE.txt). This version is built from that
-source with fixes and additions; it is not his release, so please do not
-send him bug reports for it.
+under the ISC licence (LICENSE.txt). Version 3.20 is continued from that
+source by Laine Jones, with fixes and additions. It is not Christian
+Bauer's release, so please do not send him bug reports for it: report
+them at https://github.com/lainejones/ShapeShifter

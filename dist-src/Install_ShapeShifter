@@ -21,6 +21,10 @@
     (abort "ShapeShifter needs a 68020 processor or better.\n\n"
            "This Amiga has a " #cpu "."))
 
+; Novice mode would install without a single question (where, the low
+; memory, the ROM): this installer always asks.
+(if (= @user-level 0) (user 1))
+
 (message "ShapeShifter " #version " - a Macintosh II emulator\n\n"
          "ShapeShifter runs the Macintosh system and its programs on your Amiga, "
          "side by side with your Amiga programs.\n\n"
@@ -118,8 +122,8 @@
 )
 (if (and (= #hasrl 0) (and (<> #has "") (= #reserved 1)))
     (
-        (message "Your Startup-Sequence already runs " #has ", which keeps the "
-                 "lowest memory free for ShapeShifter.\n\n"
+        (message "The lowest memory is already kept free for ShapeShifter "
+                 "(your Startup-Sequence names " #has ").\n\n"
                  "It is left as it is.")
         (set #ask 0)
     )

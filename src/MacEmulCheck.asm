@@ -28,6 +28,7 @@ CATCOMP_NUMBERS	= 1
 		XREF	SReq
 		XREF	PrefsNameTab
 		XREF	ADDName1,ADDName2,ADDStartSector1,ADDStartSector2,ADDSectors1,ADDSectors2
+		XREF	ADDUnit1,ADDUnit2,DevTotalSectors
 		XREF	Has68060
 		XREF	NoCopyBack
 		XREF	ROMSize
@@ -145,6 +146,7 @@ CheckStart	movem.l	d2-d7/a2-a6,-(sp)
 		lea	ADDName1,a0
 		lea	ADDStartSector1,a1
 		lea	ADDSectors1,a2
+		move.l	ADDUnit1,d2
 		moveq	#1,d1
 		bsr	CheckADD
 		cmp.l	#2,d0
@@ -152,6 +154,7 @@ CheckStart	movem.l	d2-d7/a2-a6,-(sp)
 		lea	ADDName2,a0
 		lea	ADDStartSector2,a1
 		lea	ADDSectors2,a2
+		move.l	ADDUnit2,d2
 		moveq	#2,d1
 		bsr	CheckADD
 		cmp.l	#2,d0
@@ -219,19 +222,28 @@ CSSettings	clr.l	QuickStart		;The settings window must open now
 CSQuit		moveq	#-1,d0
 		bra	CSDone
 
-; Device disk d1 (a0 name, a1 start sector, a2 sectors) within reach of
-; 32-bit byte offsets? d0 = 2: go on, else 1 Settings, 0 Quit
+; Device disk d1 (a0 name, d2 unit, a1 start sector, a2 sectors) within reach
+; of 32-bit byte offsets? d0 = 2: go on, else 1 Settings, 0 Quit. With 0
+; sectors (the whole drive) the drive is asked how large it is.
 CheckADD	tst.b	(a0)
 		beq	1$
-		move.l	(a1),d0
-		add.l	(a2),d0
+		move.l	#MSG_CHK_ADD4GB_TXT,d3
+		move.l	(a2),d0
+		bne	3$
+		move.l	#MSG_CHK_ADDWHOLE_TXT,d3
+		movem.l	d1/a0-a2,-(sp)
+		move.l	d2,d0
+		jsr	DevTotalSectors
+		movem.l	(sp)+,d1/a0-a2
+		bra	4$			;(0: cannot tell, the driver decides)
+3$		add.l	(a1),d0
 		bcs	2$
-		cmp.l	#$800000,d0
+4$		cmp.l	#$800000,d0
 		bls	1$
 2$		move.l	d1,ReqArgs
 		move.l	a3,-(sp)
 		lea	ReqArgs,a3
-		move.l	#MSG_CHK_ADD4GB_TXT,d0
+		move.l	d3,d0
 		move.l	#MSG_CHK_MISSING_GADS,d1
 		jsr	SReq
 		move.l	(sp)+,a3

@@ -3741,6 +3741,14 @@ V3.11	25.Jan.2001
   - Disabled 68060 Super Bypass mode because of a CPU bug that is
     triggered by MacOS 8
 
+V3.20 beta 2	12.Nov.2026	(continued by Laine Jones)
+  - Settings are saved through a temporary file
+  - Format...: checks the mounted partitions of a drive with an Amiga
+    partition table and switches an Amiga file system on the range off
+  - A whole-drive device disk on a drive over 4 GB gets a message
+  - SCSI IDs without a drive no longer hold up the Mac's start
+  - ReserveLow and installer fixes
+
 V3.20 beta 1	11.Nov.2026	(built from the released 3.11 source)
   - Builds with vasm and GNU ld (build.sh); the catalogs are made from
     the sources (tools/catcomp.py instead of CatComp)

@@ -5,10 +5,11 @@ System 7 to Mac OS 8.1 as an ordinary AmigaOS task, with Mac code executing
 directly on the Amiga's 68020-68060.
 
 This repository starts from the ShapeShifter 3.11 source that Christian Bauer
-released under the ISC licence, and adds fixes and features. It is **not** his
-release; please do not send him bug reports for it.
+released under the ISC licence, and adds fixes and features. Version 3.20 is
+continued by Laine Jones. It is **not** Christian Bauer's release; please do not
+send him bug reports for it, report them here.
 
-**Status: beta 1.** It has run on three real Amigas and in WinUAE. See
+**Status: beta 2.** It has run on three real Amigas and in WinUAE. See
 [Tested](#tested) and [Known issues](#known-issues) before trusting it with anything you care about.
 
 ## What is new since 3.11
@@ -55,9 +56,30 @@ release; please do not send him bug reports for it.
 - The Mac disk tools from the MacBrowse project: `MacBrowse`, `MacMount` and
   `L:MacHFS-Handler` read and write Mac disk images from the Amiga side.
 
+## New in beta 2
+
+- Settings are saved through a temporary file: a full disk or a failed write
+  leaves the old settings as they were.
+- **Format...** on a drive with an Amiga partition table: a range typed by hand
+  must lie inside one mounted partition, and an Amiga file system on the range
+  is switched off while the Mac disk is written.
+- **Format...** from sector 1 to 15 of such a drive is refused as well.
+- A device disk set to the whole drive on a drive larger than 4 GB gets a
+  message before the Mac starts.
+- Opening a file that is not a settings file no longer leaves its name as the
+  settings file to save to.
+- A Mac start with SCSI switched on for IDs without a drive takes seconds
+  instead of minutes.
+- ReserveLow: on an Amiga where it cannot work it lets the Startup-Sequence go
+  on; a fix for boards that are configured into low memory.
+- Installer: an update keeps the program icon and its tooltypes; it stops when
+  asked to install onto the drawer it runs from; Novice mode asks its
+  questions; a low-memory tool named in a commented-out line no longer counts.
+- Smaller fixes in the settings window and the network task.
+
 ## Using it
 
-Unpack `ShapeShifter-3.20-beta1.lha` on the Amiga and double-click
+Unpack `ShapeShifter-3.20-beta2.lha` on the Amiga and double-click
 `Install_ShapeShifter`. The manual is `ShapeShifter_E.guide` (English) and
 `ShapeShifter.guide` (German); start with **Quick start**. You need a Macintosh
 ROM file from a Mac you own and a Macintosh system to install; neither is part
@@ -71,7 +93,7 @@ The sources are 68k assembler in Latin-1. They build under Linux or WSL with
 
 ```
 ./build.sh          # out/ShapeShifter, out/ReserveLow, out/Catalogs
-python3 mkdist.py   # dist/ShapeShifter-3.20-beta1.lha
+python3 mkdist.py   # dist/ShapeShifter-3.20-beta2.lha
 ```
 
 `mkdist.py` takes the Mac disk tools from a checkout of
@@ -89,7 +111,7 @@ the built-in HFS formatter (`src/MacEmulHFS.asm`).
 | Amiga 1200, 68030 + 68882, Kickstart 3.2.3, AGA | Mac OS 8.0 and 8.1, Marathon with sound (Paula, heard), POV-Ray, device disk on SCSI, installer, ReserveLow |
 | Amiga 4000, 68060, Kickstart 3.2.3, RTG card and AGA | Mac OS 8.0 and 8.1, sound through AHI (recorded to a file), TCP/IP, ReserveLow |
 | The same Amiga 4000, Kickstart 3.1, AGA | Mac OS 8.1, POV-Ray |
-| Amiga 2000, 68030 accelerator (no FPU), Kickstart 3.2.3, ECS and a Picasso II+ | System 7.5 in 2, 4 and 16 colours on the ECS screen; System 7.5 and Mac OS 8.1 in 256 and thousands of colours on the graphics card; sound (Paula); installer, ReserveLow, Mac disk tools |
+| Amiga 2000, 68030 accelerator (no FPU), Kickstart 3.2.3, ECS and a Picasso II+ | System 7.5 in 2, 4 and 16 colours on the ECS screen; System 7.5 and Mac OS 8.1 in 256 and thousands of colours on the graphics card; sound (Paula, heard); TCP/IP with DHCP through a SANA-II driver shared with the Amiga's own stack; installer, ReserveLow, Mac disk tools |
 | WinUAE A1200 68030, Kickstart 3.1 and 3.2.3 | System 7.5, Mac OS 8.0 and 8.1, installer |
 | WinUAE A4000 68060, Kickstart 3.2.3 | Mac OS 8.0 and 8.1 |
 
@@ -111,11 +133,6 @@ the built-in HFS formatter (`src/MacEmulHFS.asm`).
 - A Mac disk image on a Fast File System partition of a slow drive makes the
   Mac start extremely slowly. ShapeShifter measures this and warns; use a
   PFS3 or SFS partition, or a device disk.
-- A device disk set to "whole drive" on a drive larger than 4 GB is left out
-  without a message.
-- **Format...** with a start sector typed by hand checks the partition table
-  only when the disk starts in the first 16 sectors. Use **Choose...** to
-  pick a partition.
 - A settings file from 3.11 may name a screen mode that no longer exists.
   ShapeShifter says so and opens the settings.
 - Each SCSI ID that is switched on but has no drive adds a few seconds of
@@ -128,5 +145,5 @@ the built-in HFS formatter (`src/MacEmulHFS.asm`).
 
 ## Licence
 
-ISC, see `LICENSE.txt`. Copyright (c) 2001 Christian Bauer; changes since the
-3.11 source release are under the same licence.
+ISC, see `LICENSE.txt`. Copyright (c) 2001 Christian Bauer; the changes since the
+3.11 source release are by Laine Jones, under the same licence.

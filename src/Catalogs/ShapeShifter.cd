@@ -8,11 +8,10 @@ ShapeShifter Macintosh Emulator ©1993-2001 Christian Bauer.
 MSG_ABOUT_REQ (//)
 ShapeShifter V%d.%d\n\
 ©1993-2001 by\n\
-Christian Bauer\n\
-Max-Planck-Str.60\n\
-55124 Mainz\n\
-Germany\n\n\
-EMail: Christian.Bauer@uni-mainz.de\n\n\
+Christian Bauer\n\n\
+Version 3.20 is continued by\n\
+Laine Jones\n\
+from the released 3.11 source.\n\n\
 Freely distributable.
 ;
 MSG_REQTITLE (//)
@@ -938,4 +937,10 @@ Advanced
 ;
 MSG_SETUP_NOFILE_TXT (//)
 The settings file\n%s\nis not there.\n\nShapeShifter starts with settings that fit this Amiga.\nNo disks are set.
+;
+MSG_FMT_PART_TXT (//)
+%s, unit %ld has an Amiga partition table, and the range from\nsector %ld does not lie inside one of its mounted partitions.\nFormatting it could destroy other partitions.\n\nNothing was written. Pick a partition with "Choose...".
+;
+MSG_CHK_ADDWHOLE_TXT (//)
+Device disk %ld is set to the whole drive, and that drive is\nlarger than 4 GB. ShapeShifter reaches only the first 4 GB.\n\nThe Mac would start without it. Give the disk a number of\nsectors, or pick a partition with "Choose...".
 ;

@@ -370,7 +370,9 @@ ChooseDefaults	movem.l	d2-d7/a2-a6,-(sp)
 		move.w	#1,OverscanType1
 		move.l	#MSG_SETUP_SCR_CGX,d2
 		bra	5$
-4$		moveq	#1,d3			;d3: planes of the Amiga screen
+4$		move.w	#VTYPE_AMIGA,VideoType1	;(the settings may have named a graphics card or a driver)
+		move.w	#VMODE_1BIT,VideoMode1
+		moveq	#1,d3			;d3: planes of the Amiga screen
 		move.l	_GfxBase,a0
 		btst	#GFXB_AA_ALICE,gb_ChipRevBits0(a0)
 		beq	41$

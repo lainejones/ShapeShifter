@@ -10,10 +10,10 @@ ShapeShifter Macintosh-Emulator ©1993-2001 Christian Bauer.
 MSG_ABOUT_REQ
 ShapeShifter V%d.%d\n\
 ©1993-2001 by\n\
-Christian Bauer\n\
-Max-Planck-Str.60\n\
-55124 Mainz\n\n\
-EMail: Christian.Bauer@uni-mainz.de\n\n\
+Christian Bauer\n\n\
+Version 3.20 wird von\n\
+Laine Jones\n\
+aus dem veröffentlichten Quelltext von 3.11 weitergeführt.\n\n\
 Freely distributable.
 ;
 MSG_REQTITLE
@@ -1074,4 +1074,12 @@ MSG_FMT_RDB_TXT
 MSG_FMT_WRERR_TXT
 Das Schreiben auf %s, Unit %ld ist fehlgeschlagen.\nDie Mac-Disk dort ist unvollständig.
 ; writing failed
+;
+MSG_FMT_PART_TXT
+%s, Unit %ld hat eine Amiga-Partitionstabelle, und der Bereich ab\nSektor %ld liegt nicht innerhalb einer angemeldeten Partition.\nFormatieren könnte andere Partitionen zerstören.\n\nEs wurde nichts geschrieben. Wählen Sie mit "Auswählen..."\neine Partition.
+; not inside one mounted partition
+;
+MSG_CHK_ADDWHOLE_TXT
+DeviceDisk %ld steht auf "ganzes Laufwerk", und dieses Laufwerk ist\ngrößer als 4 GB. ShapeShifter erreicht nur die ersten 4 GB.\n\nDer Mac würde ohne sie starten. Geben Sie eine Sektorenzahl an\noder wählen Sie mit "Auswählen..." eine Partition.
+; whole drive larger than 4 GB
 ;

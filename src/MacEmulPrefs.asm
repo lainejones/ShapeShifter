@@ -1339,8 +1339,7 @@ SaveConfigAs	movem.l	d1-d7/a0-a6,-(sp)
 		bsr	RequestFile
 		tst.l	d0
 		beq	1$
-		bsr	SaveThePrefs
-		moveq	#1,d0
+		bsr	SaveThePrefs		;(0 when it could not be saved)
 1$		movem.l	(sp)+,d1-d7/a0-a6
 		rts
 
@@ -1445,10 +1444,24 @@ ReadConfig	bsr	GetGraphicsGads
 
 ; Einstellungen unter bestimmtem Namen speichern
 ; Einstellungen speichern
+; The file is written under another name in the same drawer and takes the
+; place of the old one only when all of it is there: a full disk leaves the
+; old settings as they were. d0 = 0: not saved (the user has been told).
 SaveThePrefs	bsr	ReadConfig		;Werte holen
 
-		move.l	_DOSBase,a6		;Datei öffnen
-		move.l	#PrefsName,d1
+		lea	PrefsName,a0		;The other name: same drawer
+		lea	SaveTmpName,a1
+5$		move.b	(a0)+,(a1)+
+		bne	5$
+		move.l	_DOSBase,a6
+		move.l	#SaveTmpName,d1
+		JSRLIB	FilePart
+		move.l	d0,a1
+		lea	SaveTmpTail,a0
+6$		move.b	(a0)+,(a1)+
+		bne	6$
+
+		move.l	#SaveTmpName,d1		;Datei öffnen
 		move.l	#MODE_NEWFILE,d2
 		JSRLIB	Open
 		move.l	d0,d6
@@ -1465,8 +1478,15 @@ SaveThePrefs	bsr	ReadConfig		;Werte holen
 		move.l	d6,d1			;Datei schließen
 		JSRLIB	Close
 		tst.b	d3
-		beq	4$
-		move.l	#PrefsName,d1		;Not all of it written: no half a settings file
+		bne	7$			;Not all of it written
+		move.l	#PrefsName,d1		;The old file makes room (there may be none)
+		JSRLIB	DeleteFile
+		move.l	#SaveTmpName,d1
+		move.l	#PrefsName,d2
+		JSRLIB	Rename
+		tst.l	d0
+		bne	4$
+7$		move.l	#SaveTmpName,d1
 		JSRLIB	DeleteFile
 		bra	3$
 4$
@@ -1478,12 +1498,14 @@ SaveThePrefs	bsr	ReadConfig		;Werte holen
 		beq	1$
 		move.l	d0,a0			;Ja, dann nichts machen
 		JSRLIB	FreeDiskObject
+		moveq	#1,d0
 		rts
 
 1$		lea	PrefsName,a0		;Nein, Icon erzeugen
 		lea	PrefsIcon,a1
 		JSRLIB	PutDiskObject
-2$		rts
+2$		moveq	#1,d0
+		rts
 
 3$		move.l	a3,-(sp)		;Not saved: say so
 		pea	PrefsName
@@ -1493,7 +1515,11 @@ SaveThePrefs	bsr	ReadConfig		;Werte holen
 		jsr	SReq
 		addq.l	#4,sp
 		move.l	(sp)+,a3
+		moveq	#0,d0
 		rts
+
+SaveTmpTail	dc.b	"ShapeShifter.saving",0
+		even
 
 ; About-Dialog anzeigen
 DoAbout		move.l	_IntuitionBase,a6
@@ -1522,9 +1548,10 @@ RequestFile	movem.l	d2-d7/a2-a6,-(sp)
 
 		lea	DirName,a1		;Verzeichnisname in Puffer kopieren
 		move.l	a4,a0
-		moveq	#79,d0
+		move.w	#254,d0
 2$		move.b	(a0)+,(a1)+
 		dbeq	d0,2$
+		clr.b	DirName+255
 
 		move.l	_DOSBase,a6		;Dateinamen abschneiden
 		move.l	#DirName,d1
@@ -3490,6 +3517,7 @@ PREFSMAXSIZE	= 65536
 PrefsBad	ds.b	1		;OpenThePrefs: the file was refused
 		even
 OpenKeepName	ds.b	256		;PrefsName while "Open..." tries a file
+SaveTmpName	ds.b	256+24		;SaveThePrefs: the file while it is written
 PrefsLoadBuf	ds.b	PREFSBUFSIZE	;a settings file is checked here before it is used
 DisplayName1	ds.b	nif_SIZEOF	;Name des Amiga-DisplayModes (DTAG_NAME)
 DisplayName2	ds.b	nif_SIZEOF	;Name des Amiga-DisplayModes (DTAG_NAME)
@@ -3498,7 +3526,7 @@ TheRect		ds.b	ra_SIZEOF
 AFD2kEmptyBuf	ds.b	2048		;2k leerer Puffer zum Filedisk-Erzeugen
 
 FileName	ds.b	80		;Puffer für FileRequester
-DirName		ds.b	80		;Puffer für FileRequester
+DirName		ds.b	256		;Puffer für FileRequester
 LongPath	ds.b	256		;Zusammengesetzter Pfad (SetPathField)
 
 AudioName	ds.b	80		;Puffer für AHI
