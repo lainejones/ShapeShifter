@@ -1,4 +1,4 @@
-ShapeShifter 3.20 beta 2 - a Macintosh II emulator for the Amiga
+ShapeShifter 3.20 beta 3 - a Macintosh II emulator for the Amiga
 
 ShapeShifter runs the Macintosh system (System 7 to Mac OS 8.1) and its
 programs on an Amiga with a 68020 or better, next to your Amiga programs.
@@ -81,13 +81,25 @@ Not tested, so expect surprises and please report them:
  - AGA screens whose width is not a multiple of 64 (800x600, for one)
    together with "MMU refresh" or with the Mac switching colour depth.
    Without those two they work.
- - "Format..." for device disks above 2 GB, and Disk First Aid on a disk
-   that ShapeShifter formatted.
+ - Drivers that know TD64 but are not New Style Devices. Device disks
+   beyond the first 4 GB of a drive were tested with New Style Devices
+   only: in WinUAE, and on a real Amiga 4000 with a 32 GB CompactFlash
+   card on the built-in IDE port.
+ - Mac disks of 2 to 4 GB, Mac disks over 4 GB beyond a few copied
+   files, and Disk First Aid on a disk that ShapeShifter formatted.
  - The left mouse button of ReserveLow with a real button: Amiga 4000
    only.
  - A cold start of ReserveLow under Kickstart 3.1 on real hardware.
 
 Seen:
+ - Mac OS 8.0 does not write past the first 4 GB of a Mac disk: a copy
+   that would land there ends with error -127 and nothing is written.
+   Mac OS 8.1 does. Use Mac disks of up to 4 GB with Mac OS 8.0 and
+   older.
+ - A Mac system whose TCP/IP is set to load at start-up (TCP/IP control
+   panel, Options) stalled in the Finder when no network device was set
+   in ShapeShifter. Seen on one Amiga with Mac OS 8.1. Set a network
+   device, or leave "Load only when needed" ticked on the Mac.
  - A Mac disk image on a Fast File System partition of a slow drive
    makes the Mac start extremely slowly. ShapeShifter measures this and
    warns before the Mac starts. Put the image on a PFS3 or SFS
@@ -98,6 +110,12 @@ Seen:
  - Each SCSI ID that is switched on but has no drive adds a few seconds
    of grey screen before the Mac starts (3.11 took minutes). Switch
    unused IDs off on the SCSI tab.
+ - Some network drivers hand each incoming packet to one program only
+   (ZZ9000Net.device does). With such a driver the Mac and the Amiga's
+   own TCP/IP stack cannot use the network at the same time: while the
+   Mac's TCP/IP is active the Amiga side stops answering, and it comes
+   back when the Mac is shut down. Stop the Amiga's stack before you
+   use the network on the Mac.
  - The extras of the 3.11 archive (PrepareEmul, SaveROM, KickShifter,
    Mac-Handler, the external video drivers) are not in this archive;
    those of 3.11 still work.

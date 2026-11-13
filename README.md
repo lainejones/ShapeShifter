@@ -9,7 +9,7 @@ released under the ISC licence, and adds fixes and features. Version 3.20 is
 continued by Laine Jones. It is **not** Christian Bauer's release; please do not
 send him bug reports for it, report them here.
 
-**Status: beta 2.** It has run on three real Amigas and in WinUAE. See
+**Status: beta 3.** It has run on three real Amigas and in WinUAE. See
 [Tested](#tested) and [Known issues](#known-issues) before trusting it with anything you care about.
 
 ## What is new since 3.11
@@ -31,8 +31,10 @@ send him bug reports for it, report them here.
   DiskCopy 4.2 floppy images. The Mac boots from them.
 - Empty Mac disks are formatted by ShapeShifter itself in seconds (Create...,
   and Format... for device disks) instead of the Mac's Initialise.
-- Device disks may be a whole drive. A disk that lies beyond the first 4 GB
-  of its drive is refused (3.11 wrote over the start of the drive instead).
+- Device disks may be a whole drive, may lie anywhere on a large drive and may
+  be larger than 4 GB, when the drive's driver knows the 64-bit commands (NSD
+  or TD64). Without them a disk beyond the first 4 GB of its drive is refused
+  (3.11 wrote over the start of the drive instead).
 
 **Video**
 - Thousands of colours on 16-bit RTG screens; PrismRTG support.
@@ -55,6 +57,21 @@ send him bug reports for it, report them here.
   start or reset skips it.
 - The Mac disk tools from the MacBrowse project: `MacBrowse`, `MacMount` and
   `L:MacHFS-Handler` read and write Mac disk images from the Amiga side.
+
+## New in beta 3
+
+- A device disk may lie beyond the first 4 GB of its drive: ShapeShifter uses
+  the drive's 64-bit commands (New Style Device or TD64) there. A Mac
+  partition no longer has to sit at the start of a large drive. Device disks
+  within the first 4 GB are read and written as before.
+- Mac disks larger than 4 GB: the Mac's 64-bit read and write requests are
+  understood, and **Format...** makes Mac disks of up to 64 GB. Writing past
+  4 GB needs Mac OS 8.1 (see Known issues).
+- On a Mac disk of 2 to 4 GB, reads and writes past 2 GB were refused. Fixed.
+- A device disk that starts at the beginning of a drive with an Amiga
+  partition table is left out, with a message, before the Mac starts: the Mac
+  would take the whole drive for one unreadable disk and offer to erase it.
+- The About text names the continuation in all languages.
 
 ## New in beta 2
 
@@ -79,7 +96,7 @@ send him bug reports for it, report them here.
 
 ## Using it
 
-Unpack `ShapeShifter-3.20-beta2.lha` on the Amiga and double-click
+Unpack `ShapeShifter-3.20-beta3.lha` on the Amiga and double-click
 `Install_ShapeShifter`. The manual is `ShapeShifter_E.guide` (English) and
 `ShapeShifter.guide` (German); start with **Quick start**. You need a Macintosh
 ROM file from a Mac you own and a Macintosh system to install; neither is part
@@ -93,7 +110,7 @@ The sources are 68k assembler in Latin-1. They build under Linux or WSL with
 
 ```
 ./build.sh          # out/ShapeShifter, out/ReserveLow, out/Catalogs
-python3 mkdist.py   # dist/ShapeShifter-3.20-beta2.lha
+python3 mkdist.py   # dist/ShapeShifter-3.20-beta3.lha
 ```
 
 `mkdist.py` takes the Mac disk tools from a checkout of
@@ -123,13 +140,25 @@ the built-in HFS formatter (`src/MacEmulHFS.asm`).
 - CD music on real hardware.
 - AGA screens whose width is not a multiple of 64 (800x600, for one) together
   with MMU refresh or with depth switching. Without those two they work.
-- **Format...** for device disks above 2 GB, and Disk First Aid on a disk that
-  ShapeShifter formatted.
+- Drivers that know TD64 but are not New Style Devices. The 64-bit commands
+  were tested with New Style Devices only: in WinUAE, and on a real Amiga 4000
+  with a 32 GB CompactFlash card on the built-in IDE port (two Mac disks at
+  4.3 and 6.7 GB into the card, formatted, mounted and written under Mac OS
+  8.1; copied files compared sector by sector).
+- Mac disks of 2 to 4 GB, Mac disks over 4 GB beyond a few copied files, and
+  Disk First Aid on a disk that ShapeShifter formatted.
 - ReserveLow's left mouse button with a real button on anything but the
   Amiga 4000, and a cold start of ReserveLow under Kickstart 3.1 on real
   hardware.
 
 **Seen**
+- Mac OS 8.0 does not write past the first 4 GB of a Mac disk: a copy that
+  would land there ends with error -127 and nothing is written. Mac OS 8.1
+  does. Use Mac disks of up to 4 GB with Mac OS 8.0 and older.
+- A Mac system whose TCP/IP is set to load at start-up (TCP/IP control panel,
+  Options) stalled in the Finder when no network device was set in
+  ShapeShifter. Seen on one Amiga with Mac OS 8.1. Set a network device, or
+  leave "Load only when needed" ticked on the Mac.
 - A Mac disk image on a Fast File System partition of a slow drive makes the
   Mac start extremely slowly. ShapeShifter measures this and warns; use a
   PFS3 or SFS partition, or a device disk.
@@ -138,6 +167,12 @@ the built-in HFS formatter (`src/MacEmulHFS.asm`).
 - Each SCSI ID that is switched on but has no drive adds a few seconds of
   grey screen before the Mac starts (3.11 took minutes). Switch unused IDs
   off on the SCSI tab.
+- Some network drivers hand each incoming packet to one program only
+  (ZZ9000Net.device does). With such a driver the Mac and the Amiga's own
+  TCP/IP stack cannot use the network at the same time: while the Mac's
+  TCP/IP is active the Amiga side stops answering, and it comes back when
+  the Mac is shut down. Stop the Amiga's stack before you use the network
+  on the Mac.
 - The extras of the 3.11 archive (PrepareEmul, SaveROM, KickShifter,
   Mac-Handler, the external video drivers) are not in this archive; those of
   3.11 still work. An Amiga whose only fast memory is on Zorro cards still

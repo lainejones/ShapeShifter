@@ -67,7 +67,8 @@ Changes from version 3.11:
  · ReserveLow keeps the low memory free (instead of PrepareEmul); an
    installer; the Mac disk tools MacBrowse, MacMount and MacHFS-Handler
  · Raw CD images (.bin/.cue) as FileDisks; device disks may be a whole
-   drive; one beyond the first 4 GB of its drive is refused
+   drive, lie anywhere on a large drive and be larger than 4 GB when
+   the drive's driver knows the 64-bit commands (NSD or TD64)
  · Ctrl-left Shift-left Alt-Del is the Mac's Power key
  · Fixes: Mac OS 8.1 on a 68060; the Mac OS 8.1 Setup Assistant froze;
    a handle disposed twice crashed the Mac; Ethernet packets were 4 bytes
@@ -3092,6 +3093,14 @@ those sectors is lost. A drive with an Amiga partition table is refused
 when the DeviceDisk starts at its first sectors: pick one of its
 partitions with "Choose..." instead.
 
+A DeviceDisk may lie anywhere on its drive and may be larger than 4 GB
+when the drive's driver knows the 64-bit commands (a New Style Device, or
+TD64); ShapeShifter finds that out by itself. With a driver that does not,
+the DeviceDisk has to end within the first 4 GB of the drive. "Format..."
+makes Mac disks of 1 MB to 64 GB. The Mac writes past the first 4 GB of a
+Mac disk from Mac OS 8.1 on; with Mac OS 8.0 and older keep Mac disks to
+4 GB.
+
 @{b}Maximum transfer size:@{ub} Some IDE and older SCSI drivers don't like it
 when the amount of data transfered in one block exceeds a certain size
 (e.g. 64KB). In this case, you can set the maximum block size with this
@@ -3740,6 +3749,13 @@ V3.11	25.Jan.2001
   - Fixed MacOS 8 Finder file copy bug
   - Disabled 68060 Super Bypass mode because of a CPU bug that is
     triggered by MacOS 8
+
+V3.20 beta 3	13.Nov.2026
+  - DeviceDisks beyond the first 4 GB of a drive (64-bit drive commands)
+  - Mac disks larger than 4 GB; Format... up to 64 GB
+  - Reads and writes past 2 GB of a 2 to 4 GB Mac disk were refused
+  - A DeviceDisk at the start of a drive with an Amiga partition table
+    is left out, with a message
 
 V3.20 beta 2	12.Nov.2026	(continued by Laine Jones)
   - Settings are saved through a temporary file

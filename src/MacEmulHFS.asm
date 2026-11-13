@@ -28,6 +28,10 @@ CATCOMP_NUMBERS	= 1
 		XDEF	FormatFileDisk
 		XDEF	FormatDevDisk
 		XDEF	DevTotalSectors
+		XDEF	Dev64Cmd
+		XDEF	DevHasRDB
+		XDEF	DevProbe64
+		XDEF	DevScanRDB
 
 		XREF	SReq
 
@@ -36,7 +40,11 @@ CATCOMP_NUMBERS	= 1
 HFSBUFSEC	= 32			;Work buffer, sectors
 HFSBUFSIZE	= HFSBUFSEC*512
 HFSMINSEC	= 2048			;1 MB
-HFSMAXSEC	= $7fffff		;4 GB (ShapeShifter's disks go by byte offsets)
+HFSMAXSEC	= $7ffffff		;64 GB: an allocation block of at most 1 MB (MAXBTREE)
+DEV32MAXSEC	= $800000		;4 GB: as far as 32-bit byte offsets reach on a drive
+
+NSCMD_DEVICEQUERY = $4000		;New Style Devices
+NSCMD_TD_READ64	= $c000			; (NSCMD_TD_WRITE64 = $c001)
 MACTIME		= 2335305600		;Seconds from 1.1.1904 to 1.1.1978
 MAXBTREE	= 2048*512		;A B-tree file: 2048 nodes, one map record
 
@@ -485,7 +493,17 @@ FormatDevDisk	movem.l	d2-d7/a2-a6,-(sp)
 		move.l	d5,d0
 		add.l	HFSDevStart,d0
 		bcs	FDDTell
-		cmp.l	#HFSMAXSEC,d0		;All of it within the first 4 GB
+		move.w	#CMD_WRITE,HFSCmdWrite
+		cmp.l	#DEV32MAXSEC,d0		;Beyond the first 4 GB of the drive: the
+		bls	21$			; drive has to know the 64-bit commands
+		move.l	HFSReq,a1
+		bsr	DevProbe64
+		cmp.w	#CMD_READ,d0
+		beq	FDDTell
+		addq.w	#1,d0
+		move.w	d0,HFSCmdWrite
+		move.l	_ExecBase,a6
+21$		cmp.l	#HFSMAXSEC,d5
 		bhi	FDDTell
 
 ; The mounted Amiga partitions of this drive: which ones the range touches
@@ -709,7 +727,15 @@ FDDInhibit	movem.l	d2-d3/a2/a6,-(sp)
 ** How many 512-byte sectors has device a0, unit d0? 0: cannot tell
 ** (not there, no geometry, other sector size).
 **
-DevTotalSectors	movem.l	d2-d7/a2-a6,-(sp)
+DevTotalSectors	moveq	#0,d1
+		bra	DevAsk
+; a0 device name, d0 unit -> d0: the read command of DevProbe64 (0: no such drive)
+Dev64Cmd	moveq	#1,d1
+		bra	DevAsk
+; a0 device name, d0 unit -> d0: 1 = the drive has an Amiga partition table
+DevHasRDB	moveq	#2,d1
+DevAsk		movem.l	d2-d7/a2-a6,-(sp)
+		move.l	d1,d3			;d3: what is asked
 		move.l	a0,a4
 		move.l	d0,d6
 		moveq	#0,d7			;d7: the answer
@@ -734,7 +760,17 @@ DevTotalSectors	movem.l	d2-d7/a2-a6,-(sp)
 		tst.l	d0
 		bne	7$
 		move.l	d5,a1
-		move.w	#TD_GETGEOMETRY,IO_COMMAND(a1)
+		tst.l	d3
+		beq	5$
+		cmp.l	#1,d3
+		bne	4$
+		bsr	DevProbe64
+		move.l	d0,d7
+		bra	6$
+4$		bsr	DevScanRDB
+		move.l	d0,d7
+		bra	6$
+5$		move.w	#TD_GETGEOMETRY,IO_COMMAND(a1)
 		move.l	#HFSGeo,IO_DATA(a1)
 		move.l	#dg_SIZEOF,IO_LENGTH(a1)
 		JSRLIB	DoIO
@@ -755,16 +791,134 @@ DevTotalSectors	movem.l	d2-d7/a2-a6,-(sp)
 
 HFSDevWrite	move.l	_ExecBase,a6
 		move.l	HFSReq,a1
-		move.w	#CMD_WRITE,IO_COMMAND(a1)
+		move.w	HFSCmdWrite,IO_COMMAND(a1)
 		move.l	a0,IO_DATA(a1)
 		lsl.l	#8,d1
 		add.l	d1,d1
 		move.l	d1,IO_LENGTH(a1)
 		add.l	HFSDevStart,d0
+		move.l	d0,d1
+		lsl.l	#8,d0
+		add.l	d0,d0
+		move.l	d0,IO_OFFSET(a1)
+		moveq	#23,d0			;(64-bit commands: the high half of the offset)
+		lsr.l	d0,d1
+		move.l	d1,IO_ACTUAL(a1)
+		JSRLIB	DoIO
+		rts
+
+**
+** Which read command reaches all of the drive behind the open request a1?
+** -> d0: NSCMD_TD_READ64 (a New Style Device), TD_READ64 (TD64) or CMD_READ
+** (32-bit byte offsets only: the first 4 GB of the drive). The write command
+** is the next number in each case.
+**
+DevProbe64	movem.l	d2-d4/a2-a3/a6,-(sp)
+		move.l	a1,a2
+		move.l	_ExecBase,a6
+		moveq	#CMD_READ,d4		;d4: the answer
+		move.l	#512,d0
+		move.l	#MEMF_PUBLIC|MEMF_CLEAR,d1
+		JSRLIB	AllocMem
+		move.l	d0,d3
+		beq	9$
+		move.l	d3,a3
+
+; A New Style Device lists its commands
+		move.l	a2,a1
+		move.w	#NSCMD_DEVICEQUERY,IO_COMMAND(a1)
+		move.l	a3,IO_DATA(a1)
+		moveq	#16,d0
+		move.l	d0,IO_LENGTH(a1)
+		clr.l	IO_OFFSET(a1)
+		clr.l	IO_ACTUAL(a1)
+		JSRLIB	DoIO
+		tst.b	d0
+		bne	3$
+		moveq	#16,d0
+		cmp.l	IO_ACTUAL(a2),d0
+		bhi	3$
+		tst.l	(a3)			;DevQueryFormat
+		bne	3$
+		move.l	12(a3),d0		;SupportedCommands
+		beq	3$
+		move.l	d0,a0
+1$		move.w	(a0)+,d0
+		beq	3$
+		cmp.w	#NSCMD_TD_READ64,d0
+		bne	1$
+		move.l	#NSCMD_TD_READ64,d4
+		bra	8$
+
+; TD64: read the first sector with it. The device has to say that it read
+; all of it, and the buffer has to have changed.
+3$		move.l	a3,a0
+		moveq	#127,d0
+4$		move.l	#$a5c35a3c,(a0)+
+		dbra	d0,4$
+		move.l	a2,a1
+		move.w	#TD_READ64,IO_COMMAND(a1)
+		move.l	a3,IO_DATA(a1)
+		move.l	#512,IO_LENGTH(a1)
+		clr.l	IO_OFFSET(a1)
+		clr.l	IO_ACTUAL(a1)
+		JSRLIB	DoIO
+		tst.b	d0
+		bne	8$
+		cmp.l	#512,IO_ACTUAL(a2)
+		bne	8$
+		move.l	a3,a0
+		moveq	#127,d0
+5$		cmp.l	#$a5c35a3c,(a0)+
+		dbne	d0,5$
+		beq	8$			;untouched
+		moveq	#TD_READ64,d4
+8$		move.l	d3,a1
+		move.l	#512,d0
+		JSRLIB	FreeMem
+9$		move.l	d4,d0
+		movem.l	(sp)+,d2-d4/a2-a3/a6
+		rts
+
+**
+** An Amiga partition table ('RDSK') in the first 16 sectors of the drive
+** behind the open request a1? -> d0: 1 = yes
+**
+DevScanRDB	movem.l	d2-d4/a2-a3/a6,-(sp)
+		move.l	a1,a2
+		move.l	_ExecBase,a6
+		moveq	#0,d4			;d4: the answer
+		move.l	#512,d0
+		move.l	#MEMF_PUBLIC|MEMF_CLEAR,d1
+		JSRLIB	AllocMem
+		move.l	d0,d3
+		beq	9$
+		move.l	d3,a3
+		moveq	#0,d2			;d2: sector
+1$		clr.l	(a3)
+		move.l	a2,a1
+		move.w	#CMD_READ,IO_COMMAND(a1)
+		move.l	a3,IO_DATA(a1)
+		move.l	#512,IO_LENGTH(a1)
+		move.l	d2,d0
 		lsl.l	#8,d0
 		add.l	d0,d0
 		move.l	d0,IO_OFFSET(a1)
 		JSRLIB	DoIO
+		tst.b	d0
+		bne	2$
+		cmp.l	#'RDSK',(a3)
+		bne	2$
+		moveq	#1,d4
+		bra	8$
+2$		addq.l	#1,d2
+		cmp.l	#16,d2
+		blo	1$
+8$		move.l	d3,a1
+		move.l	#512,d0
+		JSRLIB	FreeMem
+9$		move.l	d4,d0
+		movem.l	(sp)+,d2-d4/a2-a3/a6
 		rts
 
 
@@ -791,6 +945,8 @@ HFSFile		ds.l	1
 HFSPort		ds.l	1
 HFSReq		ds.l	1
 HFSDevStart	ds.l	1
+HFSCmdWrite	ds.w	1		;CMD_WRITE, TD_WRITE64 or NSCMD_TD_WRITE64
+		ds.w	1
 FmtArgs		ds.l	4
 HFSStamp	ds.b	ds_SIZEOF
 HFSGeo		ds.b	dg_SIZEOF

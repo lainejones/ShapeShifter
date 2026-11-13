@@ -1020,7 +1020,7 @@ MSG_SAVEFAIL_TXT
 ; could not be saved
 ;
 MSG_CHK_ADD4GB_TXT
-DeviceDisk %ld liegt hinter den ersten 4 GB ihres Laufwerks.\nDort kann ShapeShifter sie nicht erreichen.\n\nDer Mac würde ohne sie starten.
+DeviceDisk %ld reicht über die ersten 4 GB ihres Laufwerks hinaus, und\nder Treiber des Laufwerks kennt die 64-Bit-Befehle (NSD oder TD64)\nnicht, die dort nötig sind.\n\nDer Mac würde ohne sie starten.
 ; device disk beyond 4 GB
 ;
 MSG_PATHLONG_TXT
@@ -1064,7 +1064,7 @@ MSG_FMT_NODEV_TXT
 ; could not be opened
 ;
 MSG_FMT_SIZE_TXT
-%s, Unit %ld, ab Sektor %ld:\ndaraus kann keine Mac-Disk werden. Sie muß innerhalb des\nLaufwerks und seiner ersten 4 GB liegen, mindestens 1 MB groß\nsein, und das Laufwerk muß Sektoren mit 512 Bytes haben.\n\nEs wurde nichts geschrieben.
+%s, Unit %ld, ab Sektor %ld:\ndaraus kann keine Mac-Disk werden. Sie muß innerhalb des\nLaufwerks liegen und zwischen 1 MB und 64 GB groß sein, und das\nLaufwerk muß Sektoren mit 512 Bytes haben. Hinter den ersten 4 GB\neines Laufwerks muß sein Treiber die 64-Bit-Befehle (NSD oder\nTD64) kennen.\n\nEs wurde nichts geschrieben.
 ; cannot become a Mac disk
 ;
 MSG_FMT_RDB_TXT
@@ -1080,6 +1080,9 @@ MSG_FMT_PART_TXT
 ; not inside one mounted partition
 ;
 MSG_CHK_ADDWHOLE_TXT
-DeviceDisk %ld steht auf "ganzes Laufwerk", und dieses Laufwerk ist\ngrößer als 4 GB. ShapeShifter erreicht nur die ersten 4 GB.\n\nDer Mac würde ohne sie starten. Geben Sie eine Sektorenzahl an\noder wählen Sie mit "Auswählen..." eine Partition.
+DeviceDisk %ld steht auf "ganzes Laufwerk", und dieses Laufwerk ist\ngrößer als 4 GB. Sein Treiber kennt die 64-Bit-Befehle (NSD oder\nTD64) nicht, daher erreicht ShapeShifter nur die ersten 4 GB.\n\nDer Mac würde ohne sie starten. Geben Sie eine Sektorenzahl an\noder wählen Sie mit "Auswählen..." eine Partition.
 ; whole drive larger than 4 GB
+;
+MSG_CHK_ADDRDB_TXT
+DeviceDisk %ld beginnt am Anfang eines Laufwerks mit einer\nAmiga-Partitionstabelle. Der Mac würde das ganze Laufwerk für eine\nunlesbare Disk halten und anbieten, es zu löschen.\n\nDer Mac würde ohne sie starten. Wählen Sie mit "Auswählen..." eine Partition.
 ;

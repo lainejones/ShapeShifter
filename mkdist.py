@@ -25,7 +25,7 @@ shutil.copytree('out/Catalogs', d + '/Catalogs')
 s = open(d + '/Install_ShapeShifter', 'rb').read()
 assert b'\r' not in s and ('(set #version "%s")' % ver).encode() in s, 'Installer script: CR or wrong version'
 sys.path.insert(0, 'tools'); import mklha
-SUFFIX = '-beta2'      # '' for a final release
+SUFFIX = '-beta3'      # '' for a final release
 lha = top + SUFFIX + '.lha'
 n = mklha.pack(top, lha)
 print(lha, n, 'files', os.path.getsize(lha), 'bytes')

@@ -28,7 +28,7 @@ CATCOMP_NUMBERS	= 1
 		XREF	SReq
 		XREF	PrefsNameTab
 		XREF	ADDName1,ADDName2,ADDStartSector1,ADDStartSector2,ADDSectors1,ADDSectors2
-		XREF	ADDUnit1,ADDUnit2,DevTotalSectors
+		XREF	ADDUnit1,ADDUnit2,DevTotalSectors,Dev64Cmd,DevHasRDB
 		XREF	Has68060
 		XREF	NoCopyBack
 		XREF	ROMSize
@@ -227,6 +227,16 @@ CSQuit		moveq	#-1,d0
 ; sectors (the whole drive) the drive is asked how large it is.
 CheckADD	tst.b	(a0)
 		beq	1$
+		movem.l	d1/a0-a2,-(sp)		;At the start of a drive with an Amiga
+		moveq	#0,d0			; partition table? The Mac would take the
+		cmp.l	#16,(a1)		; whole drive for one unreadable disk.
+		bhs	5$
+		move.l	d2,d0
+		jsr	DevHasRDB
+5$		movem.l	(sp)+,d1/a0-a2
+		move.l	#MSG_CHK_ADDRDB_TXT,d3
+		tst.l	d0
+		bne	2$
 		move.l	#MSG_CHK_ADD4GB_TXT,d3
 		move.l	(a2),d0
 		bne	3$
@@ -237,9 +247,15 @@ CheckADD	tst.b	(a0)
 		movem.l	(sp)+,d1/a0-a2
 		bra	4$			;(0: cannot tell, the driver decides)
 3$		add.l	(a1),d0
-		bcs	2$
+		bcs	6$
 4$		cmp.l	#$800000,d0
 		bls	1$
+6$		movem.l	d1/a0-a2,-(sp)		;Beyond the first 4 GB: fine when the
+		move.l	d2,d0			; drive knows the 64-bit commands
+		jsr	Dev64Cmd
+		movem.l	(sp)+,d1/a0-a2
+		cmp.w	#2,d0			;CMD_READ: it does not
+		bne	1$
 2$		move.l	d1,ReqArgs
 		move.l	a3,-(sp)
 		lea	ReqArgs,a3

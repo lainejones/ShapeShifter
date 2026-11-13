@@ -44,6 +44,8 @@ DEBUG_DETAIL	SET 0
 		XREF	Kludge720K
 		XREF	SubtaskSet
 		XREF	IsDraco
+		XREF	DevProbe64	;MacEmulHFS.asm
+		XREF	DevScanRDB
 
 		SECTION	"CODE",CODE
 
@@ -72,6 +74,9 @@ ADDRefNum	= -64		;Nummer des Device-Disk-Treibers
 	LONG	dsUnit		;Unit-Nummer (nur Floppy)
 	APTR	dsChgDevice	;io_Device and io_Unit of dsChangeIO as OpenDevice()
 	APTR	dsChgUnit	; set them (see DTCloseDevice)
+	LONG	dsStartHi	;High 32 bits of dsStartByte (64-bit drive commands)
+	WORD	dsCmdRead	;CMD_READ, TD_READ64 or NSCMD_TD_READ64; 0: leave the disk out
+	WORD	dsCmdWrite	;the write command that goes with it
  LABEL	MyDrvSts_SIZEOF
 
 ; DraCo
@@ -248,7 +253,7 @@ CloseStub	dc.w	$4ef9
 		dc.l	SonyClose
 SonyEnd
 
-ADDHeader	dc.w	$4f00		;Flags
+ADDHeader	dc.w	$4f04		;Flags (4: answers Driver Gestalt, see Status 43)
 		dc.w	0,0,0		;Delay, EMask, Menu
 		dc.w	ADDOpen-ADDHeader
 		dc.w	Prime-ADDHeader
@@ -396,16 +401,24 @@ IONoDrive2
 		move.l	ADDSectors1,d0
 		swap	d0
 		move.l	d0,dsDriveSize(a2)
-		move.l	ADDStartSector1,d0	;Beyond the first 4 GB of the drive: the 32-bit
-		add.l	ADDSectors1,d0		; byte offsets would wrap onto its start.
-		bcs	IONoDrive3		; Leave the disk out (MacEmulCheck says why).
-		cmp.l	#$800000,d0
-		bhi	IONoDrive3
-		move.b	#1,dsInstalled(a2)	;(only now: a disk left out must not answer driver calls)
+		tst.w	dsCmdRead(a2)		;Left out by ADDProbe64 (Amiga partition table)
+		beq	IONoDrive3
+		move.l	ADDStartSector1,d0	;Beyond the first 4 GB of the drive the drive
+		add.l	ADDSectors1,d0		; has to know the 64-bit commands (ADDProbe64
+		bcs	30$			; looked). Without them the disk is left out:
+		cmp.l	#$800000,d0		; the 32-bit byte offsets would wrap onto the
+		bls	31$			; start of the drive (MacEmulCheck says why).
+30$		cmp.w	#CMD_READ,dsCmdRead(a2)
+		beq	IONoDrive3
+31$		move.b	#1,dsInstalled(a2)	;(only now: a disk left out must not answer driver calls)
 		move.l	ADDStartSector1,d0
+		move.l	d0,d1
 		lsl.l	#8,d0
 		lsl.l	#1,d0		;*512
 		move.l	d0,dsStartByte(a2)
+		moveq	#23,d0
+		lsr.l	d0,d1
+		move.l	d1,dsStartHi(a2)
 		move.l	#-1,dsMaxTransfer(a2)	;Vorgabe
 		move.l	ADDMaxTransfer1,d0
 		beq	2$
@@ -438,16 +451,24 @@ IONoDrive3
 		move.l	ADDSectors2,d0
 		swap	d0
 		move.l	d0,dsDriveSize(a2)
-		move.l	ADDStartSector2,d0	;Beyond the first 4 GB of the drive: the 32-bit
-		add.l	ADDSectors2,d0		; byte offsets would wrap onto its start.
-		bcs	IONoDrive4		; Leave the disk out (MacEmulCheck says why).
-		cmp.l	#$800000,d0
-		bhi	IONoDrive4
-		move.b	#1,dsInstalled(a2)	;(only now: a disk left out must not answer driver calls)
+		tst.w	dsCmdRead(a2)		;Left out by ADDProbe64 (Amiga partition table)
+		beq	IONoDrive4
+		move.l	ADDStartSector2,d0	;Beyond the first 4 GB of the drive the drive
+		add.l	ADDSectors2,d0		; has to know the 64-bit commands (ADDProbe64
+		bcs	30$			; looked). Without them the disk is left out:
+		cmp.l	#$800000,d0		; the 32-bit byte offsets would wrap onto the
+		bls	31$			; start of the drive (MacEmulCheck says why).
+30$		cmp.w	#CMD_READ,dsCmdRead(a2)
+		beq	IONoDrive4
+31$		move.b	#1,dsInstalled(a2)	;(only now: a disk left out must not answer driver calls)
 		move.l	ADDStartSector2,d0
+		move.l	d0,d1
 		lsl.l	#8,d0
 		lsl.l	#1,d0		;*512
 		move.l	d0,dsStartByte(a2)
+		moveq	#23,d0
+		lsr.l	d0,d1
+		move.l	d1,dsStartHi(a2)
 		move.l	#-1,dsMaxTransfer(a2)	;Vorgabe
 		move.l	ADDMaxTransfer2,d0
 		beq	2$
@@ -910,8 +931,17 @@ StatusNotDV	cmp.w	#'SC',csCode(a0)
 		move.b	#$22,csParam(a0)	;512 Byte pro Sektor
 		bra	IOReturnOK
 
+; 43: Driver Gestalt. 'wide': positions of 64 bits are understood
+StatusNotSC	cmp.w	#43,csCode(a0)
+		bne	StatusNot43
+
+		cmp.l	#'wide',csParam(a0)
+		bne	IOStatusImpl
+		move.l	#$01000000,csParam+4(a0)	;true
+		bra	IOReturnOK
+
 ; Unbekannter Status-Code
-StatusNotSC	bra	IOStatusImpl
+StatusNot43	bra	IOStatusImpl
 
 
 *
@@ -1194,6 +1224,9 @@ DiskTaskMain	move.l	_ExecBase(pc),a6
 		lea	ADDSectors1,a0
 		move.l	ADDStartSector1,d0
 		bsr	ADDWholeDrive
+		move.l	ADDStartSector1,d0
+		move.l	ADDSectors1,d1
+		bsr	ADDProbe64
 
 ; ADD 2 öffnen
 		lea	DriveStatus4,a2
@@ -1206,6 +1239,9 @@ DiskTaskMain	move.l	_ExecBase(pc),a6
 		lea	ADDSectors2,a0
 		move.l	ADDStartSector2,d0
 		bsr	ADDWholeDrive
+		move.l	ADDStartSector2,d0
+		move.l	ADDSectors2,d1
+		bsr	ADDProbe64
 
 ; Floppy 1 sperren, falls gewünscht
 		move.w	Floppy1,d0
@@ -1298,12 +1334,34 @@ DTDoIO		move.l	DiskParmBlock,a0
 		move.l	DiskParmBlock,a0
 		move.l	DiskDCE,a1
 
-		move.l	dCtlPosition(a1),d2
-		bmi	DTIOOutOfRange		;Negativ: Fehler
+; Where on the Mac disk. A wide request (kUseWidePositioning in ioPosMode)
+; carries a 64-bit position in ioWPosOffset: the Mac sends those to a disk
+; of more than 4 GB. Else it is dCtlPosition, an unsigned number (a device
+; disk may have 2 to 4 GB); on a floppy a negative one stays an error.
+		moveq	#0,d5			;d5: high 32 bits of the position
+		moveq	#0,d7			;d7: a wide request
+		btst	#0,ioPosMode(a0)		;(kWidePosOffsetBit = 8)
+		beq	70$
+		moveq	#1,d7
+		move.l	ioPosOffset(a0),d5	;(ioWPosOffset: 8 bytes from here)
+		bmi	DTIOOutOfRange
+		move.l	ioPosOffset+4(a0),d2
+		bra	71$
+70$		move.l	dCtlPosition(a1),d2
+		bpl	71$
+		cmp.w	#1,dsQType(a2)		;HD20?
+		bne	DTIOOutOfRange
 
-		add.l	dsStartByte(a2),d2	;d2: Startbyte
-		bcs	DTIOOutOfRange		;no wrapping past 4 GB
+71$		add.l	dsStartByte(a2),d2	;d2/d5: Startbyte
+		move.l	dsStartHi(a2),d0
+		addx.l	d0,d5
+		bcs	DTIOOutOfRange
 		move.l	ioReqCount(a0),d3	;d3: Anzahl Bytes
+		move.l	d3,d6			;d6: all of it (ioActCount when it is done)
+		cmp.w	#CMD_READ,dsCmdRead(a2)	;32-bit commands: no wrapping past 4 GB
+		bne	7$
+		tst.l	d5
+		bne	DTIOOutOfRange
 		move.l	d2,d0
 		add.l	d3,d0
 		bcc	7$
@@ -1334,19 +1392,22 @@ DTReadLoop	move.l	dsDiskIO(a2),a1
 2$
 		move.l	a3,IO_DATA(a1)
 		move.l	d2,IO_OFFSET(a1)
+		move.l	d5,IO_ACTUAL(a1)	;(64-bit commands: the high half of the offset)
 		move.l	d4,IO_LENGTH(a1)
-		move.w	#CMD_READ,IO_COMMAND(a1)
+		move.w	dsCmdRead(a2),IO_COMMAND(a1)
 		JSRLIB	DoIO
 		tst.l	d0
 		bne	DTReadErr
 		sub.l	d4,d3		;Übertragene Größe von Restlänge abziehen
-		beq	DTIODone	;Alles übertragen, dann fertig
+		beq	DTIOAll		;Alles übertragen, dann fertig
 		add.l	d4,d2		;Sonst Offset und Data erhöhen
+		moveq	#0,d0
+		addx.l	d0,d5
 		add.l	d4,a3
 		bra	DTReadLoop	;und den nächsten Block lesen
 
 DTReadErr	moveq	#-19,d0		;Read Error
-		bra	DTIODone
+		bra	DTIONone
 
 ; Schreiben
 DTWrite		tst.b	dsWriteProt(a2)	;Schreibschutz an?
@@ -1363,20 +1424,29 @@ DTWriteLoop	move.l	dsDiskIO(a2),a1
 2$
 		move.l	a3,IO_DATA(a1)
 		move.l	d2,IO_OFFSET(a1)
+		move.l	d5,IO_ACTUAL(a1)	;(64-bit commands: the high half of the offset)
 		move.l	d4,IO_LENGTH(a1)
-		move.w	#CMD_WRITE,IO_COMMAND(a1)
+		move.w	dsCmdWrite(a2),IO_COMMAND(a1)
 		JSRLIB	DoIO
 		tst.l	d0
 		bne	DTWriteErr
 		sub.l	d4,d3		;Übertragene Größe von Restlänge abziehen
-		beq	DTIODone	;Alles übertragen, dann fertig
+		beq	DTIOAll		;Alles übertragen, dann fertig
 		add.l	d4,d2		;Sonst Offset und Data erhöhen
+		moveq	#0,d0
+		addx.l	d0,d5
 		add.l	d4,a3
 		bra	DTWriteLoop	;und den nächsten Block schreiben
 
 DTWriteErr	moveq	#-20,d0		;Write Error
-		bra	DTIODone
+		bra	DTIONone
 DTWriteProt	moveq	#-44,d0		;Write Protected
+		bra	DTIONone
+
+; All of it was transferred (io_Actual of the last piece is not the sum)
+DTIOAll		move.l	dsDiskIO(a2),a1
+		move.l	d6,IO_ACTUAL(a1)
+		moveq	#0,d0
 		bra	DTIODone
 
 ; Verifizieren
@@ -1387,7 +1457,7 @@ DTPrimeVerify	moveq	#0,d0		;Alles OK
 
 ; IO-Vorgang beenden, Emulator benachrichtigen
 DTIOOutOfRange	moveq	#-50,d0		;Param Error
-		move.l	dsDiskIO(a2),a1	;Kein Transfer
+DTIONone	move.l	dsDiskIO(a2),a1	;Kein Transfer
 		clr.l	IO_ACTUAL(a1)
 
 DTIODone	move.w	d0,DiskError
@@ -1398,7 +1468,10 @@ DTIODone	move.w	d0,DiskError
 		move.l	DiskParmBlock,a0
 		move.l	DiskDCE,a1
 		move.l	d0,ioActCount(a0)
+		tst.l	d7		;(dCtlPosition means nothing to a wide request)
+		bne	80$
 		add.l	d0,dCtlPosition(a1)
+80$
 
 		move.l	DiskDCE,a2	;Für JIODone (kann nach Signal zerstört sein,
 		move.w	DiskError,d2	; wenn der Emulator auf Beendigung wartet
@@ -1772,6 +1845,40 @@ ADDWholeDrive	movem.l	d2/a3/a6,-(sp)
 		rts
 
 **
+** A device disk that starts at the beginning of a drive with an Amiga
+** partition table is left out (dsCmdRead 0): the Mac would take the whole
+** drive for one unreadable disk and offer to erase it. And a device disk
+** that reaches beyond the first 4 GB of its drive needs the 64-bit drive
+** commands: DevProbe64 says whether the drive knows them. Disks within the
+** first 4 GB keep the plain commands, as before.
+** a2: DriveStatus (after DTOpenDevice), d0: first sector, d1: sectors
+**
+ADDProbe64	movem.l	d2-d3/a6,-(sp)
+		move.l	d0,d2
+		move.l	d1,d3
+		tst.l	dsDiskIO(a2)
+		beq	9$
+		cmp.l	#16,d2
+		bhs	1$
+		move.l	dsDiskIO(a2),a1
+		jsr	DevScanRDB
+		tst.l	d0
+		beq	1$
+		clr.w	dsCmdRead(a2)
+		bra	9$
+1$		add.l	d3,d2
+		bcs	2$
+		cmp.l	#$800000,d2
+		bls	9$
+2$		move.l	dsDiskIO(a2),a1
+		jsr	DevProbe64
+		move.w	d0,dsCmdRead(a2)
+		addq.w	#1,d0
+		move.w	d0,dsCmdWrite(a2)
+9$		movem.l	(sp)+,d2-d3/a6
+		rts
+
+**
 ** Routine zum Einrichten und Öffnen der IORequests
 ** a2: DrvSts
 ** a3: DeviceName
@@ -1783,6 +1890,9 @@ ADDWholeDrive	movem.l	d2/a3/a6,-(sp)
 
 ; IORequests anfordern
 DTOpenDevice	move.l	_ExecBase,a6
+		move.w	#CMD_READ,dsCmdRead(a2)	;(a device disk beyond 4 GB: see ADDProbe64)
+		move.w	#CMD_WRITE,dsCmdWrite(a2)
+		clr.l	dsStartHi(a2)
 		move.l	DiskMsgPort,a0
 		moveq	#IOTD_SIZE,d0
 		JSRLIB	CreateIORequest

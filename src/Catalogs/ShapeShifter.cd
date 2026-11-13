@@ -874,7 +874,7 @@ MSG_SAVEFAIL_TXT (//)
 %s\ncould not be saved.
 ;
 MSG_CHK_ADD4GB_TXT (//)
-Device disk %ld lies beyond the first 4 GB of its drive.\nShapeShifter cannot reach it there.\n\nThe Mac would start without it.
+Device disk %ld reaches beyond the first 4 GB of its drive, and the\ndrive's driver does not know the 64-bit commands (NSD or TD64)\nthat are needed there.\n\nThe Mac would start without it.
 ;
 MSG_PATHLONG_TXT (//)
 %s\nis too long: at most %ld characters fit here.\nUse a shorter path or an Assign.
@@ -907,7 +907,7 @@ MSG_FMT_NODEV_TXT (//)
 %s, unit %ld could not be opened.\nNothing was written.
 ;
 MSG_FMT_SIZE_TXT (//)
-%s, unit %ld, from sector %ld:\nthis cannot become a Mac disk. It has to lie within the drive\nand its first 4 GB, be at least 1 MB large, and the drive\nhas to have sectors of 512 bytes.\n\nNothing was written.
+%s, unit %ld, from sector %ld:\nthis cannot become a Mac disk. It has to lie within the drive,\nbe between 1 MB and 64 GB large, and the drive has to have\nsectors of 512 bytes. Beyond the first 4 GB of a drive its\ndriver has to know the 64-bit commands (NSD or TD64).\n\nNothing was written.
 ;
 MSG_FMT_RDB_TXT (//)
 %s, unit %ld has an Amiga partition table.\nFormatting from sector %ld would destroy every partition\non the drive.\n\nNothing was written. Pick a partition with "Choose...".
@@ -942,5 +942,8 @@ MSG_FMT_PART_TXT (//)
 %s, unit %ld has an Amiga partition table, and the range from\nsector %ld does not lie inside one of its mounted partitions.\nFormatting it could destroy other partitions.\n\nNothing was written. Pick a partition with "Choose...".
 ;
 MSG_CHK_ADDWHOLE_TXT (//)
-Device disk %ld is set to the whole drive, and that drive is\nlarger than 4 GB. ShapeShifter reaches only the first 4 GB.\n\nThe Mac would start without it. Give the disk a number of\nsectors, or pick a partition with "Choose...".
+Device disk %ld is set to the whole drive, and that drive is\nlarger than 4 GB. Its driver does not know the 64-bit commands\n(NSD or TD64), so ShapeShifter reaches only the first 4 GB.\n\nThe Mac would start without it. Give the disk a number of\nsectors, or pick a partition with "Choose...".
+;
+MSG_CHK_ADDRDB_TXT (//)
+Device disk %ld starts at the beginning of a drive that has an\nAmiga partition table. The Mac would take the whole drive for\none unreadable disk and offer to erase it.\n\nThe Mac would start without it. Pick a partition with "Choose...".
 ;
