@@ -49,6 +49,9 @@ Die Änderungen zur Version 3.11:
  · Neue Seite "CPU" für die Startoptionen, die es bisher nur als
    Merkmale gab
  · Eine Liste gespeicherter Konfigurationen im Einstellungsfenster
+ · "Vorgaben" schlägt Einstellungen für Ihren Amiga vor; "Erweitert"
+   zeigt die Seiten, die die meisten nie brauchen (SCSI, Seriell,
+   CPU ...)
  · Eine Zeile Hilfe zu dem Bedienelement unter der Maus
  · Der Mac kann die Farbtiefe in "Monitore" wechseln (@{"DEPTHSWITCH" LINK GraDepthSwitch})
  · Vier FileDisks statt zwei, und sie sind wechselbar: auf dem Mac
@@ -65,9 +68,25 @@ Die Änderungen zur Version 3.11:
    "Ausschalten"
  · Tausende Farben auf 16-Bit-Grafikkarten-Modi; Unterstützung für
    PrismRTG
- · Fehlerbehebungen: Ethernet-Pakete waren bei den meisten SANA-II-
-   Treibern 4 Bytes zu kurz; weiße 256-Farben-Bildschirme, wenn das
-   ChipRAM knapp war
+ · Leere Mac-Platten formatiert ShapeShifter selbst in Sekunden
+   ("Anlegen..." und, für DeviceDisks, "Format...")
+ · ReserveLow hält den untersten Speicher frei (statt PrepareEmul); ein
+   Installer; die Mac-Disk-Werkzeuge MacBrowse, MacMount und
+   MacHFS-Handler
+ · DeviceDisks dürfen ein ganzes Laufwerk sein, irgendwo auf einem
+   großen Laufwerk liegen und größer als 4 GB sein, wenn der Treiber
+   des Laufwerks die 64-Bit-Befehle kennt (NSD oder TD64)
+ · Eine Sync-Schublade: eine AmigaDOS-Schublade als Platte auf dem
+   Mac-Schreibtisch
+ · Ctrl-linke Shift-linke Alt-Del ist die Einschalttaste des Mac
+ · Fehlerbehebungen: Mac OS 8.1 auf einem 68060; der Einrichtungs-
+   assistent von Mac OS 8.1 blieb hängen; ein doppelt freigegebenes
+   Handle ließ den Mac abstürzen; Ethernet-Pakete waren bei den meisten
+   SANA-II-Treibern 4 Bytes zu kurz; weiße 256-Farben-Bildschirme, wenn
+   das ChipRAM knapp war
+
+Dies ist eine Beta-Version: Im README steht, was getestet ist und was
+nicht.
 
 Genaueres steht in der @{"Entwicklungsgeschichte" LINK History}.
 
@@ -3296,7 +3315,39 @@ langsamen Controller Stunden dauern kann. ShapeShifter fragt vor dem
 Schreiben nach; alles, was in diesen Sektoren stand, geht verloren. Ein
 Laufwerk mit Amiga-Partitionstabelle wird abgelehnt, wenn die DeviceDisk
 bei seinen ersten Sektoren beginnt: wählen Sie stattdessen eine seiner
-Partitionen mit "Auswählen...".
+Partitionen mit "Auswählen...". Eine solche DeviceDisk läßt ShapeShifter
+auch beim Start des Mac weg und sagt es vorher: Der Mac hielte das ganze
+Laufwerk für eine unlesbare Platte und böte an, es zu löschen.
+
+Eine DeviceDisk darf irgendwo auf ihrem Laufwerk liegen und größer als
+4 GB sein, wenn der Treiber des Laufwerks die 64-Bit-Befehle kennt (ein
+"New Style Device", oder TD64); ShapeShifter stellt das selbst fest. Kennt
+der Treiber sie nicht, muß die DeviceDisk innerhalb der ersten 4 GB des
+Laufwerks enden. "Format..." legt Mac-Platten von 1 MB bis 64 GB an. Über
+die ersten 4 GB einer Mac-Platte hinaus schreibt der Mac ab Mac OS 8.1;
+mit Mac OS 8.0 und älter sollten Mac-Platten nicht größer als 4 GB sein.
+
+@{b}Sync-Schublade:@{ub} der Name einer AmigaDOS-Schublade, die der Mac als
+Platte namens "Amiga" bekommt. Vor dem Start des Mac kommen die Dateien der
+Schublade auf diese Platte; ist der Mac ausgeschaltet, kommen neue und
+geänderte Dateien in die Schublade zurück, und was auf dem Mac gelöscht
+wurde, wird dort gelöscht. Ein leeres Feld schaltet das ab.
+
+Es ist keine direkte Verbindung: Was Sie auf dem Amiga in die Schublade
+legen, während der Mac läuft, erscheint beim nächsten Start des Mac, und
+die Änderungen des Mac kommen beim Ausschalten an (nicht bei "Neustart").
+Eine Datei, die auf beiden Seiten geändert wurde, bleibt doppelt erhalten;
+die Fassung des Mac heißt dann in der Schublade "Name (Mac)". Mac-Dateien
+mit Resource-Fork kommen mit einer zweiten Datei "._Name" zurück, die sie
+auf dem Mac wieder vollständig macht: Lassen Sie sie liegen. Amiga-Icons
+(.info), AmigaDOS-Namen mit mehr als 31 Zeichen und die unsichtbaren
+Dateien des Mac werden nicht übertragen. Eine Schublade faßt bis zu 2 GB.
+
+Die Platte ist die Datei "SyncedDrawer.hfv" neben ShapeShifter. Sie belegt
+einen der vier FileDisk-Plätze - einer muß also frei sein - und braucht
+das Programm MacBrowse in der Schublade "MacDiskTools" neben ShapeShifter
+(oder im Suchpfad). Ein Konsolenfenster zeigt, welche Dateien kopiert
+werden.
 
 @{b}Maximale Transfergröße:@{ub} Einige IDE- und ältere SCSI-Festplatten
 mögen es nicht, wenn die maximal am Stück übertragene Datenmenge eine
@@ -3986,7 +4037,31 @@ V3.11	25.Jan.2001
   - 68060-Super-Bypass-Mode wegen eines CPU-Fehlers, der unter MacOS 8
     zu Tage tritt, abgeschaltet
 
-V3.20	07.Nov.2026	(gebaut aus dem veröffentlichten 3.11-Quelltext)
+V3.20 beta 4	13.Nov.2026
+  - Sync-Schublade: eine AmigaDOS-Schublade als Platte auf dem Mac-
+    Schreibtisch, abgeglichen beim Start und beim Ausschalten des Mac
+    (MacBrowse 1.2)
+
+V3.20 beta 3	13.Nov.2026
+  - DeviceDisks hinter den ersten 4 GB eines Laufwerks (64-Bit-Befehle
+    des Laufwerkstreibers)
+  - Mac-Platten größer als 4 GB; "Format..." bis 64 GB
+  - Lesen und Schreiben hinter 2 GB einer 2 bis 4 GB großen Mac-Platte
+    wurde abgelehnt
+  - Eine DeviceDisk am Anfang eines Laufwerks mit Amiga-
+    Partitionstabelle wird mit einem Hinweis weggelassen
+
+V3.20 beta 2	12.Nov.2026	(fortgeführt von Laine Jones)
+  - Die Einstellungen werden über eine Zwischendatei gespeichert
+  - "Format...": prüft die gemounteten Partitionen eines Laufwerks mit
+    Amiga-Partitionstabelle und schaltet ein Amiga-Dateisystem auf dem
+    Bereich ab
+  - Eine DeviceDisk "ganzes Laufwerk" auf einem Laufwerk über 4 GB
+    bekommt einen Hinweis
+  - SCSI-IDs ohne Laufwerk halten den Start des Mac nicht mehr auf
+  - Korrekturen an ReserveLow und am Installer
+
+V3.20 beta 1	11.Nov.2026	(gebaut aus dem veröffentlichten 3.11-Quelltext)
   - Läßt sich mit vasm und GNU ld bauen (build.sh); Kataloge werden aus
     den Quellen erzeugt (tools/catcomp.py statt CatComp)
   - Einstellungen in einem Fenster mit Karteireitern; neue Seite CPU für

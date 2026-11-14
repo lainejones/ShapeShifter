@@ -1086,3 +1086,15 @@ DeviceDisk %ld steht auf "ganzes Laufwerk", und dieses Laufwerk ist\ngrößer als 
 MSG_CHK_ADDRDB_TXT
 DeviceDisk %ld beginnt am Anfang eines Laufwerks mit einer\nAmiga-Partitionstabelle. Der Mac würde das ganze Laufwerk für eine\nunlesbare Disk halten und anbieten, es zu löschen.\n\nDer Mac würde ohne sie starten. Wählen Sie mit "Auswählen..." eine Partition.
 ;
+MSG_SHARED_GAD
+Sync-Schublade
+;
+MSG_SHARE_NOSLOT_TXT
+Die Sync-Schublade braucht einen FileDisk-Platz, und alle vier sind belegt.\n\nDer Mac würde ohne die Sync-Schublade starten.
+;
+MSG_SHARE_FAIL_TXT
+Die Sync-Schublade konnte nicht für den Mac vorbereitet werden\n(MacBrowse meldete %ld). Gibt es die Schublade, und liegt MacBrowse\nin der Schublade "MacDiskTools" neben ShapeShifter?\n\nDer Mac würde ohne die Sync-Schublade starten.
+;
+MSG_SHARE_OUTFAIL_TXT
+Was sich auf dem Mac geändert hat, konnte nicht in die\nSync-Schublade zurückgebracht werden (MacBrowse meldete %ld).\nEs geht nichts verloren: Beim nächsten Start des Mac wird es\nnoch einmal versucht.
+;

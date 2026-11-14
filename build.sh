@@ -3,7 +3,7 @@
 set -e
 export PATH=/opt/amiga/bin:$PATH
 mkdir -p build out
-MODS="MacEmul MacEmulPatches MacEmulADD MacEmulAFD MacEmulClip MacEmulNet MacEmulPrefs MacEmulSCSI MacEmulSERD MacEmulSlot MacEmulSound MacEmulVideo MacEmulTabs MacEmulCheck MacEmulPRam MacEmulHelp MacEmulLoc MacEmulSetup MacEmulHFS"
+MODS="MacEmul MacEmulPatches MacEmulADD MacEmulAFD MacEmulClip MacEmulNet MacEmulPrefs MacEmulSCSI MacEmulSERD MacEmulSlot MacEmulSound MacEmulVideo MacEmulTabs MacEmulCheck MacEmulPRam MacEmulHelp MacEmulLoc MacEmulSetup MacEmulHFS MacEmulShare"
 # MacEmulTCP.asm (unfinished MacTCP emulation of 3.11) is not part of the build.
 # Strings: the MSG_ numbers, GetString with the built-in English text, and the
 # catalogs, all from src/Catalogs (tools/catcomp.py replaces CatComp)

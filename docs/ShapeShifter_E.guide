@@ -69,6 +69,7 @@ Changes from version 3.11:
  · Raw CD images (.bin/.cue) as FileDisks; device disks may be a whole
    drive, lie anywhere on a large drive and be larger than 4 GB when
    the drive's driver knows the 64-bit commands (NSD or TD64)
+ · A synced drawer: an AmigaDOS drawer as a disk on the Mac desktop
  · Ctrl-left Shift-left Alt-Del is the Mac's Power key
  · Fixes: Mac OS 8.1 on a 68060; the Mac OS 8.1 Setup Assistant froze;
    a handle disposed twice crashed the Mac; Ethernet packets were 4 bytes
@@ -3119,6 +3120,27 @@ first found bootable volume and "FileDisk 1" resp. "DeviceDisk 1" force
 it to boot from the first File-/DeviceDisk. "CD-ROM" will try to boot from
 CD-ROM when the built-in CD-ROM driver is enabled.
 
+@{b}Synced drawer:@{ub} the name of an AmigaDOS drawer that the Mac gets as a
+disk named "Amiga". Before the Mac starts, the files of the drawer are put
+on that disk; when the Mac has shut down, new and changed files come back
+to the drawer, and what was deleted on the Mac is deleted there. Leave the
+field empty to switch it off.
+
+It is not a live connection: what you put into the drawer on the Amiga
+while the Mac runs appears on the Mac at its next start, and the Mac's
+changes arrive when the Mac is shut down (not on "Restart"). A file that
+was changed on both sides is kept twice; the Mac's version is then called
+"name (Mac)" in the drawer. Mac files with a resource fork come back with
+a second file "._name" beside them, which makes them complete on the Mac
+again: leave it there. Amiga icons (.info), AmigaDOS names longer than 31
+characters and the Mac's invisible files are not carried over. A drawer
+may hold up to 2 GB.
+
+The disk is the file "SyncedDrawer.hfv" beside ShapeShifter. It takes one
+of the four FileDisk places, so one has to be empty, and it needs the
+program MacBrowse in the drawer "MacDiskTools" beside ShapeShifter (or in
+the command path). A console window shows which files are copied.
+
 @ENDNODE
 
 
@@ -3749,6 +3771,10 @@ V3.11	25.Jan.2001
   - Fixed MacOS 8 Finder file copy bug
   - Disabled 68060 Super Bypass mode because of a CPU bug that is
     triggered by MacOS 8
+
+V3.20 beta 4	13.Nov.2026
+  - Synced drawer: an AmigaDOS drawer as a disk on the Mac desktop,
+    brought up to date at the Mac's start and shutdown (MacBrowse 1.2)
 
 V3.20 beta 3	13.Nov.2026
   - DeviceDisks beyond the first 4 GB of a drive (64-bit drive commands)

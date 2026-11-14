@@ -1,4 +1,4 @@
-ShapeShifter 3.20 beta 3 - a Macintosh II emulator for the Amiga
+ShapeShifter 3.20 beta 4 - a Macintosh II emulator for the Amiga
 
 ShapeShifter runs the Macintosh system (System 7 to Mac OS 8.1) and its
 programs on an Amiga with a 68020 or better, next to your Amiga programs.
@@ -46,6 +46,21 @@ on Zorro cards (it says so and changes nothing): use PrepareEmul from the
 3.11 archive there. The manual has the details under "Reserving the low
 memory".
 
+The synced drawer (new in beta 4)
+---------------------------------
+Name an AmigaDOS drawer under "Synced drawer" on the Volumes/Disks page
+and the Mac gets it as a disk named "Amiga". Before the Mac starts, the
+drawer's files are put on that disk; when the Mac has shut down, new and
+changed files come back to the drawer, and what was deleted on the Mac
+is deleted there. It is not live: what you add on the Amiga while the
+Mac runs appears at the next start. A file changed on both sides is kept
+twice ("name (Mac)"). Mac files with a resource fork come back with a
+second file "._name": leave it beside the file. Amiga icons, names longer
+than 31 characters and the Mac's invisible files are not carried over.
+The disk is SyncedDrawer.hfv beside ShapeShifter; it needs one empty
+file disk place and MacBrowse in the MacDiskTools drawer. Tested with a
+small drawer only so far.
+
 The Mac disk tools (drawer MacDiskTools, optional)
 --------------------------------------------------
 MacBrowse copies files between the Amiga and a Mac disk image (.hfv and
@@ -84,9 +99,9 @@ Not tested, so expect surprises and please report them:
  - Drivers that know TD64 but are not New Style Devices. Device disks
    beyond the first 4 GB of a drive were tested with New Style Devices
    only: in WinUAE, and on a real Amiga 4000 with a 32 GB CompactFlash
-   card on the built-in IDE port.
- - Mac disks of 2 to 4 GB, Mac disks over 4 GB beyond a few copied
-   files, and Disk First Aid on a disk that ShapeShifter formatted.
+   card on the built-in IDE port (Mac disks of 1.9, 3 and 5.7 GB, also
+   written past their 2 GB and 4 GB points).
+ - Disk First Aid on a disk that ShapeShifter formatted.
  - The left mouse button of ReserveLow with a real button: Amiga 4000
    only.
  - A cold start of ReserveLow under Kickstart 3.1 on real hardware.

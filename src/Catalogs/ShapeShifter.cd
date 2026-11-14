@@ -947,3 +947,15 @@ Device disk %ld is set to the whole drive, and that drive is\nlarger than 4 GB. 
 MSG_CHK_ADDRDB_TXT (//)
 Device disk %ld starts at the beginning of a drive that has an\nAmiga partition table. The Mac would take the whole drive for\none unreadable disk and offer to erase it.\n\nThe Mac would start without it. Pick a partition with "Choose...".
 ;
+MSG_SHARED_GAD (//)
+Synced drawer
+;
+MSG_SHARE_NOSLOT_TXT (//)
+The synced drawer needs a file disk place, and all four are in use.\n\nThe Mac would start without the synced drawer.
+;
+MSG_SHARE_FAIL_TXT (//)
+The synced drawer could not be made ready for the Mac\n(MacBrowse returned %ld). Is the drawer there, and is MacBrowse\nin the drawer "MacDiskTools" beside ShapeShifter?\n\nThe Mac would start without the synced drawer.
+;
+MSG_SHARE_OUTFAIL_TXT (//)
+What changed on the Mac could not be brought back to the\nsynced drawer (MacBrowse returned %ld). Nothing is lost: it is\ntried again the next time the Mac starts.
+;

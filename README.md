@@ -9,7 +9,7 @@ released under the ISC licence, and adds fixes and features. Version 3.20 is
 continued by Laine Jones. It is **not** Christian Bauer's release; please do not
 send him bug reports for it, report them here.
 
-**Status: beta 3.** It has run on three real Amigas and in WinUAE. See
+**Status: beta 4.** It has run on three real Amigas and in WinUAE. See
 [Tested](#tested) and [Known issues](#known-issues) before trusting it with anything you care about.
 
 ## What is new since 3.11
@@ -31,6 +31,9 @@ send him bug reports for it, report them here.
   DiskCopy 4.2 floppy images. The Mac boots from them.
 - Empty Mac disks are formatted by ShapeShifter itself in seconds (Create...,
   and Format... for device disks) instead of the Mac's Initialise.
+- A **synced drawer**: an AmigaDOS drawer shows up on the Mac desktop as a disk
+  named "Amiga". It is brought up to date when the Mac starts, and what the
+  Mac changed goes back to the drawer when the Mac shuts down.
 - Device disks may be a whole drive, may lie anywhere on a large drive and may
   be larger than 4 GB, when the drive's driver knows the 64-bit commands (NSD
   or TD64). Without them a disk beyond the first 4 GB of its drive is refused
@@ -57,6 +60,16 @@ send him bug reports for it, report them here.
   start or reset skips it.
 - The Mac disk tools from the MacBrowse project: `MacBrowse`, `MacMount` and
   `L:MacHFS-Handler` read and write Mac disk images from the Amiga side.
+
+## New in beta 4
+
+- **Synced drawer** (Volumes/Disks page): name an AmigaDOS drawer there and
+  the Mac gets it as a disk named "Amiga". Before the Mac starts, the drawer's
+  files are put on that disk; after the Mac has shut down, new and changed
+  files come back to the drawer and what was deleted on the Mac is deleted
+  there. Details and limits are under "Using it" below.
+- The Mac disk tools are MacBrowse 1.2, which does the syncing (`SYNCIN`,
+  `SYNCOUT`) and can create an empty Mac disk image (`CREATE`).
 
 ## New in beta 3
 
@@ -96,7 +109,7 @@ send him bug reports for it, report them here.
 
 ## Using it
 
-Unpack `ShapeShifter-3.20-beta3.lha` on the Amiga and double-click
+Unpack `ShapeShifter-3.20-beta4.lha` on the Amiga and double-click
 `Install_ShapeShifter`. The manual is `ShapeShifter_E.guide` (English) and
 `ShapeShifter.guide` (German); start with **Quick start**. You need a Macintosh
 ROM file from a Mac you own and a Macintosh system to install; neither is part
@@ -110,7 +123,7 @@ The sources are 68k assembler in Latin-1. They build under Linux or WSL with
 
 ```
 ./build.sh          # out/ShapeShifter, out/ReserveLow, out/Catalogs
-python3 mkdist.py   # dist/ShapeShifter-3.20-beta3.lha
+python3 mkdist.py   # dist/ShapeShifter-3.20-beta4.lha
 ```
 
 `mkdist.py` takes the Mac disk tools from a checkout of
@@ -142,14 +155,32 @@ the built-in HFS formatter (`src/MacEmulHFS.asm`).
   with MMU refresh or with depth switching. Without those two they work.
 - Drivers that know TD64 but are not New Style Devices. The 64-bit commands
   were tested with New Style Devices only: in WinUAE, and on a real Amiga 4000
-  with a 32 GB CompactFlash card on the built-in IDE port (two Mac disks at
-  4.3 and 6.7 GB into the card, formatted, mounted and written under Mac OS
-  8.1; copied files compared sector by sector).
-- Mac disks of 2 to 4 GB, Mac disks over 4 GB beyond a few copied files, and
-  Disk First Aid on a disk that ShapeShifter formatted.
+  with a 32 GB CompactFlash card on the built-in IDE port (Mac disks of 1.9,
+  3 and 5.7 GB beyond the card's first 4 GB, formatted, mounted and written
+  under Mac OS 8.1, also past the 2 GB point of the 3 GB disk and past the
+  4 GB point of the 5.7 GB disk; copied files compared sector by sector).
+- Disk First Aid on a disk that ShapeShifter formatted.
 - ReserveLow's left mouse button with a real button on anything but the
   Amiga 4000, and a cold start of ReserveLow under Kickstart 3.1 on real
   hardware.
+
+**Synced drawer: how it behaves**
+- It is not live. Files you add to the drawer on the Amiga while the Mac runs
+  appear on the Mac at its next start; what the Mac changes reaches the
+  drawer when the Mac is shut down (not on Restart).
+- A file changed on both sides is kept twice: the Mac's version appears in
+  the drawer as "name (Mac)". A file deleted on one side but changed on the
+  other is kept.
+- Mac files with a resource fork, or with a type the name does not give, come
+  back with a second file "._name" beside them. Leave it there: it is what
+  makes the file complete on the Mac again.
+- Not carried over: Amiga icons (.info), AmigaDOS names longer than 31
+  characters, and the Mac's invisible items. A drawer may hold up to 2 GB.
+- The disk is the file `SyncedDrawer.hfv` beside ShapeShifter and uses one of
+  the four file disk places; one has to be empty. It needs `MacBrowse` in the
+  `MacDiskTools` drawer beside ShapeShifter, or in the command path.
+- Tested on an Amiga 4000 with Mac OS 8.1 and a small drawer, both ways, over
+  two Mac sessions; large drawers and many files are not tested yet.
 
 **Seen**
 - Mac OS 8.0 does not write past the first 4 GB of a Mac disk: a copy that

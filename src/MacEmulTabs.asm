@@ -67,6 +67,7 @@ CATCOMP_NUMBERS	= 1
 		XREF	VolumesNGads
 		XREF	AFDFileName3
 		XREF	AFDFileName4
+		XREF	SharedDrawer
 
 		XREF	_IntuitionBase
 		XREF	_GadToolsBase
@@ -1423,7 +1424,8 @@ GD_GetAFDName4	EQU	934
 GD_MakeAFD4	EQU	935
 GD_FormatADD1	EQU	936		;"Format..." for the device disks
 GD_FormatADD2	EQU	937
-VOLX_CNT	EQU	8
+GD_SharedDrawer	EQU	938		;"Synced drawer"
+VOLX_CNT	EQU	9
 VNG_AFDNAME1	EQU	6		;index in VolumesNGads
 VNG_MAKEAFD1	EQU	2
 
@@ -1439,6 +1441,11 @@ PrepVolumesX	movem.l	d0-d1/a0-a3,-(sp)
 		lea	VolXNGads,a1
 		move.l	d0,6*gng_SIZEOF+gng_GadgetText(a1)
 		move.l	d0,7*gng_SIZEOF+gng_GadgetText(a1)
+		move.l	#MSG_SHARED_GAD,d0
+		lea	TheLocale,a0
+		jsr	GetString
+		lea	VolXNGads,a1
+		move.l	d0,8*gng_SIZEOF+gng_GadgetText(a1)
 		lea	VolumesNGads,a0
 		move.l	VNG_AFDNAME1*gng_SIZEOF+gng_GadgetText(a0),a0
 		lea	VolXLabel3,a1
@@ -1485,6 +1492,12 @@ SetVolumesXGads	movem.l	d0-d1/a0-a3/a6,-(sp)
 		sub.l	a2,a2
 		lea	VolXStrTags,a3
 		JSRLIB	GT_SetGadgetAttrsA
+		move.l	#SharedDrawer,VolXStrTags+4
+		move.l	VolXGadgets+8*4,a0
+		move.l	VolXWnd,a1
+		sub.l	a2,a2
+		lea	VolXStrTags,a3
+		JSRLIB	GT_SetGadgetAttrsA
 1$		movem.l	(sp)+,d0-d1/a0-a3/a6
 		rts
 
@@ -1497,6 +1510,9 @@ GetVolumesXGads	movem.l	d0/a0-a1,-(sp)
 		bsr	CopyStrGad
 		move.l	VolXGadgets+3*4,a0
 		lea	AFDFileName4,a1
+		bsr	CopyStrGad
+		move.l	VolXGadgets+8*4,a0
+		lea	SharedDrawer,a1
 		bsr	CopyStrGad
 3$		movem.l	(sp)+,d0/a0-a1
 		rts
@@ -1921,9 +1937,13 @@ VolXNGads	dc.w	113,42,265,14
 		dc.l	0,0
 		dc.w	GD_FormatADD2
 		dc.l	PLACETEXT_IN,0,0
+		dc.w	378,234,135,14		;Right of "Boot from"
+		dc.l	0,0			;"Synced drawer", set by PrepVolumesX
+		dc.w	GD_SharedDrawer
+		dc.l	PLACETEXT_LEFT,0,0
 
 VolXGTypes	dc.w	STRING_KIND,GENERIC_KIND,BUTTON_KIND,STRING_KIND,GENERIC_KIND,BUTTON_KIND
-		dc.w	BUTTON_KIND,BUTTON_KIND
+		dc.w	BUTTON_KIND,BUTTON_KIND,STRING_KIND
 
 VolXGTags	dc.l	GTST_MaxChars,79,TAG_DONE
 		dc.l	TAG_DONE
@@ -1933,6 +1953,7 @@ VolXGTags	dc.l	GTST_MaxChars,79,TAG_DONE
 		dc.l	GT_Underscore,'_',TAG_DONE
 		dc.l	TAG_DONE
 		dc.l	TAG_DONE
+		dc.l	GTST_MaxChars,79,TAG_DONE
 
 VolXStrTags	dc.l	GTST_String,0,TAG_DONE
 

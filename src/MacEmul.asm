@@ -79,6 +79,7 @@ CATCOMP_NUMBERS	= 1
 		XDEF	Opt720K
 		XDEF	OptDebug
 		XDEF	OptDepthSwitch
+		XDEF	SharedDrawer
 		XDEF	OptAdvanced
 		XDEF	DepthSwitch
 		XDEF	EnforcerCompat
@@ -802,6 +803,10 @@ ApplyStartOpts	movem.l	a2-a3,-(sp)
 *
 
 CheckBeforeStart JSRSELF	CheckStart
+		tst.l	d0
+		bmi	Exit
+		bne	DoTheSettings
+		JSRSELF	SharedSyncIn		;the synced drawer becomes a Mac disk
 		tst.l	d0
 		bmi	Exit
 		bne	DoTheSettings
@@ -1830,6 +1835,7 @@ ExitTimer	tst.b	VBLIntInstalled
 ExitVBLInt	JSRSELF	StopPRamSaver
 		JSRSELF DeleteDiskTask
 		JSRSELF CloseFileDisks
+		JSRSELF	SharedSyncOut		;what changed on the Mac goes back to the drawer
 
 		move.l	ChipFakeBase,d0
 		beq	ExitChipMem
@@ -3475,6 +3481,7 @@ PrefsNameTab	dc.l	AFDFileName1,AFDFileName2,AFDFileName3,AFDFileName4
 		dc.l	ADDName1,ADDName2,SERDNameA,SERDNameB,Sana2Name
 		dc.l	ExtVideoName1,ExtVideoName2
 		dc.l	SCSIName0,SCSIName1,SCSIName2,SCSIName3,SCSIName4,SCSIName5,SCSIName6
+		dc.l	SharedDrawer
 		dc.l	0
 TryLargestReq	dc.l	20,0,0,0,0
 ROMChecksumReq	dc.l	20,0,0,0,0
@@ -3824,6 +3831,7 @@ AFDFileName3	ds.b	80	;Name der dritten FileDisk
 AFDFileName4	ds.b	80	;Name der vierten FileDisk
 OptDepthSwitch	ds.w	1	;#0: DEPTHSWITCH
 OptAdvanced	ds.w	1	;#0: settings window shows every page (else the four everyday ones)
+SharedDrawer	ds.b	80	;Synced drawer: an AmigaDOS drawer the Mac gets as a disk (MacEmulShare.asm)
 EmulPrefsEnd
 
 		END
