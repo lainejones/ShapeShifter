@@ -4037,6 +4037,12 @@ V3.11	25.Jan.2001
   - 68060-Super-Bypass-Mode wegen eines CPU-Fehlers, der unter MacOS 8
     zu Tage tritt, abgeschaltet
 
+V3.20 beta 5	14.Nov.2026
+  - Installer: die Schublade mit den Mac-Disk-Werkzeugen wird immer
+    installiert (die Sync-Schublade braucht MacBrowse); gefragt wird nur
+    noch nach MacMount
+  - Die Icons in der Schublade überlappen sich nicht mehr
+
 V3.20 beta 4	13.Nov.2026
   - Sync-Schublade: eine AmigaDOS-Schublade als Platte auf dem Mac-
     Schreibtisch, abgeglichen beim Start und beim Ausschalten des Mac

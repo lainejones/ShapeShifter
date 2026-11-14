@@ -243,26 +243,30 @@
 ; -------------------------------------------------------------------------
 ; The Mac disk tools (MacBrowse, MacHFS-Handler, MacMount)
 ; -------------------------------------------------------------------------
+; The drawer always goes along: the synced drawer of ShapeShifter runs MacBrowse
+; from it. Asked is only whether the mount tools go into the system.
+(makedir (tackon #target "MacDiskTools") (infos))
+(copyfiles (prompt "Copying the Mac disk tools")
+           (help @copyfiles-help)
+           (source "MacDiskTools")
+           (dest (tackon #target "MacDiskTools"))
+           (all))
 (if (askbool
-        (prompt "Install the Mac disk tools as well?\n\n"
-                "MacBrowse copies files between the Amiga and a Mac disk image. "
-                "MacMount with MacHFS-Handler shows a Mac disk image as an "
-                "ordinary Amiga volume.")
-        (help "The drawer MacDiskTools is copied into the ShapeShifter drawer, "
-              "MacHFS-Handler to L: and MacMount to C:.\n\n"
-              "They work on the disk image files while ShapeShifter is not "
+        (prompt "Set up MacMount as well?\n\n"
+                "The Mac disk tools are now in the drawer MacDiskTools of "
+                "ShapeShifter. MacBrowse copies files between the Amiga and a "
+                "Mac disk image; the synced drawer uses it.\n\n"
+                "MacMount shows a Mac disk image as an ordinary Amiga volume. "
+                "For that, MacMount goes to C: and MacHFS-Handler to L:.")
+        (help "With \"No\" nothing is copied outside the ShapeShifter drawer; "
+              "MacBrowse and the synced drawer work all the same.\n\n"
+              "The tools work on the disk image files while ShapeShifter is not "
               "running. They are new: keep a copy of a Mac disk you care about "
               "before you write to it from the Amiga side, or mount it "
               "read-only (MacMount HFV0: image RO). MacBrowse.readme in the "
               "drawer has the details.")
         (default 1))
     (
-        (makedir (tackon #target "MacDiskTools") (infos))
-        (copyfiles (prompt "Copying the Mac disk tools")
-                   (help @copyfiles-help)
-                   (source "MacDiskTools")
-                   (dest (tackon #target "MacDiskTools"))
-                   (all))
         (copyfiles (source "MacDiskTools/MacHFS-Handler") (dest "L:") (nogauge))
         (copyfiles (source "MacDiskTools/MacMount") (dest "C:") (nogauge))
     )
@@ -272,8 +276,10 @@
          (if #reboot
              "Restart the Amiga now, so that ReserveLow can do its work. Then double-click ShapeShifter: "
              "Double-click ShapeShifter: ")
-         "at its first start it offers to set itself up (the ROM, the screen, "
-         "memory and an empty Mac disk).\n\n"
+         (if #update
+             "your settings, ROM and Mac disks are as they were.\n\n"
+             (cat "at its first start it offers to set itself up (the ROM, the screen, "
+                  "memory and an empty Mac disk).\n\n"))
          (if #nope
              (cat "The Startup-Sequence was not changed: before you start ShapeShifter, "
                   "run ReserveLow from its drawer (the Amiga restarts once), unless "
