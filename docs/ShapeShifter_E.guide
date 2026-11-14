@@ -3772,6 +3772,11 @@ V3.11	25.Jan.2001
   - Disabled 68060 Super Bypass mode because of a CPU bug that is
     triggered by MacOS 8
 
+V3.20 beta 5	14.Nov.2026
+  - Installer: the Mac disk tools drawer is always installed (the synced
+    drawer needs MacBrowse); only MacMount is asked for
+  - Drawer icons no longer overlap
+
 V3.20 beta 4	13.Nov.2026
   - Synced drawer: an AmigaDOS drawer as a disk on the Mac desktop,
     brought up to date at the Mac's start and shutdown (MacBrowse 1.2)

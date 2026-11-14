@@ -9,7 +9,7 @@ released under the ISC licence, and adds fixes and features. Version 3.20 is
 continued by Laine Jones. It is **not** Christian Bauer's release; please do not
 send him bug reports for it, report them here.
 
-**Status: beta 4.** It has run on three real Amigas and in WinUAE. See
+**Status: beta 5.** It has run on three real Amigas and in WinUAE. See
 [Tested](#tested) and [Known issues](#known-issues) before trusting it with anything you care about.
 
 ## What is new since 3.11
@@ -53,6 +53,8 @@ send him bug reports for it, report them here.
   minutes of grey screen with SCSI on for IDs without a drive; floppy close
   through mfm.device; and about two dozen defects from a source
   review.
+- Settings are saved through a temporary file, so a failed write keeps the old
+  ones; **Format...** checks the Amiga partitions on the drive first.
 
 **Alongside**
 - `ReserveLow`: keeps the lowest memory free for ShapeShifter, replacing
@@ -60,6 +62,22 @@ send him bug reports for it, report them here.
   start or reset skips it.
 - The Mac disk tools from the MacBrowse project: `MacBrowse`, `MacMount` and
   `L:MacHFS-Handler` read and write Mac disk images from the Amiga side.
+
+## New in beta 5
+
+- Installer: the Mac disk tools drawer is always installed, because the synced
+  drawer needs MacBrowse from it. In beta 4, answering "No" to the tools
+  question left it out and the synced drawer then failed with "could not be
+  made ready". The question is now only whether MacMount goes into `C:` and
+  its handler into `L:`.
+- Installer: after an update the last page says that settings, ROM and Mac
+  disks are as they were.
+- The four icons in the unpacked drawer no longer overlap.
+- The program is unchanged apart from its version.
+
+If you installed beta 4 and said "No" to the Mac disk tools: run the beta 5
+installer over it, or copy the `MacDiskTools` drawer from the archive into your
+ShapeShifter drawer.
 
 ## New in beta 4
 
@@ -109,7 +127,7 @@ send him bug reports for it, report them here.
 
 ## Using it
 
-Unpack `ShapeShifter-3.20-beta4.lha` on the Amiga and double-click
+Unpack `ShapeShifter-3.20-beta5.lha` on the Amiga and double-click
 `Install_ShapeShifter`. The manual is `ShapeShifter_E.guide` (English) and
 `ShapeShifter.guide` (German); start with **Quick start**. You need a Macintosh
 ROM file from a Mac you own and a Macintosh system to install; neither is part
@@ -123,7 +141,7 @@ The sources are 68k assembler in Latin-1. They build under Linux or WSL with
 
 ```
 ./build.sh          # out/ShapeShifter, out/ReserveLow, out/Catalogs
-python3 mkdist.py   # dist/ShapeShifter-3.20-beta4.lha
+python3 mkdist.py   # dist/ShapeShifter-3.20-beta5.lha
 ```
 
 `mkdist.py` takes the Mac disk tools from a checkout of
