@@ -53,6 +53,8 @@ send him bug reports for it, report them here.
   minutes of grey screen with SCSI on for IDs without a drive; floppy close
   through mfm.device; and about two dozen defects from a source
   review.
+- Settings are saved through a temporary file, so a failed write keeps the old
+  ones; **Format...** checks the Amiga partitions on the drive first.
 
 **Alongside**
 - `ReserveLow`: keeps the lowest memory free for ShapeShifter, replacing
