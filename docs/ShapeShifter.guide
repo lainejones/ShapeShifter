@@ -4037,6 +4037,12 @@ V3.11	25.Jan.2001
   - 68060-Super-Bypass-Mode wegen eines CPU-Fehlers, der unter MacOS 8
     zu Tage tritt, abgeschaltet
 
+V3.20 beta 6	15.Nov.2026
+  - Mac OS 7.6 mit AppleShare ließ den Amiga beim Start abstürzen:
+    Mac-Software überschrieb ExecBase an Adresse 4. Sie wird jetzt vor
+    jedem Amiga-Interrupt zurückgeschrieben (die Option SECURE des
+    Quelltexts)
+
 V3.20 beta 5	14.Nov.2026
   - Installer: die Schublade mit den Mac-Disk-Werkzeugen wird immer
     installiert (die Sync-Schublade braucht MacBrowse); gefragt wird nur

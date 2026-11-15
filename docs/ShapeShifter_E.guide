@@ -3772,6 +3772,11 @@ V3.11	25.Jan.2001
   - Disabled 68060 Super Bypass mode because of a CPU bug that is
     triggered by MacOS 8
 
+V3.20 beta 6	15.Nov.2026
+  - Mac OS 7.6 with AppleShare crashed the Amiga while starting: Mac
+    software overwrote ExecBase at address 4. It is now restored before
+    every Amiga interrupt (the SECURE option of the source)
+
 V3.20 beta 5	14.Nov.2026
   - Installer: the Mac disk tools drawer is always installed (the synced
     drawer needs MacBrowse); only MacMount is asked for

@@ -9,7 +9,7 @@ released under the ISC licence, and adds fixes and features. Version 3.20 is
 continued by Laine Jones. It is **not** Christian Bauer's release; please do not
 send him bug reports for it, report them here.
 
-**Status: beta 5.** It has run on three real Amigas and in WinUAE. See
+**Status: beta 6.** It has run on three real Amigas and in WinUAE. See
 [Tested](#tested) and [Known issues](#known-issues) before trusting it with anything you care about.
 
 ## What is new since 3.11
@@ -62,6 +62,17 @@ send him bug reports for it, report them here.
   start or reset skips it.
 - The Mac disk tools from the MacBrowse project: `MacBrowse`, `MacMount` and
   `L:MacHFS-Handler` read and write Mac disk images from the Amiga side.
+
+## New in beta 6
+
+- Mac OS 7.6 with its AppleShare extension crashed the whole Amiga while
+  starting (reported on the English Amiga Board; the workaround there was to
+  take AppleShare out). Mac software overwrote the address where the Amiga
+  keeps the pointer to its operating system, and the next Amiga interrupt went
+  astray. ShapeShifter now puts that pointer back before every Amiga
+  interrupt, as Christian Bauer's source could already do as a build option.
+  Checked in WinUAE and on a real Amiga 4000: beta 5 crashed with this system
+  every time, beta 6 starts it with AppleShare and shuts down cleanly.
 
 ## New in beta 5
 
@@ -127,7 +138,7 @@ ShapeShifter drawer.
 
 ## Using it
 
-Unpack `ShapeShifter-3.20-beta5.lha` on the Amiga and double-click
+Unpack `ShapeShifter-3.20-beta6.lha` on the Amiga and double-click
 `Install_ShapeShifter`. The manual is `ShapeShifter_E.guide` (English) and
 `ShapeShifter.guide` (German); start with **Quick start**. You need a Macintosh
 ROM file from a Mac you own and a Macintosh system to install; neither is part
@@ -141,7 +152,7 @@ The sources are 68k assembler in Latin-1. They build under Linux or WSL with
 
 ```
 ./build.sh          # out/ShapeShifter, out/ReserveLow, out/Catalogs
-python3 mkdist.py   # dist/ShapeShifter-3.20-beta5.lha
+python3 mkdist.py   # dist/ShapeShifter-3.20-beta6.lha
 ```
 
 `mkdist.py` takes the Mac disk tools from a checkout of
@@ -157,10 +168,10 @@ the built-in HFS formatter (`src/MacEmulHFS.asm`).
 | Machine | What ran |
 |---|---|
 | Amiga 1200, 68030 + 68882, Kickstart 3.2.3, AGA | Mac OS 8.0 and 8.1, Marathon with sound (Paula, heard), POV-Ray, device disk on SCSI, installer, ReserveLow |
-| Amiga 4000, 68060, Kickstart 3.2.3, RTG card and AGA | Mac OS 8.0 and 8.1, sound through AHI (recorded to a file), TCP/IP, ReserveLow |
+| Amiga 4000, 68060, Kickstart 3.2.3, RTG card and AGA | System 7.6 with AppleShare, Mac OS 8.0 and 8.1, sound through AHI (recorded to a file), TCP/IP, ReserveLow |
 | The same Amiga 4000, Kickstart 3.1, AGA | Mac OS 8.1, POV-Ray |
 | Amiga 2000, 68030 accelerator (no FPU), Kickstart 3.2.3, ECS and a Picasso II+ | System 7.5 in 2, 4 and 16 colours on the ECS screen; System 7.5 and Mac OS 8.1 in 256 and thousands of colours on the graphics card; sound (Paula, heard); TCP/IP with DHCP through a SANA-II driver shared with the Amiga's own stack; installer, ReserveLow, Mac disk tools |
-| WinUAE A1200 68030, Kickstart 3.1 and 3.2.3 | System 7.5, Mac OS 8.0 and 8.1, installer |
+| WinUAE A1200 68030, Kickstart 3.1 and 3.2.3 | System 7.5 and 7.6, Mac OS 8.0 and 8.1, installer |
 | WinUAE A4000 68060, Kickstart 3.2.3 | Mac OS 8.0 and 8.1 |
 
 ## Known issues

@@ -6,7 +6,13 @@
 **
 
 DEBUG_DETAIL	SET 0
-SECURE		SET 0
+; SECURE: ExecBase is written back to address 4 before every Amiga autovector
+; interrupt and every Line-A trap. The Mac shares the low memory with the Amiga,
+; and Mac software that writes to address 4 (a real Mac never looks there after
+; reset) otherwise sends the next Amiga interrupt into nowhere: Mac OS 7.6 with
+; its AppleShare extension did that while starting (the Amiga halted). Off in
+; 3.11; on since 3.20 beta 6.
+SECURE		SET 1
 
 		INCLUDE "exec/types.i"
 		INCLUDE "exec/macros.i"
