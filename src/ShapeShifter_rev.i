@@ -1,14 +1,14 @@
 VERSION		EQU	3
 REVISION	EQU	20
 DATE	MACRO
-		dc.b	'15.11.26'
+		dc.b	'16.11.26'
 	ENDM
 VERS	MACRO
 		dc.b	'ShapeShifter 3.20'
 	ENDM
 VSTRING	MACRO
-		dc.b	'ShapeShifter 3.20 beta 6 (15.11.26)',13,10,0
+		dc.b	'ShapeShifter 3.20 beta 7 (16.11.26)',13,10,0
 	ENDM
 VERSTAG	MACRO
-		dc.b	0,'$VER: ShapeShifter 3.20 (15.11.26) beta 6',0
+		dc.b	0,'$VER: ShapeShifter 3.20 (16.11.26) beta 7',0
 	ENDM

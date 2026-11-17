@@ -9,11 +9,11 @@ shutil.rmtree(top, ignore_errors=True); os.makedirs(d)
 cp = shutil.copyfile
 cp('dist-src/icons/drawer.info', top + '/ShapeShifter.info')
 cp('out/ShapeShifter', d + '/ShapeShifter')
-for n in ('ShapeShifter.info', 'ShapeShifter.guide.info', 'ShapeShifter_E.guide.info', 'Install_ShapeShifter.info'):
+for n in ('ShapeShifter.info', 'ShapeShifter.guide.info', 'ShapeShifter_DE.guide.info', 'Install_ShapeShifter.info'):
     cp('dist-src/icons/' + n, d + '/' + n)
 for n in ('Install_ShapeShifter', 'README'): cp('dist-src/' + n, d + '/' + n)
 cp('out/ReserveLow', d + '/ReserveLow')
-for n in ('ShapeShifter.guide', 'ShapeShifter_E.guide'): cp('docs/' + n, d + '/' + n)
+for n in ('ShapeShifter.guide', 'ShapeShifter_DE.guide'): cp('docs/' + n, d + '/' + n)
 cp('LICENSE.txt', d + '/LICENSE.txt')
 # The Mac disk tools: built in their own project (C:\projects\MacBrowse, "make")
 MB = os.environ.get('MACBROWSE', '../MacBrowse')
@@ -25,7 +25,7 @@ shutil.copytree('out/Catalogs', d + '/Catalogs')
 s = open(d + '/Install_ShapeShifter', 'rb').read()
 assert b'\r' not in s and ('(set #version "%s")' % ver).encode() in s, 'Installer script: CR or wrong version'
 sys.path.insert(0, 'tools'); import mklha
-SUFFIX = '-beta6'      # '' for a final release
+SUFFIX = '-beta7'      # '' for a final release
 lha = top + SUFFIX + '.lha'
 n = mklha.pack(top, lha)
 print(lha, n, 'files', os.path.getsize(lha), 'bytes')

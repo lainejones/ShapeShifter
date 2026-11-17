@@ -46,8 +46,17 @@
 (set #update (exists (tackon #target "ShapeShifter") (noreq)))
 (complete 10)
 
-; the drawer gets this Workbench's own drawer icon (ENV:Sys/def_drawer.info)
-(if (not (exists #target (noreq))) (makedir #target (infos)))
+; A new drawer gets the icon of the drawer the archive unpacked to, which
+; opens a window big enough for the icons in it (Installer's own drawer icon
+; opened a very small one). Without that icon, Installer's is used.
+(if (not (exists #target (noreq)))
+    (if (exists (cat (expandpath "") ".info") (noreq))
+        (
+            (makedir #target)
+            (copyfiles (source (cat (expandpath "") ".info")) (dest #where)
+                       (newname "ShapeShifter.info") (nogauge))
+        )
+        (makedir #target (infos))))
 
 ; The archive unpacks as a drawer "ShapeShifter" too: unpacked in the place
 ; chosen here, the files would be copied onto themselves.
@@ -71,6 +80,12 @@
 (run (cat "C:Protect >NIL: \"" (tackon #target "ShapeShifter") "\" +rwed"))
 (complete 30)
 
+; the English manual is ShapeShifter.guide: an older ShapeShifter_E.guide goes
+(if (exists (tackon #target "ShapeShifter_E.guide") (noreq))
+    (
+        (delete (tackon #target "ShapeShifter_E.guide") (optional "nofail" "force"))
+        (delete (tackon #target "ShapeShifter_E.guide.info") (optional "nofail" "force"))
+    ))
 (copyfiles (prompt "Copying the manual (English and German)")
            (help @copyfiles-help)
            (source "")
@@ -285,5 +300,5 @@
                   "run ReserveLow from its drawer (the Amiga restarts once), unless "
                   "the lowest memory is kept free some other way.\n\n")
              "")
-         "The manual is ShapeShifter_E.guide (English) and ShapeShifter.guide (German).")
+         "The manual is ShapeShifter.guide (English) and ShapeShifter_DE.guide (German).")
 (exit (quiet))

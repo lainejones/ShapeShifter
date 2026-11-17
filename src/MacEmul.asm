@@ -12,7 +12,41 @@ DEBUG_DETAIL	SET 0
 ; reset) otherwise sends the next Amiga interrupt into nowhere: Mac OS 7.6 with
 ; its AppleShare extension did that while starting (the Amiga halted). Off in
 ; 3.11; on since 3.20 beta 6.
+; Found with DIAG4: the writer is the .AFPTranslator driver (DRVR 41 in the
+; AppleShare extension of 7.6). It takes a 16-bit pointer from its globals
+; ("movea.w $258A(a2),a0"), which is 0 under ShapeShifter, and clears the
+; words at 2(a0) and 6(a0): ExecBase $080008BC became $08000000. Once per
+; boot, about 40 ticks in. Mac OS 8.1 never wrote address 4 (DIAG4, boot
+; and Shut Down).
 SECURE		SET 1
+
+; DIAG4 (test builds only): count how often ExecBase at address 4 had to be
+; put back, remember the first and last wrong value with the Mac's PC and
+; Ticks at that moment, and write the result to T:ss-diag4 on exit.
+DIAG4		SET 0
+
+FIX4		MACRO	;\1 = 1 for Line-A, 0 for an interrupt
+	IFNE	DIAG4
+		move.l	d0,-(sp)
+		move.l	4.w,d0
+		cmp.l	_ExecBase,d0
+		beq.s	.ok\@
+		addq.l	#1,Diag4Count
+		IFNE	\1
+		addq.l	#1,Diag4LineA
+		ENDC
+		move.l	d0,Diag4LastVal
+		move.l	4+2(sp),Diag4LastPC
+		move.l	$16a,Diag4LastTicks
+		tst.l	Diag4FirstPC
+		bne.s	.ok\@
+		move.l	d0,Diag4FirstVal
+		move.l	4+2(sp),Diag4FirstPC
+		move.l	$16a,Diag4FirstTicks
+.ok\@		move.l	(sp)+,d0
+	ENDC
+		move.l	_ExecBase,4
+		ENDM
 
 		INCLUDE "exec/types.i"
 		INCLUDE "exec/macros.i"
@@ -1715,7 +1749,11 @@ ReqExit2	lea	ErrorReq,a1
 		JSRLIB	EasyRequestArgs
 
 ; Zustand des Cache wiederherstellen
-Exit		move.l	_ExecBase,a6
+Exit
+	IFNE	DIAG4
+		bsr	Diag4Report
+	ENDC
+		move.l	_ExecBase,a6
 		move.l	MyTask,d0		;Name und Prioritaet des Tasks zuruecksetzen
 		beq	ExitNoTask		; (eine Shell laeuft nach uns weiter)
 		move.l	d0,a1
@@ -2451,7 +2489,7 @@ NewBusError	move.l	d0,-(sp)
 ;  Interrupts heraus aufgerufen werden
 NewLineA
 	IFNE	SECURE
-		move.l	_ExecBase,4
+		FIX4	1
 	ENDC
 		move.l	$28,-(sp)
 		rts
@@ -2506,29 +2544,55 @@ ExcNoLog
 		rts			;In Vektor einspringen
 
 	IFNE	SECURE
-NewAutoInt1	move.l	_ExecBase,4
+NewAutoInt1	FIX4	0
 		move.l	OldVBRTable+$64,-(sp)
 		rts
 
-NewAutoInt2	move.l	_ExecBase,4
+NewAutoInt2	FIX4	0
 		move.l	OldVBRTable+$68,-(sp)
 		rts
 
-NewAutoInt3	move.l	_ExecBase,4
+NewAutoInt3	FIX4	0
 		move.l	OldVBRTable+$6c,-(sp)
 		rts
 
-NewAutoInt4	move.l	_ExecBase,4
+NewAutoInt4	FIX4	0
 		move.l	OldVBRTable+$70,-(sp)
 		rts
 
-NewAutoInt5	move.l	_ExecBase,4
+NewAutoInt5	FIX4	0
 		move.l	OldVBRTable+$74,-(sp)
 		rts
 
-NewAutoInt6	move.l	_ExecBase,4
+NewAutoInt6	FIX4	0
 		move.l	OldVBRTable+$78,-(sp)
 		rts
+	ENDC
+
+	IFNE	DIAG4
+		XREF	_LVOOpen
+		XREF	_LVOClose
+		XREF	_LVOVFPrintf
+Diag4Report	movem.l	d0-d4/a0-a1/a6,-(sp)
+		move.l	_DOSBase,d0
+		beq.s	1$
+		move.l	d0,a6
+		move.l	#Diag4Name,d1
+		move.l	#1006,d2		;MODE_NEWFILE
+		jsr	_LVOOpen(a6)
+		move.l	d0,d4
+		beq.s	1$
+		move.l	d4,d1
+		move.l	#Diag4Fmt,d2
+		move.l	#Diag4Count,d3
+		jsr	_LVOVFPrintf(a6)
+		move.l	d4,d1
+		jsr	_LVOClose(a6)
+1$		movem.l	(sp)+,d0-d4/a0-a1/a6
+		rts
+Diag4Name	dc.b	'T:ss-diag4',0
+Diag4Fmt	dc.b	'count=%ld linea=%ld first: val=%08lx pc=%08lx ticks=%ld last: val=%08lx pc=%08lx ticks=%ld',10,0
+		even
 	ENDC
 
 
@@ -3692,6 +3756,16 @@ NewVBRTable	ds.l	64	;Die Tabelle mit unseren Vektoren (direkt nach OldVBRTable!)
 
 OldLaunchPoint	ds.l	1	;Alte Exec-Vektoren
 OldExitIntr	ds.l	1
+	IFNE	DIAG4
+Diag4Count	ds.l	1
+Diag4LineA	ds.l	1
+Diag4FirstVal	ds.l	1
+Diag4FirstPC	ds.l	1
+Diag4FirstTicks	ds.l	1
+Diag4LastVal	ds.l	1
+Diag4LastPC	ds.l	1
+Diag4LastTicks	ds.l	1
+	ENDC
 ExcLogIdx	ds.w	1	;Naechster Eintrag in ExcLog
 ExcLogPad	ds.w	1
 ExcLog		ds.b	48*32

@@ -9,7 +9,7 @@ released under the ISC licence, and adds fixes and features. Version 3.20 is
 continued by Laine Jones. It is **not** Christian Bauer's release; please do not
 send him bug reports for it, report them here.
 
-**Status: beta 6.** It has run on three real Amigas and in WinUAE. See
+**Status: beta 7.** It has run on three real Amigas and in WinUAE. See
 [Tested](#tested) and [Known issues](#known-issues) before trusting it with anything you care about.
 
 ## What is new since 3.11
@@ -63,6 +63,18 @@ send him bug reports for it, report them here.
 - The Mac disk tools from the MacBrowse project: `MacBrowse`, `MacMount` and
   `L:MacHFS-Handler` read and write Mac disk images from the Amiga side.
 
+## New in beta 7
+
+- Installer: a new ShapeShifter drawer gets the icon of the unpacked archive
+  drawer; its window opens big enough for the icons in it.
+- Guides: new section "Using file servers (AppleShare)": which Mac OS and
+  which servers work together, how to connect from the Chooser, and when the
+  Amiga's TCP/IP software may share the network card. Tested: Mac OS 8.1
+  (AppleShare 3.7) connected as guest to a Drobo 5N (Netatalk 3) over TCP/IP
+  and copied a file from it unchanged.
+- Tested: the installer in Novice mode (it still asks every question, on
+  purpose) and in Expert mode, as an update and as a new install.
+
 ## New in beta 6
 
 - Mac OS 7.6 with its AppleShare extension crashed the whole Amiga while
@@ -73,6 +85,9 @@ send him bug reports for it, report them here.
   interrupt, as Christian Bauer's source could already do as a build option.
   Checked in WinUAE and on a real Amiga 4000: beta 5 crashed with this system
   every time, beta 6 starts it with AppleShare and shuts down cleanly.
+  The writer is AppleShare's `.AFPTranslator` driver: once per start it clears
+  two words through a pointer that is 0 under ShapeShifter. Mac OS 8.1 never
+  touches that address.
 
 ## New in beta 5
 
@@ -138,9 +153,9 @@ ShapeShifter drawer.
 
 ## Using it
 
-Unpack `ShapeShifter-3.20-beta6.lha` on the Amiga and double-click
-`Install_ShapeShifter`. The manual is `ShapeShifter_E.guide` (English) and
-`ShapeShifter.guide` (German); start with **Quick start**. You need a Macintosh
+Unpack `ShapeShifter-3.20-beta7.lha` on the Amiga and double-click
+`Install_ShapeShifter`. The manual is `ShapeShifter.guide` (English) and
+`ShapeShifter_DE.guide` (German); start with **Quick start**. You need a Macintosh
 ROM file from a Mac you own and a Macintosh system to install; neither is part
 of this project.
 
@@ -152,7 +167,7 @@ The sources are 68k assembler in Latin-1. They build under Linux or WSL with
 
 ```
 ./build.sh          # out/ShapeShifter, out/ReserveLow, out/Catalogs
-python3 mkdist.py   # dist/ShapeShifter-3.20-beta6.lha
+python3 mkdist.py   # dist/ShapeShifter-3.20-beta7.lha
 ```
 
 `mkdist.py` takes the Mac disk tools from a checkout of
@@ -168,7 +183,7 @@ the built-in HFS formatter (`src/MacEmulHFS.asm`).
 | Machine | What ran |
 |---|---|
 | Amiga 1200, 68030 + 68882, Kickstart 3.2.3, AGA | Mac OS 8.0 and 8.1, Marathon with sound (Paula, heard), POV-Ray, device disk on SCSI, installer, ReserveLow |
-| Amiga 4000, 68060, Kickstart 3.2.3, RTG card and AGA | System 7.6 with AppleShare, Mac OS 8.0 and 8.1, sound through AHI (recorded to a file), TCP/IP, ReserveLow |
+| Amiga 4000, 68060, Kickstart 3.2.3, RTG card and AGA | System 7.6 with AppleShare, Mac OS 8.0 and 8.1, AppleShare to a file server (8.1), sound through AHI (recorded to a file), TCP/IP, ReserveLow |
 | The same Amiga 4000, Kickstart 3.1, AGA | Mac OS 8.1, POV-Ray |
 | Amiga 2000, 68030 accelerator (no FPU), Kickstart 3.2.3, ECS and a Picasso II+ | System 7.5 in 2, 4 and 16 colours on the ECS screen; System 7.5 and Mac OS 8.1 in 256 and thousands of colours on the graphics card; sound (Paula, heard); TCP/IP with DHCP through a SANA-II driver shared with the Amiga's own stack; installer, ReserveLow, Mac disk tools |
 | WinUAE A1200 68030, Kickstart 3.1 and 3.2.3 | System 7.5 and 7.6, Mac OS 8.0 and 8.1, installer |
