@@ -608,7 +608,7 @@ MSG_CPU_NOMMU
 ; , no MMU
 ;
 MSG_DISKSFULL_TXT
-Alle vier FileDisks sind belegt.\nErst eine auf der Seite Datenträger leeren.
+Alle vier FileDisks sind belegt.\nLeeren Sie zuerst eine auf der Seite "Datenträger".
 ; All four file disks are in use.\nClear one on the Volumes tab first.
 ;
 MSG_CHK_MISSING_TXT
@@ -620,7 +620,7 @@ Einstellungen|Trotzdem starten|Beenden
 ; Settings|Start anyway|Quit
 ;
 MSG_CHK_ROMCHIP_TXT
-Das ROM soll in "24 Bit DMA"-Speicher, aber dieser\nAmiga hat kein 24-Bit-FastRAM; das ROM bräuchte\ndann ein Megabyte ChipRAM. 256-Farben-Bildschirme\nwerden dann weiß.\n\nDiesmal "Egal" als ROM-Speicher nehmen?\n(Auf der Seite Speicher ändern und speichern, um es zu behalten.)
+Für das ROM ist "24-Bit DMA"-Speicher eingestellt, aber\ndieser Amiga hat kein 24-Bit-FastRAM; das ROM bräuchte\ndann ein Megabyte ChipRAM. 256-Farben-Bildschirme\nwerden dann weiß.\n\nDiesmal "Egal" als ROM-Speicher nehmen?\n(Auf der Seite Speicher ändern und speichern, um es zu behalten.)
 ; The ROM is set to "24 bit DMA" memory, but this\nAmiga has no 24-bit fast RAM, so the ROM would take\na megabyte of chip RAM. 256-colour screens then\ncome out white.\n\nUse "Any" memory for the ROM this time?\n(Change it on the Memory tab and Save to keep it.)
 ;
 MSG_CHK_ROMCHIP_GADS
@@ -628,7 +628,7 @@ Egal|Trotzdem starten|Einstellungen|Beenden
 ; Use Any|Start anyway|Settings|Quit
 ;
 MSG_CHK_COPYBACK_TXT
-Das ist ein 68060 in UAE, und NOCOPYBACK ist aus.\nOhne bleibt der Mac meist bei einem grauen Bildschirm stehen.\n\nDiesmal NOCOPYBACK einschalten?\n(Auf der Seite CPU ankreuzen und speichern, um es zu behalten.)
+Das ist ein 68060 in UAE, und NOCOPYBACK ist aus.\nOhne NOCOPYBACK hängt der Mac meist mit grauem Bildschirm.\n\nDiesmal NOCOPYBACK einschalten?\n(Auf der Seite CPU ankreuzen und speichern, um es zu behalten.)
 ; This is a 68060 in UAE, and NOCOPYBACK is off.\nWithout it the Mac usually stops on a grey screen.\n\nTurn NOCOPYBACK on this time?\n(Tick it on the CPU tab and Save to keep it.)
 ;
 MSG_CHK_COPYBACK_GADS
@@ -684,7 +684,7 @@ Schwarzer Rand um den Mac-Bildschirm, wie bei einem echten Mac
 ; Black border around the Mac screen, as on a real Mac
 ;
 MSG_HELP_REFALWAYS
-Auch in 8 Bit umrechnen; der Mac malt nie auf einen anderen Schirm
+Auch in 8 Bit umrechnen; der Mac zeichnet nie auf fremde Bildschirme
 ; Convert in 8 bit too, so the Mac never draws on another screen
 ;
 MSG_HELP_MMUREF
@@ -704,7 +704,7 @@ Eine Image-Datei auswählen
 ; Choose a disk image file
 ;
 MSG_HELP_MAKEAFD
-Ein neues, leeres Disk-Image gegebener Größe anlegen
+Ein neues, leeres Disk-Image in einer gewählten Größe anlegen
 ; Create a new empty disk image of a given size
 ;
 MSG_HELP_ADD
@@ -724,7 +724,7 @@ Teil der Platte für den Mac; falsche Werte zerstören Daten
 ; Part of the disk the Mac may use; wrong values destroy data
 ;
 MSG_HELP_MAXTRANS
-Größter Transfer; wie MaxTransfer in der Mountlist (-1: keiner)
+Größter Transfer, wie MaxTransfer der Mountlist (-1: unbegrenzt)
 ; Largest transfer; as MaxTransfer in the mountlist (-1: none)
 ;
 MSG_HELP_REMOV
@@ -784,7 +784,7 @@ Speicher für den Mac in KB (ROM und Bildschirm brauchen mehr)
 ; Memory for the Mac in KB (ROM and screen need more)
 ;
 MSG_HELP_MEMMAX
-Der meiste Speicher, den der Mac jetzt bekommen kann
+So viel Speicher, wie der Mac jetzt bekommen kann
 ; Most memory the Mac can get now
 ;
 MSG_HELP_LARGEST
@@ -796,7 +796,7 @@ Das ROM zuerst belegen, damit es den schnellsten Speicher bekommt
 ; Allocate the ROM first, so it gets the fastest memory
 ;
 MSG_HELP_ROMMEM
-Speicher für das ROM; Egal, außer eine Karte braucht 24 Bit DMA
+Speicher für das ROM; Egal, außer wenn eine Karte 24 Bit DMA braucht
 ; Memory for the ROM; Any unless a card needs 24 bit DMA
 ;
 MSG_HELP_SERDRV
@@ -868,7 +868,7 @@ MacTCP über den TCP/IP-Stack des Amiga (bsdsocket)
 ; MacTCP through the Amiga's TCP/IP stack (bsdsocket)
 ;
 MSG_HELP_USKEY
-Zwei Tasten tauschen, damit `/~ auf US-Tastaturen geht
+Zwei Tasten tauschen, damit `/~ auf US-Tastaturen funktioniert
 ; Swap two keys so the `/~ key works on US keyboards
 ;
 MSG_HELP_NOQD
@@ -892,7 +892,7 @@ MSG_PRISM15_GADS
 ; Use 15 bit|Keep 16 bit
 ;
 MSG_PRISM15OFF_TXT
-Dieser 16-Bit-Bildschirm muß umgerechnet werden, das ist langsamer.\nPrismRTG kann 15-Bit-Modi anbieten, in die der Mac direkt\nzeichnet. Sie in den PrismRTG-Prefs einschalten\n(zum Beispiel MODE=640x480x15 ON) und Prism neu starten.
+Dieser 16-Bit-Bildschirm muß umgerechnet werden; das ist\nlangsamer. PrismRTG kann 15-Bit-Modi anbieten, in die der Mac\ndirekt zeichnet. Schalten Sie sie in den PrismRTG-Prefs ein\n(zum Beispiel MODE=640x480x15 ON) und starten Sie Prism neu.
 ; This 16-bit screen has to be converted, which is slower.\nPrismRTG can offer 15-bit modes, which the Mac draws\ninto directly. Turn them on in the PrismRTG prefs\n(for example MODE=640x480x15 ON) and restart Prism.
 ;
 MSG_SETUP_WELCOME_TXT
@@ -932,8 +932,8 @@ Das ROM konnte nicht nach\nPROGDIR:ShapeShifter ROM kopiert werden.
 ; The ROM could not be copied to\nPROGDIR:ShapeShifter ROM.
 ;
 MSG_SETUP_DISK_TXT
-Eine leere Mac-Disk mit %ld MB für das\nMac-System anlegen?\n\n%s\n\nSie wird FileDisk 1. Auf dem Mac initialisieren, wenn\ner fragt, dann das System von seiner CD installieren.
-; Create an empty %ld MB Mac disk to install the\nMac system on?\n\n%s\n\nIt becomes File disk 1. Initialize it when the Mac\nasks, then install the system from its CD.
+Eine leere Mac-Disk mit %ld MB für das\nMac-System anlegen?\n\n%s\n\nSie wird FileDisk 1, eine leere Mac-Disk namens "Mac disk":\ndas System von seiner CD darauf installieren.
+; Create an empty %ld MB Mac disk to install the\nMac system on?\n\n%s\n\nIt becomes File disk 1, an empty Mac disk named "Mac disk":\ninstall the system on it from its CD.
 ;
 MSG_SETUP_DISK_GADS
 Anlegen|Nein
@@ -944,7 +944,7 @@ Die Mac-Disk konnte nicht angelegt werden\n(zu wenig Platz?):\n%s
 ; The Mac disk could not be created\n(not enough room?):\n%s
 ;
 MSG_SETUP_DONE_TXT
-ShapeShifter hat gewählt:\n\nBildschirm: %s\nSpeicher für den Mac: %ld MB\n%s\nIm Einstellungsfenster prüfen und mit Speichern behalten.
+ShapeShifter hat gewählt:\n\nBildschirm: %s\nSpeicher für den Mac: %ld MB\n%s\nPrüfen Sie die Einstellungen; "Speichern" behält sie.
 ; ShapeShifter has chosen:\n\nScreen: %s\nMemory for the Mac: %ld MB\n%s\nCheck the settings window and click Save to keep them.
 ;
 MSG_SETUP_SCR_CGX
@@ -1012,7 +1012,7 @@ Ersetzen|Abbrechen
 ; Replace|Cancel
 ;
 MSG_BADPREFS_TXT
-%s\nist keine Einstellungsdatei von ShapeShifter. Die Einstellungen wurden nicht geändert.
+%s\nist keine Einstellungsdatei von ShapeShifter.\nDie Einstellungen wurden nicht geändert.
 ; not a settings file
 ;
 MSG_SAVEFAIL_TXT
@@ -1020,7 +1020,7 @@ MSG_SAVEFAIL_TXT
 ; could not be saved
 ;
 MSG_CHK_ADD4GB_TXT
-DeviceDisk %ld reicht über die ersten 4 GB ihres Laufwerks hinaus, und\nder Treiber des Laufwerks kennt die 64-Bit-Befehle (NSD oder TD64)\nnicht, die dort nötig sind.\n\nDer Mac würde ohne sie starten.
+DeviceDisk %ld reicht über die ersten 4 GB ihres Laufwerks\nhinaus, und der Treiber des Laufwerks kennt die dort nötigen\n64-Bit-Befehle (NSD oder TD64) nicht.\n\nDer Mac würde ohne sie starten.
 ; device disk beyond 4 GB
 ;
 MSG_PATHLONG_TXT
@@ -1028,7 +1028,7 @@ MSG_PATHLONG_TXT
 ; path too long
 ;
 MSG_SETUP_MMUREF
-MMU-Refresh ist an (nur geänderte Teile des Bildschirms werden neu gezeichnet).\n
+MMU-Refresh ist an (nur geänderte Teile des Bildschirms\nwerden neu gezeichnet).\n
 ; MMU refresh is on
 ;
 MSG_CHK_SLOWSEEK_TXT
@@ -1080,20 +1080,20 @@ MSG_FMT_PART_TXT
 ; not inside one mounted partition
 ;
 MSG_CHK_ADDWHOLE_TXT
-DeviceDisk %ld steht auf "ganzes Laufwerk", und dieses Laufwerk ist\ngrößer als 4 GB. Sein Treiber kennt die 64-Bit-Befehle (NSD oder\nTD64) nicht, daher erreicht ShapeShifter nur die ersten 4 GB.\n\nDer Mac würde ohne sie starten. Geben Sie eine Sektorenzahl an\noder wählen Sie mit "Auswählen..." eine Partition.
+DeviceDisk %ld umfaßt das ganze Laufwerk, und dieses Laufwerk ist\ngrößer als 4 GB. Sein Treiber kennt die 64-Bit-Befehle (NSD oder\nTD64) nicht, daher erreicht ShapeShifter nur die ersten 4 GB.\n\nDer Mac würde ohne sie starten. Geben Sie eine Sektorenzahl an\noder wählen Sie mit "Auswählen..." eine Partition.
 ; whole drive larger than 4 GB
 ;
 MSG_CHK_ADDRDB_TXT
-DeviceDisk %ld beginnt am Anfang eines Laufwerks mit einer\nAmiga-Partitionstabelle. Der Mac würde das ganze Laufwerk für eine\nunlesbare Disk halten und anbieten, es zu löschen.\n\nDer Mac würde ohne sie starten. Wählen Sie mit "Auswählen..." eine Partition.
+DeviceDisk %ld beginnt am Anfang eines Laufwerks mit einer\nAmiga-Partitionstabelle. Der Mac würde das ganze Laufwerk\nfür eine unlesbare Disk halten und anbieten, es zu löschen.\n\nDer Mac würde ohne sie starten. Wählen Sie mit "Auswählen..."\neine Partition.
 ;
 MSG_SHARED_GAD
 Sync-Schublade
 ;
 MSG_SHARE_NOSLOT_TXT
-Die Sync-Schublade braucht einen FileDisk-Platz, und alle vier sind belegt.\n\nDer Mac würde ohne die Sync-Schublade starten.
+Die Sync-Schublade braucht einen FileDisk-Platz,\nund alle vier sind belegt.\n\nDer Mac würde ohne die Sync-Schublade starten.
 ;
 MSG_SHARE_FAIL_TXT
-Die Sync-Schublade konnte nicht für den Mac vorbereitet werden\n(MacBrowse meldete %ld). Gibt es die Schublade, und liegt MacBrowse\nin der Schublade "MacDiskTools" neben ShapeShifter?\n\nDer Mac würde ohne die Sync-Schublade starten.
+Die Sync-Schublade konnte nicht für den Mac vorbereitet werden\n(MacBrowse meldete %ld). Gibt es die Schublade, und liegt\nMacBrowse in der Schublade "MacDiskTools" neben ShapeShifter?\n\nDer Mac würde ohne die Sync-Schublade starten.
 ;
 MSG_SHARE_OUTFAIL_TXT
 Was sich auf dem Mac geändert hat, konnte nicht in die\nSync-Schublade zurückgebracht werden (MacBrowse meldete %ld).\nEs geht nichts verloren: Beim nächsten Start des Mac wird es\nnoch einmal versucht.

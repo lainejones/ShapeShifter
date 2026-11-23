@@ -1,11 +1,11 @@
-ShapeShifter 3.20 beta 7 - a Macintosh II emulator for the Amiga
+ShapeShifter 3.20 - a Macintosh II emulator for the Amiga
 
 ShapeShifter runs the Macintosh system (System 7 to Mac OS 8.1) and its
 programs on an Amiga with a 68020 or better, next to your Amiga programs.
 
-THIS IS A BETA. It has run on few Amigas so far (see "Tested" below).
-Keep copies of Mac disks you care about, and read the part on ReserveLow
-before you let it into your Startup-Sequence.
+It has run on a few Amigas so far (see "Tested" below). Keep copies of
+Mac disks you care about, and read the part on ReserveLow before you let
+it into your Startup-Sequence.
 
 To install, double-click Install_ShapeShifter. It copies the program, the
 manual and the language files into a drawer of your choice. Run it again
@@ -86,12 +86,15 @@ Tested
    disk tools
  - WinUAE: A1200 68030 with Kickstart 3.1 and 3.2.3, A4000 68060;
    System 7.5, Mac OS 8.0 and 8.1; the installer on Workbench 3.1 and 3.2
+ - WinUAE: A1200 68040 with MMU and FPU (Mac OS 8.1) and A1200 68020
+   without FPU or MMU (System 7.5), Kickstart 3.1
 
 Known problems
 --------------
 Not tested, so expect surprises and please report them:
- - 68020 and 68040 processors, OCS screens, the DraCo.
- - Long sessions (many hours).
+ - 68020 and 68040 processors on real hardware (tested in WinUAE
+   only), the 68EC020 with its 24-bit address space, OCS screens,
+   the DraCo.
  - CD music on real hardware.
  - AGA screens whose width is not a multiple of 64 (800x600, for one)
    together with "MMU refresh" or with the Mac switching colour depth.
@@ -101,7 +104,6 @@ Not tested, so expect surprises and please report them:
    only: in WinUAE, and on a real Amiga 4000 with a 32 GB CompactFlash
    card on the built-in IDE port (Mac disks of 1.9, 3 and 5.7 GB, also
    written past their 2 GB and 4 GB points).
- - Disk First Aid on a disk that ShapeShifter formatted.
  - The left mouse button of ReserveLow with a real button: Amiga 4000
    only.
  - A cold start of ReserveLow under Kickstart 3.1 on real hardware.

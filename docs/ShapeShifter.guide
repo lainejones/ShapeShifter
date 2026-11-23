@@ -76,8 +76,7 @@ Changes from version 3.11:
    short with most SANA-II drivers; white 256-colour screens when chip
    RAM was short
 
-This is a beta version: see the README for what has and has not been
-tested.
+The README says what has and has not been tested.
 
 Details are given in the @{"revision history" LINK History}.
 
@@ -3819,6 +3818,13 @@ V3.11	25.Jan.2001
   - Fixed MacOS 8 Finder file copy bug
   - Disabled 68060 Super Bypass mode because of a CPU bug that is
     triggered by MacOS 8
+
+V3.20	23.Nov.2026
+  - German catalog: the first-start text about the empty Mac disk says
+    what happens now; clearer requester and help texts
+  - Four English requesters rewrapped to fit a 640-pixel screen
+  - Tested: a 4-hour Mac OS 8.1 session and Disk First Aid on a real
+    Amiga 4000; a 68040 and a 68020 in WinUAE
 
 V3.20 beta 7	16.Nov.2026
   - New chapter "Using file servers (AppleShare)"

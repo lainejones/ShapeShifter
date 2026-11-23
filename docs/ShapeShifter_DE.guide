@@ -85,8 +85,7 @@ Die Änderungen zur Version 3.11:
    SANA-II-Treibern 4 Bytes zu kurz; weiße 256-Farben-Bildschirme, wenn
    das ChipRAM knapp war
 
-Dies ist eine Beta-Version: Im README steht, was getestet ist und was
-nicht.
+Im README steht, was getestet ist und was nicht.
 
 Genaueres steht in der @{"Entwicklungsgeschichte" LINK History}.
 
@@ -4088,6 +4087,14 @@ V3.11	25.Jan.2001
   - Bug beim Dateikopieren unter MacOS 8 Finder gefixt
   - 68060-Super-Bypass-Mode wegen eines CPU-Fehlers, der unter MacOS 8
     zu Tage tritt, abgeschaltet
+
+V3.20	23.Nov.2026
+  - Deutscher Katalog: der Text zur leeren Mac-Disk beim ersten Start
+    sagt, was jetzt geschieht; klarere Requester- und Hilfetexte
+  - Vier englische Requester passen jetzt auf einen 640 Pixel breiten
+    Bildschirm
+  - Getestet: eine vierstündige Sitzung mit Mac OS 8.1 und Disk First
+    Aid auf einem echten Amiga 4000; ein 68040 und ein 68020 in WinUAE
 
 V3.20 beta 7	16.Nov.2026
   - Neues Kapitel "Fileserver benutzen (AppleShare)"

@@ -1,4 +1,4 @@
-# ShapeShifter 3.20 (beta)
+# ShapeShifter 3.20
 
 ShapeShifter is Christian Bauer's Macintosh II emulator for the Amiga. It runs
 System 7 to Mac OS 8.1 as an ordinary AmigaOS task, with Mac code executing
@@ -9,7 +9,7 @@ released under the ISC licence, and adds fixes and features. Version 3.20 is
 continued by Laine Jones. It is **not** Christian Bauer's release; please do not
 send him bug reports for it, report them here.
 
-**Status: beta 7.** It has run on three real Amigas and in WinUAE. See
+**Status: 3.20, released 23 November 2026.** It has run on three real Amigas and in WinUAE. See
 [Tested](#tested) and [Known issues](#known-issues) before trusting it with anything you care about.
 
 ## What is new since 3.11
@@ -62,6 +62,27 @@ send him bug reports for it, report them here.
   start or reset skips it.
 - The Mac disk tools from the MacBrowse project: `MacBrowse`, `MacMount` and
   `L:MacHFS-Handler` read and write Mac disk images from the Amiga side.
+
+## New in 3.20 (since beta 7)
+
+- Tested: a 4-hour Mac OS 8.1 session on a real Amiga 4000 (68060), with
+  Finder windows and About This Computer opened every 10 minutes. The Mac
+  kept running, Shut Down returned to Workbench, and no Amiga memory was
+  lost per session.
+- Tested: Disk First Aid (Mac OS 8.1) on a 200 MB Mac disk made with
+  Create... on a real Amiga 4000: Verify and Repair find it OK, also after
+  the Finder copied 40 MB of files onto it.
+- German catalog: the first-start question about the empty Mac disk says
+  what happens now (the disk is formatted, install the system on it); a few
+  requester and help texts read better, and no German requester is wider
+  than a 640-pixel screen.
+- Four English requesters (bad settings file, device disk beyond 4 GB or at
+  the start of a drive, synced drawer without a free place) rewrapped so they
+  fit a 640-pixel screen.
+- Tested in WinUAE: Mac OS 8.1 on a 68040 with MMU and FPU, and System 7.5
+  on a 68020 without FPU or MMU (Kickstart 3.1): both boot to the Finder,
+  open the About window and shut down back to Workbench with all Amiga
+  memory returned.
 
 ## New in beta 7
 
@@ -153,7 +174,7 @@ ShapeShifter drawer.
 
 ## Using it
 
-Unpack `ShapeShifter-3.20-beta7.lha` on the Amiga and double-click
+Unpack `ShapeShifter-3.20.lha` on the Amiga and double-click
 `Install_ShapeShifter`. The manual is `ShapeShifter.guide` (English) and
 `ShapeShifter_DE.guide` (German); start with **Quick start**. You need a Macintosh
 ROM file from a Mac you own and a Macintosh system to install; neither is part
@@ -167,7 +188,7 @@ The sources are 68k assembler in Latin-1. They build under Linux or WSL with
 
 ```
 ./build.sh          # out/ShapeShifter, out/ReserveLow, out/Catalogs
-python3 mkdist.py   # dist/ShapeShifter-3.20-beta7.lha
+python3 mkdist.py   # dist/ShapeShifter-3.20.lha
 ```
 
 `mkdist.py` takes the Mac disk tools from a checkout of
@@ -183,17 +204,19 @@ the built-in HFS formatter (`src/MacEmulHFS.asm`).
 | Machine | What ran |
 |---|---|
 | Amiga 1200, 68030 + 68882, Kickstart 3.2.3, AGA | Mac OS 8.0 and 8.1, Marathon with sound (Paula, heard), POV-Ray, device disk on SCSI, installer, ReserveLow |
-| Amiga 4000, 68060, Kickstart 3.2.3, RTG card and AGA | System 7.6 with AppleShare, Mac OS 8.0 and 8.1, AppleShare to a file server (8.1), sound through AHI (recorded to a file), TCP/IP, ReserveLow |
+| Amiga 4000, 68060, Kickstart 3.2.3, RTG card and AGA | System 7.6 with AppleShare, Mac OS 8.0 and 8.1, AppleShare to a file server (8.1), a 4-hour Mac OS 8.1 session, sound through AHI (recorded to a file), TCP/IP, ReserveLow |
 | The same Amiga 4000, Kickstart 3.1, AGA | Mac OS 8.1, POV-Ray |
 | Amiga 2000, 68030 accelerator (no FPU), Kickstart 3.2.3, ECS and a Picasso II+ | System 7.5 in 2, 4 and 16 colours on the ECS screen; System 7.5 and Mac OS 8.1 in 256 and thousands of colours on the graphics card; sound (Paula, heard); TCP/IP with DHCP through a SANA-II driver shared with the Amiga's own stack; installer, ReserveLow, Mac disk tools |
 | WinUAE A1200 68030, Kickstart 3.1 and 3.2.3 | System 7.5 and 7.6, Mac OS 8.0 and 8.1, installer |
 | WinUAE A4000 68060, Kickstart 3.2.3 | Mac OS 8.0 and 8.1 |
+| WinUAE A1200 68040 with MMU and FPU, Kickstart 3.1 | Mac OS 8.1 |
+| WinUAE A1200 68020 (no FPU, no MMU), Kickstart 3.1 | System 7.5 |
 
 ## Known issues
 
 **Not tested**
-- 68020 and 68040 processors, OCS screens, the DraCo.
-- Long sessions (many hours).
+- 68020 and 68040 processors on real hardware (tested in WinUAE only), the
+  68EC020 with its 24-bit address space, OCS screens, the DraCo.
 - CD music on real hardware.
 - AGA screens whose width is not a multiple of 64 (800x600, for one) together
   with MMU refresh or with depth switching. Without those two they work.
@@ -203,7 +226,6 @@ the built-in HFS formatter (`src/MacEmulHFS.asm`).
   3 and 5.7 GB beyond the card's first 4 GB, formatted, mounted and written
   under Mac OS 8.1, also past the 2 GB point of the 3 GB disk and past the
   4 GB point of the 5.7 GB disk; copied files compared sector by sector).
-- Disk First Aid on a disk that ShapeShifter formatted.
 - ReserveLow's left mouse button with a real button on anything but the
   Amiga 4000, and a cold start of ReserveLow under Kickstart 3.1 on real
   hardware.
